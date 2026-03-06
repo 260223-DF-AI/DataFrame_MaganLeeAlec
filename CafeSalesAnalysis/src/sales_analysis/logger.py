@@ -1,6 +1,6 @@
 import logging
 
-def setup_logger(name, level: str):
+def setup_logger(name, level: str, console=True, log=True):
     """Configure a custom logger.
     To initialize, use "logger = logger.setup_logger(__name__, "{level}")
     where level = debug, info, warning, error, or critical"""
@@ -20,11 +20,16 @@ def setup_logger(name, level: str):
                 logger.setLevel(logging.CRITICAL)
             case _:
                 raise ValueError(f"Invalid logging level {level}")
-        handler = logging.StreamHandler()
+        console_handler = logging.StreamHandler()
+        file_handler = logging.FileHandler("app.log")
         formatter = logging.Formatter(
             '%(asctime)s | %(name)s | %(levelname)s | %(message)s',
             datefmt = '%H:%M:%S'
         )
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
+        console_handler.setFormatter(formatter)
+        file_handler.setFormatter(formatter)
+        if console:
+            logger.addHandler(console_handler)
+        if log:
+            logger.addHandler(file_handler)
     return logger
