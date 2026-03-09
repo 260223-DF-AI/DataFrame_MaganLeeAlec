@@ -1,4 +1,6 @@
 ## pytesting for validations.py
+import pytest
+from CafeSalesAnalysis import validations
 # 1. test required fields
 # 2. test numeric validation or range validation
 # 3. test any decimal fields like prices or quantity

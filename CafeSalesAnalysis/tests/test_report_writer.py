@@ -1,4 +1,7 @@
 ## pytesting for report_writeer.py
+import pytest
+from CafeSalesAnalysis import
+
 # 1. test that a report file is created
 # 2. test that report content is written
 # 3. test total record count
