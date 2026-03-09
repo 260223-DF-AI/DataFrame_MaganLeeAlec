@@ -1,30 +1,26 @@
 import pandas as pd
 
 
-def set_index(data: pd.DataFrame, column_index: pd.Series) -> pd.Index:
-    """Sets index of data frame to column that uniquely identifies
-    each record""" 
+def set_index(data: pd.DataFrame | dict, column_index: pd.Series | list | pd.Index) -> pd.DataFrame:
+    """Returns data frame with updated index of column that uniquely identifies
+    each record.""" 
 
-    if not isinstance(data, (pd.DataFrame)):
-        raise TypeError("data isn't a Data Frame")
+    if not isinstance(data, (pd.DataFrame, dict)):
+        raise TypeError("data must be a Data Frame or dictionary")
     
-    if not isinstance(column_index, (pd.Series)):
-        raise TypeError("index must be a Pandas Series object")
+    if not isinstance(column_index, (pd.Series, list, pd.Index)):
+        raise TypeError("index must be a Pandas Series object or list")
     
-    data.set_index(column_index)
-    return data.index
+    pd_index = pd.Index(column_index)
+    if isinstance(data, pd.DataFrame):
+        data.set_index(pd_index, inplace=True)
+        return data
+    
+    if isinstance(data, dict):
+        return pd.DataFrame(data, index=pd_index)
+    
+    
 
-def set_index(data: dict, column_index: list) -> pd.Index:
-    """Sets index of data frame to column that uniquely identifies
-    each record""" 
-
-    if not isinstance(data, (dict)):
-        raise TypeError("data isn't a dictionary")
-    
-    if not isinstance(column_index, (list)):
-        raise TypeError("index must be a list")
-    
-    return pd.DataFrame(data, index=column_index).index
  
 
     

@@ -1,18 +1,23 @@
 """These unit tests will check the functionality of the clean_data.py class"""
-from src.sales_analysis.clean_data import clean
+from src.sales_analysis import clean_data
 import pandas as pd
 import pytest
 
-class test_clean_data:
 
-    def __init__(self):
-        
-        self.clean_obj = clean()
+def __init__(self):
+    pass
+
+@pytest.mark.parametrize("data, index, expected_index",
+    [
+        ({"Name": ["Jack", "Jane", "Jake"]}, [0, 1, 2], pd.Index([0, 1, 2])),
+        ({"Name": ["Meg", "Marge", "Mike"],
+          "Email": ["meg123@email.net", "marge764@wahoo.com", "mikeaw@usa.gov"]}, ["meg123@email.net", "marge764@wahoo.com", "mikeaw@usa.gov"], pd.Index(["meg123@email.net", "marge764@wahoo.com", "mikeaw@usa.gov"]))
+    ])
+def test_set_index(data: dict | pd.DataFrame, index: list | pd.Series | pd.Index, expected_index: list | pd.Series | pd.Index):
+    """Tests if the index being set will change accurately"""
+    actual = clean_data.set_index(data, index)
     
-    @pytest.mark.parametrize("data, index, expected_index",
-        [
-            ({"Name": ["Jack", "Jane", "Jake"]}, [0, 1, 2], pd.Index([0, 1, 2]))
-        ])
-    def test_set_index(self, data: dict | pd.DataFrame, index: list | pd.Series, expected_index: list | pd.Series):
-        clean.set_index
-        pass
+    # Cannot use == here for Pandas Index object type.
+    # Use Pandas assert for index for accurate assertions instead of pytest
+    pd.testing.assert_index_equal(actual.index, expected_index, check_order=True)
+    
