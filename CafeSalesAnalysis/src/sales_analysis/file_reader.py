@@ -1,11 +1,14 @@
 import pandas as pd
-from sales_analysis import logger, exceptions as ex
+from pathlib import Path
+from src.paths import DATA_DIR
+import src.sales_analysis.logger as logger, src.sales_analysis.exceptions as ex
 
 logger = logger.setup_logger(__name__, "debug", log=False)
 
 def read_csv_full(filepath: str) -> pd.DataFrame:
     """Reads csv file and returns it as a DataFrame"""
     logger.debug(f"Attempting to read csv file: {filepath}")
+    filepath = DATA_DIR / filepath
     df = ""
     try:
         df = pd.read_csv(filepath)
@@ -37,12 +40,6 @@ def read_csv_nlines(filepath: str, nlines = 1):
     return df
         
 
-        
+# for debugging purposes
 if __name__ == "__main__":
     pass
-    #read_csv_full(sales_data)
-    # count, n = 0, 5
-    # for i in range(n):
-    #     for chunk in read_csv_nlines(sales_data, nlines=5):
-    #         print(chunk)
-    #         break
