@@ -3,10 +3,10 @@ from pathlib import Path
 from src.paths import DATA_DIR
 import src.sales_analysis.logger as logger, src.sales_analysis.exceptions as ex
 
-logger = logger.setup_logger(__name__, "debug", log=False)
+logger = logger.setup_logger(__name__, "warning")
 
 def read_csv_full(filepath: str) -> pd.DataFrame:
-    """Reads csv file and returns it as a DataFrame"""
+    """Reads csv file in src/data and returns it as a DataFrame"""
     logger.debug(f"Attempting to read csv file: {filepath}")
     filepath = DATA_DIR / filepath
     df = ""
@@ -28,6 +28,7 @@ def read_csv_nlines(filepath: str, nlines = 1):
     ex. 'for line in read_csv_nlines(filepath):'
     """
     logger.debug(f"Attempting to read csv file as generator function: {filepath}")
+    filepath = DATA_DIR / filepath
     df = ""
     try:
         df = pd.read_csv(filepath, chunksize = nlines)
