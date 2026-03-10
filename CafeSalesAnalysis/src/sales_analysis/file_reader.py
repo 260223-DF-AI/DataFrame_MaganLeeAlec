@@ -1,5 +1,5 @@
 import pandas as pd
-import logger, exceptions as ex
+from sales_analysis import logger, exceptions as ex
 
 logger = logger.setup_logger(__name__, "debug", log=False)
 
@@ -39,8 +39,8 @@ def read_csv_nlines(filepath: str, nlines = 1):
 
         
 if __name__ == "__main__":
-    sales_data = "data/test.csv"
-    read_csv_full(sales_data)
+    pass
+    #read_csv_full(sales_data)
     # count, n = 0, 5
     # for i in range(n):
     #     for chunk in read_csv_nlines(sales_data, nlines=5):
