@@ -4,6 +4,23 @@ import numpy as np
 from .clean_data import remove_all_null, remove_duplicate_entries, replace_values
 from .logger import setup_logger
 
+#-- Lee's portion --
+def remove_duplicate_entries(data: pd.DataFrame) -> pd.DataFrame:
+    """Returns dataframe with duplicate entries removed."""
+    return data.drop_duplicates()
+
+
+# For debugging purposes
+import src.sales_analysis.file_reader as file_reader
+if __name__ == "__main__":
+
+    # demonstrate that remove_duplicate_entries works
+    df = file_reader.read_csv_full("dirty_cafe_sales.csv")
+    print(df.info())
+    df = remove_duplicate_entries(df)
+    print(df.info())
+# -------------------
+
 def create_schema(data: pd.DataFrame):
 	if not isinstance(data, pd.DataFrame):
 		setup_logger(__name__, 'error', f"Error in validation::create_schema - variable: data <- was expecting pd.DataFrame, but got {type(data)}")
