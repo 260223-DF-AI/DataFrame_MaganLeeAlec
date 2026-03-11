@@ -1,0 +1,112 @@
+"""This script will handle validation of data in a Data Frame"""
+import pandas as pd
+import numpy as np
+from .clean_data import remove_all_null, remove_duplicate_entries, replace_values
+from .logger import setup_logger
+
+def create_schema(data: pd.DataFrame):
+	if not isinstance(data, pd.DataFrame):
+		setup_logger(__name__, 'error', f"Error in validation::create_schema - variable: data <- was expecting pd.DataFrame, but got {type(data)}")
+		raise TypeError(f"{type(data)} is not a Dataframe")
+	column_schema = []
+	
+	# User will put in the data types for each column so they can be constrained to it
+	for col in data.columns:
+		dtype = input(f"Enter a data type for column {col}. \nAccepted types are string, int, float, and bool: ")
+		match(dtype.lower()):
+			case "string":
+				column_schema.append({f"{col}": str})
+			case "int":
+				column_schema.append({f"{col}": int})
+			case "float":
+				column_schema.append({f"{col}": float})
+			case "bool":
+				column_schema.append({f"{col}": bool})
+			case _:
+				setup_logger(__name__, 'warning', f"Warning in validation::create_schema. Input expected a string, int, float, bool, or datetime, but received an invalid datatype of {dtype}. Defaulting to string")
+				column_schema.append({f"{col}": str})
+    
+	return column_schema
+
+def validate_add_record(record: pd.Series | list, column_schema: list, invalid_cell=[]):
+    #TODO: Accept a row of data in Series or list format, validate, then add if valid.
+    pass
+
+def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtype=""):
+		"""Changes data type to the declared type from the input"""
+		if not invalid_cell:
+			invalid_cell = ["NaN", "EMPTY", "empty", "UNKNOWN", "unknown", "ERROR", "error", "NA", "Na", "None", "NULL", "null", np.nan]
+		for target in invalid_cell:
+			if data.empty:
+				setup_logger(__name__, 'warning', f"Warning in validation::validate_data. No data to validate")
+				return data
+			else:
+				data.replace(target, -1, inplace=True)
+
+		if not column_schema:
+			setup_logger(__name__, 'error', f"Error in validation::validate_data. No column structure to reference")
+			raise ValueError("There is no format/schema for the columns")
+
+		for col_dict in column_schema:
+			for col_label in col_dict:
+				data.fillna(-1, inplace=True)
+				data[col_label] = data[col_label].astype(col_dict.get(col_label))
+
+		print(column_schema)
+  
+		# Constrained columns should have a value / NOT be -1
+		constrained_cols = []
+		null_value = -1
+  
+		# Keep looping until user hits q to quit loop. They can keep entering column names to append to constained_cols to validate them after this
+		while(True):
+			if dtype: column = dtype
+			else: column = input("Enter a column to drop NULL/-1 values (Q to quit): ")
+			if column.lower() == 'q':
+				break
+			if column and (column not in [str(col_schema.keys()) for col_schema in column_schema]):
+				setup_logger(__name__, 'error', f"No column was found with that name: {column}")
+				raise KeyError(f"No column with that name: {column}")
+			if column:
+				constrained_cols.append(column)
+			dtype = ""
+   
+		# Search through constriained columns to filter out the placeholder null value (-1)
+		# once filtered, log the rows that were removed
+		for col in constrained_cols:
+			if col:
+				filter_keep = data[col] > type(data[col][1])(null_value)
+				setup_logger(__name__, 'info', f"Records: \n{data[data[col] ==  type(data[col][1])(null_value)]} was removed")
+				data = data[filter_keep]
+
+		return data
+
+#Obsolete
+def change_col_dtype(data: pd.DataFrame | dict, column_str: str, type_change: type) -> pd.DataFrame:
+    """Changes the data type of a column_str in the data frame"""
+
+    # Raise exceptions if data types aren't supported
+    if not isinstance(column_str, str):
+        raise TypeError("Column must be a string")
+    if not isinstance(data, (pd.DataFrame, dict)):
+        raise TypeError("data must be a Pandas Data Frame or dictionary")
+    if not isinstance(type_change, (type)):
+        raise TypeError("Type to change to must be a python primitive type")
+    
+    data_frame = None
+    if isinstance(data, dict):
+        data_frame = pd.DataFrame(data)
+        data_frame[column_str] = data_frame[column_str].astype(type_change)
+        return data_frame
+    else:
+        data[column_str] = data[column_str].astype(type_change)
+        return data
+
+#For testing:
+# df = pd.read_csv("src/data/dirty_cafe_sales.csv")
+# list_from_schema = create_schema(df)
+# validated = validate_data(df, list_from_schema)
+# print(validated)
+# print(validated)
+# validated = remove_all_null(validated)
+# print(validated)
