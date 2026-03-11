@@ -1,4 +1,5 @@
 import logging
+from src.paths import SALES_ANA_DIR
 
 def setup_logger(name, level: str, console=True, log=True):
     """Configure a custom logger.
@@ -21,7 +22,7 @@ def setup_logger(name, level: str, console=True, log=True):
             case _:
                 raise ValueError(f"Invalid logging level {level}")
         console_handler = logging.StreamHandler()
-        file_handler = logging.FileHandler("app.log")
+        file_handler = logging.FileHandler(SALES_ANA_DIR/"app.log")
         formatter = logging.Formatter(
             '%(asctime)s | %(name)s | %(levelname)s | %(message)s',
             datefmt = '%H:%M:%S'
