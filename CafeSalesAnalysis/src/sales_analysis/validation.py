@@ -1,9 +1,9 @@
 """This script will handle validation of data in a Data Frame"""
 import pandas as pd
-from .logger import setup_logger
 import numpy as np
 from datetime import datetime
-
+from .clean_data import remove_all_null, remove_duplicate_entries, replace_values
+from .logger import setup_logger
 
 def create_schema(data: pd.DataFrame):
 	if not isinstance(data, pd.DataFrame):
@@ -30,7 +30,7 @@ def create_schema(data: pd.DataFrame):
 
 def validate_data(data: pd.DataFrame, column_schema: list):
 		"""Changes data type to the declared type from the input"""
-		is_valid_row = True
+
 		invalid_cell = ["NaN", "EMPTY", "empty", "UNKNOWN", "unknown", "ERROR", "error", "NA", "Na", "None", "NULL", "null", np.nan]
 		for target in invalid_cell:
 			data.replace(target, -1, inplace=True)
@@ -42,27 +42,26 @@ def validate_data(data: pd.DataFrame, column_schema: list):
 
 		print(column_schema)
   
-		# Constained columns should have a value / NOT be -1
+		# Constrained columns should have a value / NOT be -1
 		constrained_cols = []
 		null_value = -1
 		while(True):
-			column = input("Enter column that is constrained to NOT NULL (q to quit): ")
+			column = input("Enter a column to drop NULL/-1 values (Q to quit): ")
 			if column.lower() == 'q':
 				break
 			constrained_cols.append(column)
    
 		# Search through constriained columns to filter out the placeholder null value (-1)
+		# once filtered, log the rows that were removed
 		for col in constrained_cols:
 			if col:
-				filter_keep = data[col] != type(data[col][1])(null_value)
+				filter_keep = data[col] > type(data[col][1])(null_value)
+				setup_logger(__name__, 'warning', f"Records: \n{data[data[col] ==  type(data[col][1])(null_value)]} was removed")
 				data = data[filter_keep]
-				filter_out = ~filter_keep
-				setup_logger(__name__, 'warning', 'records.log', f"Records: \n{data[filter_out]} was removed")
-
 
 		return data
 
-
+#Obsolete
 def validate_record(record: pd.Series) -> tuple:
 	"""Validates a record. Record must be a Pandas Series object. Returns a tuple of (pd.Series, error_list)
  		Required fields in series: Transaction ID: str, Item: str, Quantity: int, Price Per Unit: float, Total Spent: float, Payment Method: str, Location: str, Transaction Date: datetime"""
@@ -78,7 +77,7 @@ def validate_record(record: pd.Series) -> tuple:
 		if not isinstance(record[i], valid_cols[i]):
 			setup_logger(__name__, 'error', f"Error in validation::validate_record - variable: record[{i}] <- was expecting {valid_cols[i]}, but got {type(record[i])}")
 			raise TypeError("")
-
+#Obsolete
 def is_valid_row(record: pd.Series, line_num: int):
 	invalid_cell = ["NaN", "EMPTY", "UNKNOWN", "ERROR", np.nan, ""]
 	if not isinstance(record, pd.Series):
@@ -89,8 +88,7 @@ def is_valid_row(record: pd.Series, line_num: int):
 			setup_logger(__name__, 'warning', f"Line {line_num}: Missing value for cell")
 			return False
 	return True
-
-
+#Obsolete
 def validate_record_input(record: pd.Series) -> tuple:
 	"""Validates a record. Record must be a Pandas Series object. Returns a tuple of (pd.Series, is_valid_row, error_list)"""
  
@@ -129,7 +127,7 @@ def validate_record_input(record: pd.Series) -> tuple:
 			casted_list.append(field)
 			is_valid_row = False
 	return (pd.Series(casted_list), is_valid_row, error_list)
-
+#Obsolete
 def change_col_dtype(data: pd.DataFrame | dict, column_str: str, type_change: type) -> pd.DataFrame:
     """Changes the data type of a column_str in the data frame"""
 
@@ -150,10 +148,11 @@ def change_col_dtype(data: pd.DataFrame | dict, column_str: str, type_change: ty
         data[column_str] = data[column_str].astype(type_change)
         return data
 
-df = pd.read_csv("src/data/dirty_cafe_sales.csv")
+# df = pd.read_csv("src/data/dirty_cafe_sales.csv")
 
-l = create_schema(df)
-validated = validate_data(df, l)
-print(validated)
-print(l)
-setup_logger(__name__, 'warning', )
+# list_from_schema = create_schema(df)
+# validated = validate_data(df, list_from_schema)
+# print(validated)
+# print(validated)
+# validated = remove_all_null(validated)
+# print(validated)

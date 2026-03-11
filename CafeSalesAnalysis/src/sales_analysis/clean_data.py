@@ -1,6 +1,8 @@
 import pandas as pd
 import datetime
-
+from .logger import setup_logger
+import numpy as np
+pd.set_option('display.float_format', '{:.2f}'.format)
 
 def change_index(data: pd.DataFrame | dict, column_index: pd.Series | list | pd.Index) -> pd.DataFrame:
     """Returns data frame with updated index of column_str that uniquely identifies
@@ -26,21 +28,15 @@ def change_index(data: pd.DataFrame | dict, column_index: pd.Series | list | pd.
     if isinstance(data, dict):
         return pd.DataFrame(data, index=pd_index)
     
-def round_floats(data: pd.DataFrame, column_str: str, round_formatter: str) -> pd.DataFrame:
-    """Rounds the floats in the specified column to the number of places in round_formatter"""
-
-    if not isinstance(round_formatter, int):
-        raise TypeError("formatter must be an int")
-    if not isinstance(column_str, str):
-        raise TypeError("Column must be a string")
-    if not isinstance(data, pd.DataFrame):
-        raise TypeError("data must be a data frame")
-
-    for index, field in enumerate(data[column_str]):
-        if not isinstance(field, float):
-            continue
-        else:
-            data.loc[index, field] = round(data.loc[index, field]), round_formatter
+def remove_all_null(data: pd.DataFrame):
+    invalid_cell = ["NaN", "EMPTY", "empty", "UNKNOWN", "unknown", "ERROR", "error", "NA", "Na", "None", "NULL", "null", np.nan]
+    null_value = -1
+    for col in data.columns:
+        if col:
+            filter_keep = data[col] > type(data[col][1])(null_value)
+            setup_logger(__name__, 'warning', f"Records: \n{data[data[col] ==  type(data[col][1])(null_value)]} was removed")
+            data = data[filter_keep]
+    return data
 
 def remove_duplicate_entries(data: pd.DataFrame) -> pd.DataFrame:
     """Returns dataframe with duplicate entries removed."""
@@ -56,6 +52,22 @@ def drop_na_by_column(data: pd.DataFrame, column: str):
         raise TypeError("Not a Data Frame")
     if not isinstance(column, str):
         raise TypeError("column must be a string")
-    data.dropna(subset=column)
+    data = data.dropna(subset=column)
     
+    #Obsolete for now, pandas display settings have a value to change format
+# def round_floats(data: pd.DataFrame, column_str: str, round_formatter: str) -> pd.DataFrame:
+#     """Rounds the floats in the specified column to the number of places in round_formatter"""
 
+#     if not isinstance(round_formatter, int):
+#         raise TypeError("formatter must be an int")
+#     if not isinstance(column_str, str):
+#         raise TypeError("Column must be a string")
+#     if not isinstance(data, pd.DataFrame):
+#         raise TypeError("data must be a data frame")
+
+#     for field in (data[column_str]):
+#         if not isinstance(field, float):
+#             continue
+#         else:
+#             data[column_str] = data[column_str].round(round_formatter)
+#     return data
