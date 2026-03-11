@@ -63,3 +63,11 @@ def round_floats(data: pd.DataFrame, column_str: str, round_formatter: str) -> p
         else:
             data.loc[index, field] = round(data.loc[index, field]), round_formatter
 
+def remove_duplicate_entries(data: pd.DataFrame) -> pd.DataFrame:
+    """Returns dataframe with duplicate entries removed."""
+    return data.drop_duplicates()
+
+def replace_values(data: pd.DataFrame, target, replacement):
+    """Replaces values in Data Frame in place"""
+    data.replace(target, replacement, inplace=True)
+
