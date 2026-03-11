@@ -26,27 +26,6 @@ def change_index(data: pd.DataFrame | dict, column_index: pd.Series | list | pd.
     if isinstance(data, dict):
         return pd.DataFrame(data, index=pd_index)
     
-    
-def change_data_type(data: pd.DataFrame | dict, column_str: str, type_change: type) -> pd.DataFrame:
-    """Changes the data type of a column_str in the data frame"""
-
-    # Raise exceptions if data types aren't supported
-    if not isinstance(column_str, str):
-        raise TypeError("Column must be a string")
-    if not isinstance(data, (pd.DataFrame, dict)):
-        raise TypeError("data must be a Pandas Data Frame or dictionary")
-    if not isinstance(type_change, (type, datetime)):
-        raise TypeError("Type to change to must be a python primitive type or DateTime object")
-    
-    data_frame = None
-    if isinstance(data, dict):
-        data_frame = pd.DataFrame(data)
-        data_frame[column_str] = data_frame[column_str].astype(type_change)
-        return data_frame
-    else:
-        data[column_str] = data[column_str].astype(type_change)
-        return data
-    
 def round_floats(data: pd.DataFrame, column_str: str, round_formatter: str) -> pd.DataFrame:
     """Rounds the floats in the specified column to the number of places in round_formatter"""
 
@@ -65,9 +44,18 @@ def round_floats(data: pd.DataFrame, column_str: str, round_formatter: str) -> p
 
 def remove_duplicate_entries(data: pd.DataFrame) -> pd.DataFrame:
     """Returns dataframe with duplicate entries removed."""
-    return data.drop_duplicates()
+    return data.drop_duplicates(inplace=True)
 
 def replace_values(data: pd.DataFrame, target, replacement):
     """Replaces values in Data Frame in place"""
     data.replace(target, replacement, inplace=True)
+    
+def drop_na_by_column(data: pd.DataFrame, column: str):
+    
+    if not isinstance(data, pd.DataFrame):
+        raise TypeError("Not a Data Frame")
+    if not isinstance(column, str):
+        raise TypeError("column must be a string")
+    data.dropna(subset=column)
+    
 
