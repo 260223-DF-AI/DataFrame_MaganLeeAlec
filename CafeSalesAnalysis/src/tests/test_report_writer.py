@@ -2,7 +2,7 @@
 import pytest
 import os
 import csv
-from sales_analysis.report_writer import write_summary_report, write_clean_csv, write_error_log
+import src.sales_analysis.report_writer as report_writer
 
 # 1. test that a report file is created
 def test_reportfile_created(tmp_path):
