@@ -33,4 +33,10 @@ def test_change_data_type(data, column_str, data_type, expected_column, expected
 
     # asserting with pandas will raise an assert error instead of checking if it matches the expected assert
     #pd.testing.assert_series_equal( actual[column_str], pd.DataFrame(expected_column)[column_str]) is expected_assert
-    assert actual[column_str].equals(pd.DataFrame(expected_column)[column_str]) #is expected_assert
+    assert actual[column_str].equals(pd.DataFrame(expected_column)[column_str])
+    
+def test_round_floats(data: pd.DataFrame, column_str: str, round_formatter: str):
+    pass
+    
+    
+    
