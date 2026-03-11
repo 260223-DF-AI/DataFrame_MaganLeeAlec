@@ -33,7 +33,7 @@ def remove_all_null(data: pd.DataFrame):
     null_value = -1
     for col in data.columns:
         if col:
-            filter_keep = data[col] > type(data[col][1])(null_value)
+            filter_keep = data[col] > type(data[col][0])(null_value)
             setup_logger(__name__, 'warning', f"Records: \n{data[data[col] ==  type(data[col][1])(null_value)]} was removed")
             data = data[filter_keep]
     return data
