@@ -1,6 +1,7 @@
 ## pytesting for validations.py
 import pytest
 from CafeSalesAnalysis import validations
+import src.sales_analysis.file_reader as file_reader
 
 # 1. test required fields
 def test_requiredfields_valid_value():

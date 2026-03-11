@@ -40,7 +40,13 @@ def read_csv_nlines(filepath: str, nlines = 1):
         logger.error(e)
     return df
         
+def print_df_preview(df: pd.DataFrame) -> None:
+    print(df.tail(5))
+
 
 # for debugging purposes
 if __name__ == "__main__":
-    pass
+    data = "dirty_cafe_sales.csv"
+    df = read_csv_full(data)
+    print_df_preview(df)
+    print(df.info())
