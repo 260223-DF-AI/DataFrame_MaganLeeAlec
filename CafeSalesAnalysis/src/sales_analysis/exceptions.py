@@ -22,8 +22,3 @@ class DatabaseExeError(Exception):
         self.query = query
         self.message = m
         super().__init__(self.message)
-
-class DatabaseNoTableError(Exception):
-    def __init__(self, table):
-        self.message = f"Table does not exist: {table}"
-        super().__init__(self.message)

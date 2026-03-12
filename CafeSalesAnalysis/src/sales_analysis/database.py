@@ -52,13 +52,47 @@ def drop_table(table="sales") -> None:
         engine.dispose()
         logger.debug("End of drop_table()")
 
-def write_from_dataframe(df: pd.DataFrame, db = "cafe_sales", table = "sales") -> None:
-    """Write the content of a dataframe to specified table"""
-    pass
+def write_from_dataframe(df: pd.DataFrame, table = "sales") -> None:
+    """Write the content of a dataframe to specified table.
+    If the table doesn't exist, it creates a new one."""
+    logger.debug("Attempting to write to the database")
+    engine = connect_db()
 
-def read_as_dataframe(db = "cafe_sales", table = "sales") -> pd.DataFrame:
-    """Read from the specified table as a dataframe"""
-    pass
+    try:
+        if df.empty:
+            logger.warning("An empty dataframe is being used, table will be created with no entries")
+        with engine.connect() as conn:
+            df.to_sql(table, conn)
+    except Exception as e:
+        logger.error(e)
+    else:
+        logger.info(f"Successfully wrote to table {table}")
+    finally:
+        engine.dispose()
+        logger.debug("End of write_from_dataframe")
 
+
+def read_as_dataframe(table = "sales") -> pd.DataFrame:
+    """Read all rows from the specified table as a dataframe"""
+    logger.debug(f"Attempting to read from table {table}")
+
+    engine = connect_db()
+    query = f"SELECT * FROM {table}"
+
+    df = ""
+    try:
+        with engine.connect() as conn:
+            df = pd.read_sql(query, conn)
+    except Exception as e:
+        e = ex.DatabaseExeError(query, e)
+        logger.error(e)
+    else:
+        logger.info(f"Successfully read table {table}")
+        return df
+    finally:
+        engine.dispose()
+        logger.debug("End of read_as_dataframe")
+
+# For debugging purposes
 if __name__ == "__main__":
     pass

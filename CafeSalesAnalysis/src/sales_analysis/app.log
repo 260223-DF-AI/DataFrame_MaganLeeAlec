@@ -109,3 +109,168 @@
 13:18:41 | __main__ | INFO | Successfully connected to the database
 13:18:41 | __main__ | INFO | Successfully cleared table sales
 13:18:41 | __main__ | DEBUG | End of drop_table()
+13:35:33 | __main__ | DEBUG | Attempting to write to the database
+13:35:33 | __main__ | DEBUG | Attempting db connection
+13:35:33 | __main__ | INFO | Successfully connected to the database
+13:35:33 | __main__ | ERROR | NDFrame.to_sql() missing 1 required positional argument: 'con'
+13:35:59 | __main__ | DEBUG | Attempting to write to the database
+13:35:59 | __main__ | DEBUG | Attempting db connection
+13:35:59 | __main__ | INFO | Successfully connected to the database
+13:37:27 | __main__ | DEBUG | Attempting to write to the database
+13:37:27 | __main__ | DEBUG | Attempting db connection
+13:37:27 | __main__ | INFO | Successfully connected to the database
+13:37:27 | __main__ | ERROR | Table 'sales' already exists.
+13:37:27 | __main__ | DEBUG | Attempting to clear the database
+13:37:27 | __main__ | DEBUG | Attempting db connection
+13:37:27 | __main__ | INFO | Successfully connected to the database
+13:37:27 | __main__ | INFO | Successfully cleared table sales
+13:37:27 | __main__ | DEBUG | End of drop_table()
+13:38:14 | __main__ | DEBUG | Attempting to write to the database
+13:38:14 | __main__ | DEBUG | Attempting db connection
+13:38:14 | __main__ | INFO | Successfully connected to the database
+13:38:14 | __main__ | DEBUG | Attempting to clear the database
+13:38:14 | __main__ | DEBUG | Attempting db connection
+13:38:14 | __main__ | INFO | Successfully connected to the database
+13:38:14 | __main__ | INFO | Successfully cleared table sales
+13:38:14 | __main__ | DEBUG | End of drop_table()
+13:38:33 | __main__ | DEBUG | Attempting to write to the database
+13:38:33 | __main__ | DEBUG | Attempting db connection
+13:38:33 | __main__ | INFO | Successfully connected to the database
+13:38:33 | __main__ | DEBUG | Attempting to clear the database
+13:38:33 | __main__ | DEBUG | Attempting db connection
+13:38:33 | __main__ | INFO | Successfully connected to the database
+13:38:34 | __main__ | INFO | Successfully cleared table sales
+13:38:34 | __main__ | DEBUG | End of drop_table()
+13:39:09 | __main__ | DEBUG | Attempting to write to the database
+13:39:09 | __main__ | DEBUG | Attempting db connection
+13:39:09 | __main__ | INFO | Successfully connected to the database
+13:39:09 | __main__ | DEBUG | Attempting to write to the database
+13:39:09 | __main__ | DEBUG | Attempting db connection
+13:39:09 | __main__ | INFO | Successfully connected to the database
+13:40:03 | __main__ | DEBUG | Attempting to write to the database
+13:40:03 | __main__ | DEBUG | Attempting db connection
+13:40:03 | __main__ | INFO | Successfully connected to the database
+13:40:03 | __main__ | ERROR | Table 'sales' already exists.
+13:40:03 | __main__ | DEBUG | Attempting to write to the database
+13:40:03 | __main__ | DEBUG | Attempting db connection
+13:40:03 | __main__ | INFO | Successfully connected to the database
+13:40:03 | __main__ | ERROR | Table 'sales' already exists.
+13:40:03 | __main__ | DEBUG | Attempting to clear the database
+13:40:03 | __main__ | DEBUG | Attempting db connection
+13:40:03 | __main__ | INFO | Successfully connected to the database
+13:40:03 | __main__ | INFO | Successfully cleared table sales
+13:40:03 | __main__ | DEBUG | End of drop_table()
+13:40:14 | __main__ | DEBUG | Attempting to write to the database
+13:40:14 | __main__ | DEBUG | Attempting db connection
+13:40:14 | __main__ | INFO | Successfully connected to the database
+13:40:14 | __main__ | DEBUG | Attempting to clear the database
+13:40:14 | __main__ | DEBUG | Attempting db connection
+13:40:14 | __main__ | INFO | Successfully connected to the database
+13:40:14 | __main__ | INFO | Successfully cleared table sales
+13:40:14 | __main__ | DEBUG | End of drop_table()
+13:40:39 | __main__ | DEBUG | Attempting to write to the database
+13:40:39 | __main__ | DEBUG | Attempting db connection
+13:40:39 | __main__ | INFO | Successfully connected to the database
+13:40:39 | __main__ | DEBUG | Attempting to clear the database
+13:40:39 | __main__ | DEBUG | Attempting db connection
+13:40:39 | __main__ | INFO | Successfully connected to the database
+13:40:39 | __main__ | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
+
+[SQL: DROP TABLE sales]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+13:40:39 | __main__ | DEBUG | End of drop_table()
+13:41:18 | __main__ | DEBUG | Attempting to write to the database
+13:41:18 | __main__ | DEBUG | Attempting db connection
+13:41:18 | __main__ | INFO | Successfully connected to the database
+13:41:18 | __main__ | ERROR | Table 'non_exist' already exists.
+13:44:12 | __main__ | DEBUG | Attempting to clear the database
+13:44:12 | __main__ | DEBUG | Attempting db connection
+13:44:12 | __main__ | INFO | Successfully connected to the database
+13:44:12 | __main__ | INFO | Successfully cleared table non_exist
+13:44:12 | __main__ | DEBUG | End of drop_table()
+13:44:40 | __main__ | DEBUG | Attempting to write to the database
+13:44:40 | __main__ | DEBUG | Attempting db connection
+13:44:40 | __main__ | INFO | Successfully connected to the database
+13:44:55 | __main__ | DEBUG | Attempting to write to the database
+13:44:55 | __main__ | DEBUG | Attempting db connection
+13:44:55 | __main__ | INFO | Successfully connected to the database
+13:45:14 | __main__ | DEBUG | Attempting to write to the database
+13:45:14 | __main__ | DEBUG | Attempting db connection
+13:45:14 | __main__ | INFO | Successfully connected to the database
+13:45:37 | __main__ | DEBUG | Attempting to write to the database
+13:45:37 | __main__ | DEBUG | Attempting db connection
+13:45:37 | __main__ | INFO | Successfully connected to the database
+13:45:37 | __main__ | ERROR | Table 'sales' already exists.
+13:46:54 | __main__ | DEBUG | Attempting to write to the database
+13:46:54 | __main__ | DEBUG | Attempting db connection
+13:46:54 | __main__ | INFO | Successfully connected to the database
+13:46:54 | __main__ | ERROR | Cannot use empty dataframe
+13:47:49 | __main__ | DEBUG | Attempting to write to the database
+13:47:49 | __main__ | DEBUG | Attempting db connection
+13:47:49 | __main__ | INFO | Successfully connected to the database
+13:47:49 | __main__ | WARNING | An empty dataframe is being used, table will be created with no entries
+13:47:50 | __main__ | ERROR | Table 'sales' already exists.
+13:48:13 | __main__ | DEBUG | Attempting to clear the database
+13:48:13 | __main__ | DEBUG | Attempting db connection
+13:48:13 | __main__ | INFO | Successfully connected to the database
+13:48:13 | __main__ | INFO | Successfully cleared table sales
+13:48:13 | __main__ | DEBUG | End of drop_table()
+13:48:13 | __main__ | DEBUG | Attempting to write to the database
+13:48:13 | __main__ | DEBUG | Attempting db connection
+13:48:13 | __main__ | INFO | Successfully connected to the database
+13:48:13 | __main__ | WARNING | An empty dataframe is being used, table will be created with no entries
+14:00:02 | __main__ | DEBUG | Attempting to write to the database
+14:00:02 | __main__ | DEBUG | Attempting db connection
+14:00:02 | __main__ | INFO | Successfully connected to the database
+14:00:02 | __main__ | ERROR | Table 'sales' already exists.
+14:00:02 | __main__ | DEBUG | End of write_from_dataframe
+14:00:02 | __main__ | DEBUG | Attempting to read from table sales
+14:00:02 | __main__ | DEBUG | Attempting db connection
+14:00:02 | __main__ | INFO | Successfully connected to the database
+14:00:02 | __main__ | INFO | Successfully read table sales
+14:00:02 | __main__ | DEBUG | End of read_as_dataframe
+14:01:56 | __main__ | DEBUG | Attempting to write to the database
+14:01:56 | __main__ | DEBUG | Attempting db connection
+14:01:56 | __main__ | INFO | Successfully connected to the database
+14:01:56 | __main__ | ERROR | Table 'sales' already exists.
+14:01:56 | __main__ | DEBUG | End of write_from_dataframe
+14:01:56 | __main__ | DEBUG | Attempting to read from table sales
+14:01:56 | __main__ | DEBUG | Attempting db connection
+14:01:56 | __main__ | INFO | Successfully connected to the database
+14:01:57 | __main__ | INFO | Successfully read table sales
+14:01:57 | __main__ | DEBUG | End of read_as_dataframe
+14:02:10 | __main__ | DEBUG | Attempting to clear the database
+14:02:10 | __main__ | DEBUG | Attempting db connection
+14:02:10 | __main__ | INFO | Successfully connected to the database
+14:02:10 | __main__ | INFO | Successfully cleared table sales
+14:02:10 | __main__ | DEBUG | End of drop_table()
+14:02:10 | __main__ | DEBUG | Attempting to write to the database
+14:02:10 | __main__ | DEBUG | Attempting db connection
+14:02:10 | __main__ | INFO | Successfully connected to the database
+14:02:10 | __main__ | INFO | Successfully wrote to table sales
+14:02:10 | __main__ | DEBUG | End of write_from_dataframe
+14:02:10 | __main__ | DEBUG | Attempting to read from table sales
+14:02:10 | __main__ | DEBUG | Attempting db connection
+14:02:10 | __main__ | INFO | Successfully connected to the database
+14:02:11 | __main__ | INFO | Successfully read table sales
+14:02:11 | __main__ | DEBUG | End of read_as_dataframe
+14:02:36 | __main__ | DEBUG | Attempting to clear the database
+14:02:36 | __main__ | DEBUG | Attempting db connection
+14:02:36 | __main__ | INFO | Successfully connected to the database
+14:02:36 | __main__ | INFO | Successfully cleared table sales
+14:02:36 | __main__ | DEBUG | End of drop_table()
+14:02:36 | __main__ | DEBUG | Attempting to write to the database
+14:02:36 | __main__ | DEBUG | Attempting db connection
+14:02:36 | __main__ | INFO | Successfully connected to the database
+14:02:36 | __main__ | INFO | Successfully wrote to table sales
+14:02:36 | __main__ | DEBUG | End of write_from_dataframe
+14:02:36 | __main__ | DEBUG | Attempting to read from table non_exist
+14:02:36 | __main__ | DEBUG | Attempting db connection
+14:02:36 | __main__ | INFO | Successfully connected to the database
+14:02:36 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM non_exist': Execution failed on sql 'SELECT * FROM non_exist': (psycopg2.errors.UndefinedTable) relation "non_exist" does not exist
+LINE 1: SELECT * FROM non_exist
+                      ^
+
+[SQL: SELECT * FROM non_exist]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+14:02:36 | __main__ | DEBUG | End of read_as_dataframe
