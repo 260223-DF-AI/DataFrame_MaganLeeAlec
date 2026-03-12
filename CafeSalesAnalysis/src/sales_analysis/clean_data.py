@@ -28,8 +28,10 @@ def change_index(data: pd.DataFrame | dict, column_index: pd.Series | list | pd.
     if isinstance(data, dict):
         return pd.DataFrame(data, index=pd_index)
     
-def remove_all_null(data: pd.DataFrame):
-    invalid_cell = ["NaN", "EMPTY", "empty", "UNKNOWN", "unknown", "ERROR", "error", "NA", "Na", "None", "NULL", "null", np.nan]
+def remove_all_null(data: pd.DataFrame) -> tuple:
+    """Remove all null values (should be converted to -1 with validate method first) 
+    returns tuple of (clean_data, dirty_data)"""
+    #invalid_cell = ["NaN", "EMPTY", "empty", "UNKNOWN", "unknown", "ERROR", "error", "NA", "Na", "None", "NULL", "null", np.nan]
     null_value = -1
     for col in data.columns:
         if col:
@@ -37,7 +39,9 @@ def remove_all_null(data: pd.DataFrame):
             removed_records = data[data[col] ==  type(data.at[0, col])(null_value)]
             setup_logger(__name__, 'warning', f"Records: \n{removed_records} was removed")
             data = data[filter_keep]
-    return data
+
+    clean_dirty_tuple = (data, removed_records)
+    return clean_dirty_tuple
 
 def remove_duplicate_entries(data: pd.DataFrame) -> pd.DataFrame:
     """Returns dataframe with duplicate entries removed."""

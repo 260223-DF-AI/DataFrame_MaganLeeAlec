@@ -142,10 +142,11 @@ def change_col_dtype(data: pd.DataFrame | dict, column_str: str, type_change: ty
         return data
 
 #For testing:
-df = pd.read_csv("src/data/dirty_cafe_sales.csv")
-list_from_schema = create_schema(df)
-validated = validate_data(df, list_from_schema)
-print(validated)
-print(validated)
-validated = remove_all_null(validated)
-print(validated)
+if __name__ == "__main__":
+	df = pd.read_csv("src/data/dirty_cafe_sales.csv")
+	list_from_schema = create_schema(df)
+	validated = validate_data(df, list_from_schema)
+	print(validated)
+	print(validated)
+	validated = remove_all_null(validated)
+	print(validated)
