@@ -32,7 +32,8 @@ def test_change_index_with_dataframe():
     })
 
     actual = clean_data.change_index(df, "Email")
-    expected_index = pd.Index(["alice@email.com", "bob@email.com"])
+
+    expected_index = pd.Index(["alice@email.com", "bob@email.com"], dtype=str, name="Email")
 
     pd.testing.assert_index_equal(actual.index, expected_index)
 

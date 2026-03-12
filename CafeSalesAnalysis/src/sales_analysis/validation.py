@@ -21,33 +21,54 @@ if __name__ == "__main__":
     print(df.info())
 # -------------------
 
-def create_schema(data: pd.DataFrame):
+def create_schema(data: pd.DataFrame, user_input=True):
 	if not isinstance(data, pd.DataFrame):
 		setup_logger(__name__, 'error', f"Error in validation::create_schema - variable: data <- was expecting pd.DataFrame, but got {type(data)}")
 		raise TypeError(f"{type(data)} is not a Dataframe")
 	column_schema = []
 	
+	if(user_input):
 	# User will put in the data types for each column so they can be constrained to it
-	for col in data.columns:
-		dtype = input(f"Enter a data type for column {col}. \nAccepted types are string, int, float, and bool: ")
-		match(dtype.lower()):
-			case "string":
-				column_schema.append({f"{col}": str})
-			case "int":
-				column_schema.append({f"{col}": int})
-			case "float":
-				column_schema.append({f"{col}": float})
-			case "bool":
-				column_schema.append({f"{col}": bool})
-			case _:
-				setup_logger(__name__, 'warning', f"Warning in validation::create_schema. Input expected a string, int, float, bool, or datetime, but received an invalid datatype of {dtype}. Defaulting to string")
-				column_schema.append({f"{col}": str})
+		for col in data.columns:
+			dtype = input(f"Enter a data type for column {col}. \nAccepted types are string, int, float, and bool: ")
+			match(dtype.lower()):
+				case "string":
+					column_schema.append({f"{col}": str})
+				case "int":
+					column_schema.append({f"{col}": int})
+				case "float":
+					column_schema.append({f"{col}": float})
+				case "bool":
+					column_schema.append({f"{col}": bool})
+				case _:
+					setup_logger(__name__, 'warning', f"Warning in validation::create_schema. Input expected a string, int, float, bool, or datetime, but received an invalid datatype of {dtype}. Defaulting to string")
+					column_schema.append({f"{col}": str})
     
 	return column_schema
 
-def validate_add_record(record: pd.Series | list, column_schema: list, invalid_cell=[]):
+def validate_add_record(data: pd.DataFrame, record: list, column_schema: list, invalid_cell=[]):
     #TODO: Accept a row of data in Series or list format, validate, then add if valid.
-    pass
+	if not isinstance(record, (list)):
+		raise TypeErrer("record is not a list")		
+	if not isinstance(column_schema, list):
+		raise TypeError("Column schema not a list.")
+	if not column_schema:
+		raise("No column schema to compare record to for validation")
+	
+	if (len(column_schema != len(record))):
+		setup_logger(__name__, 'info', "Record doesn't contain all fields for the column.")
+		return pd.Series()
+	column_names = []
+	for column in column_schema:
+		column_names.append(column.keys())
+	
+	for index, column in enumerate(column_schema):
+		if not isinstance(record[index], column[column_names[index]]):
+			raise TypeError("Record data types don't match the data")
+		
+	# If code reaches this point, add row to dataframe
+	df.iloc[len(df)] = record
+
 
 def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtype=""):
 		"""Changes data type to the declared type from the input"""
@@ -120,10 +141,10 @@ def change_col_dtype(data: pd.DataFrame | dict, column_str: str, type_change: ty
         return data
 
 #For testing:
-# df = pd.read_csv("src/data/dirty_cafe_sales.csv")
-# list_from_schema = create_schema(df)
-# validated = validate_data(df, list_from_schema)
-# print(validated)
-# print(validated)
-# validated = remove_all_null(validated)
-# print(validated)
+df = pd.read_csv("src/data/dirty_cafe_sales.csv")
+list_from_schema = create_schema(df)
+validated = validate_data(df, list_from_schema)
+print(validated)
+print(validated)
+validated = remove_all_null(validated)
+print(validated)

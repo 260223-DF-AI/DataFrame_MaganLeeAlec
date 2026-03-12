@@ -16,7 +16,7 @@ def change_index(data: pd.DataFrame | dict, column_index: pd.Series | list | pd.
     
     # if index is a string, turn it to series then into pandas index. else just turn it directly to pandas index
     if type(column_index) == str:
-        pd_index = pd.Index(data[column_index])
+        pd_index = pd.Index(data[column_index],dtype=str)
     else:
         pd_index = pd.Index(column_index)
         
@@ -33,8 +33,9 @@ def remove_all_null(data: pd.DataFrame):
     null_value = -1
     for col in data.columns:
         if col:
-            filter_keep = data[col] > type(data[col][0])(null_value)
-            setup_logger(__name__, 'warning', f"Records: \n{data[data[col] ==  type(data[col][1])(null_value)]} was removed")
+            filter_keep = data[str(col)] > type(data.at[0, col])(null_value)
+            removed_records = data[data[col] ==  type(data.at[0, col])(null_value)]
+            setup_logger(__name__, 'warning', f"Records: \n{removed_records} was removed")
             data = data[filter_keep]
     return data
 
@@ -71,3 +72,9 @@ def drop_na_by_column(data: pd.DataFrame, column: str):
 #         else:
 #             data[column_str] = data[column_str].round(round_formatter)
 #     return data
+df = pd.DataFrame({
+    "Sales": [100, -1, 200, 300],
+    "Profit": [10, -1, 20, 30]
+})
+for col in df.columns:
+    print(df.at[1, col])
