@@ -90,7 +90,7 @@ def test_drop_table_executes_query(monkeypatch):
     monkeypatch.setattr(database, "connect_db", Mock(return_value=engine))
     monkeypatch.setattr(database.sa, "text", Mock(return_value=query_mock))
     database.drop_table("sales")
-    engine._connection.execute.assert_called_once_with("DROP_QUERY")
+    engine._connection.execute.assert_called_once_with(query_mock)
 
 
 # 2. test that drop_table commits the transaction
