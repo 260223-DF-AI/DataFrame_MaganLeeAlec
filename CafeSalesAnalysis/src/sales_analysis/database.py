@@ -16,7 +16,7 @@ import os
 import sqlalchemy as sa
 from src.sales_analysis import logger, exceptions as ex
 
-logger = logger.setup_logger(__name__, "debug")
+logger = logger.setup_logger(__name__, "error")
 
 def connect_db() -> sa.Engine:
     """Sets up connection to db"""
@@ -37,11 +37,11 @@ def drop_table(table="sales") -> None:
     logger.debug("Attempting to clear the database")
 
     engine = connect_db()
-    query = f"DROP TABLE {table}"
+    query = sa.text("DROP TABLE IF EXISTS :tbl").bindparams(tbl=table)
 
     try:
         with engine.connect() as conn:
-            conn.execute(sa.text(query))
+            conn.execute(query)
             conn.commit()
     except Exception as e:
         e = ex.DatabaseExeError(query, e)
@@ -77,7 +77,7 @@ def read_as_dataframe(table = "sales") -> pd.DataFrame:
     logger.debug(f"Attempting to read from table {table}")
 
     engine = connect_db()
-    query = f"SELECT * FROM {table}"
+    query = sa.text("SELECT * FROM :tbl").bindparams(tbl=table)
 
     df = ""
     try:
