@@ -83,7 +83,8 @@ def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtyp
 
 		if not column_schema:
 			setup_logger(__name__, 'error', f"Error in validation::validate_data. No column structure to reference")
-			raise ValueError("There is no format/schema for the columns")
+			return data
+			
 
 		for col_dict in column_schema:
 			for col_label in col_dict:
