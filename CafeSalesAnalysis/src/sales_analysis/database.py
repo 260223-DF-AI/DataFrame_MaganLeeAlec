@@ -37,11 +37,11 @@ def drop_table(table="sales") -> None:
     logger.debug("Attempting to clear the database")
 
     engine = connect_db()
-    query = sa.text("DROP TABLE IF EXISTS :tbl").bindparams(tbl=table)
+    query = f"DROP TABLE {table}"
 
     try:
         with engine.connect() as conn:
-            conn.execute(query)
+            conn.execute(sa.text(query))
             conn.commit()
     except Exception as e:
         e = ex.DatabaseExeError(query, e)
@@ -77,7 +77,7 @@ def read_as_dataframe(table = "sales") -> pd.DataFrame:
     logger.debug(f"Attempting to read from table {table}")
 
     engine = connect_db()
-    query = sa.text("SELECT * FROM :tbl").bindparams(tbl=table)
+    query = f"SELECT * FROM {table}"
 
     df = ""
     try:
@@ -93,6 +93,36 @@ def read_as_dataframe(table = "sales") -> pd.DataFrame:
         engine.dispose()
         logger.debug("End of read_as_dataframe")
 
+def execute_sql(query, table = "sales") -> pd.DataFrame:
+    """Risky method for handling any other sql queries"""
+    logger.debug(f"Attempting query on table: {table}, query: {query}")
+
+    engine = connect_db()
+
+    df = ""
+    try:
+        with engine.connect() as conn:
+            df = pd.read_sql(query, conn)
+    except Exception as e:
+        e = ex.DatabaseExeError(query, e)
+        logger.error(e)
+    else:
+        logger.info(f"Successfully ran query: {query}")
+        return df
+    finally:
+        engine.dispose()
+        logger.debug("End of execute_sql")
+
+
 # For debugging purposes
 if __name__ == "__main__":
-    pass
+    drop_table()
+    df = pd.DataFrame({
+    'name': ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve'],
+    'age': [28, 34, 25, 31, 29],
+    'salary': [55000, 72000, 48000, 68000, 62000]
+})
+    write_from_dataframe(df)
+    query = "SELECT * FROM sales WHERE sales.Salary > 60000;"
+    df = execute_sql(query)
+    print(df.tail(5))

@@ -274,3 +274,53 @@ LINE 1: SELECT * FROM non_exist
 [SQL: SELECT * FROM non_exist]
 (Background on this error at: https://sqlalche.me/e/20/f405)
 14:02:36 | __main__ | DEBUG | End of read_as_dataframe
+14:56:55 | __main__ | ERROR | An error occured executing a query 'DROP TABLE IF EXISTS :tbl': (psycopg2.errors.SyntaxError) syntax error at or near "'sales'"
+LINE 1: DROP TABLE IF EXISTS 'sales'
+                             ^
+
+[SQL: DROP TABLE IF EXISTS %(tbl)s]
+[parameters: {'tbl': 'sales'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+14:59:22 | __main__ | ERROR | An error occured executing a query 'DROP * FROM sales': (psycopg2.errors.SyntaxError) syntax error at or near "*"
+LINE 1: DROP * FROM sales
+             ^
+
+[SQL: DROP * FROM sales]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+15:01:21 | __main__ | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
+
+[SQL: DROP TABLE sales]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+15:01:21 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM    a
+0  1
+1  2': Execution failed on sql 'SELECT * FROM    a
+0  1
+1  2': (psycopg2.errors.SyntaxError) syntax error at or near "0"
+LINE 2: 0  1
+        ^
+
+[SQL: SELECT * FROM    a
+0  1
+1  2]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+15:08:43 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM sales WHERE Salary > 60000;': Execution failed on sql 'SELECT * FROM sales WHERE Salary > 60000;': (psycopg2.errors.UndefinedColumn) column "salary" does not exist
+LINE 1: SELECT * FROM sales WHERE Salary > 60000;
+                                  ^
+HINT:  Perhaps you meant to reference the column "sales.Salary".
+
+[SQL: SELECT * FROM sales WHERE Salary > 60000;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+15:08:57 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM sales WHERE Salary > 60000;': Execution failed on sql 'SELECT * FROM sales WHERE Salary > 60000;': (psycopg2.errors.UndefinedColumn) column "salary" does not exist
+LINE 1: SELECT * FROM sales WHERE Salary > 60000;
+                                  ^
+HINT:  Perhaps you meant to reference the column "sales.Salary".
+
+[SQL: SELECT * FROM sales WHERE Salary > 60000;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+15:10:10 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM sales WHERE sales.Salary > 60000;': Execution failed on sql 'SELECT * FROM sales WHERE sales.Salary > 60000;': (psycopg2.errors.UndefinedColumn) column sales.salary does not exist
+LINE 1: SELECT * FROM sales WHERE sales.Salary > 60000;
+                                  ^
+HINT:  Perhaps you meant to reference the column "sales.Salary".
+
+[SQL: SELECT * FROM sales WHERE sales.Salary > 60000;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
