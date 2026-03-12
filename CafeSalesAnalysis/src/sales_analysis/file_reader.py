@@ -1,3 +1,5 @@
+"""Functions for reading csv & json files and storing as DataFrame"""
+
 import pandas as pd
 from pathlib import Path
 from src.paths import DATA_DIR

@@ -1,3 +1,5 @@
+"""Functions configuring a custom logger"""
+
 import logging
 from src.paths import SALES_ANA_DIR
 
