@@ -7,3 +7,4 @@ DATA_DIR = SRC_ROOT / "data"
 
 # sales analysis directory
 SALES_ANA_DIR = SRC_ROOT / "sales_analysis"
+
