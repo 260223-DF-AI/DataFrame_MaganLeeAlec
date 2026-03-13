@@ -14,7 +14,11 @@ validated = validation.validate_data(df, list_from_schema, user_input=False)
 # TODO: throws typeerror
 #tuples have index [0] for valid data, [1] for invalid data
 null_checked_tuple = clean_data.remove_all_null(validated)
+
+#of the null checked data, check for duplicates
 null_checked_unique_tuple = clean_data.remove_duplicate_entries(null_checked_tuple[0])
+
+#clean sales will be the valid part of the tuple, rejected data will be the null containing data concatenated with duplicate data
 clean_sales, rejects = null_checked_unique_tuple[0], pd.concat([null_checked_tuple[1], null_checked_unique_tuple[1]])
 
 print(rejects)
