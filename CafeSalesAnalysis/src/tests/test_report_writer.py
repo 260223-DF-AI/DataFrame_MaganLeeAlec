@@ -113,10 +113,11 @@ def test_summary_report_no_errors_message(tmp_path):
 # 7. test empty dataset handling
 def test_summary_report_empty_dataset(tmp_path):
     filepath = tmp_path / "summary_report.txt"
-    #write_summary_report(filepath, [], [], {})
+    report_writer.write_summary_report(filepath, [], [], {})
     content = filepath.read_text()
-    assert "Valid records: 0" in content
-    assert "Errors: 0" in content
+    assert "- Total Records Processed: 0" in content
+    assert "- Valid Records: 0" in content
+    assert "- Error Records: 0" in content
 
 # 8. test empty aggregations
 def test_summary_report_empty_aggregations_show_none(tmp_path):
@@ -131,9 +132,9 @@ def test_summary_report_empty_aggregations_show_none(tmp_path):
 # 9. test timestamps are included
 def test_summary_report_has_timestamp(tmp_path):
     filepath = tmp_path / "summary_report.txt"
-    #write_summary_report(filepath, [], [], {})
+    report_writer.write_summary_report(filepath, [], [], {})
     content = filepath.read_text()
-    assert "Processing timestamp" in content
+    assert "Generated:" in content
 
 # 10. test sorting methods
 def test_summary_report_sorting_payment_methods_descending(tmp_path):
