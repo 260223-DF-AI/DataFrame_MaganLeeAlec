@@ -1,5 +1,5 @@
 === Cafe Sales Processing Summary Report ===
-Generated: 2026-03-13 10:07:01
+Generated: 2026-03-13 12:55:38
 
 Processing Statistics:
 - Total Records Processed: 10025
@@ -8,11 +8,7 @@ Processing Statistics:
 - Total Sales from Valid Records: $27605.50
 
 Error Details:
-1. {'Transaction ID': 'TXN_4271903', 'Item': 'Cookie', 'Quantity': 4, 'Price Per Unit': 1.0, 'Total Spent': -1.0, 'Payment Method': 'Credit Card', 'Location': 'In-store', 'Transaction Date': '2023-07-19'}
-2. {'Transaction ID': 'TXN_7034554', 'Item': 'Salad', 'Quantity': 2, 'Price Per Unit': 5.0, 'Total Spent': 10.0, 'Payment Method': '-1', 'Location': '-1', 'Transaction Date': '2023-04-27'}
-3. {'Transaction ID': 'TXN_2602893', 'Item': 'Smoothie', 'Quantity': 5, 'Price Per Unit': 4.0, 'Total Spent': 20.0, 'Payment Method': 'Credit Card', 'Location': '-1', 'Transaction Date': '2023-03-31'}
-4. {'Transaction ID': 'TXN_4433211', 'Item': '-1', 'Quantity': 3, 'Price Per Unit': 3.0, 'Total Spent': 9.0, 'Payment Method': '-1', 'Location': 'Takeaway', 'Transaction Date': '2023-10-06'}
-5. {'Transaction ID': 'TXN_6699534', 'Item': 'Sandwich', 'Quantity': 4, 'Price Per Unit': 4.0, 'Total Spent': 16.0, 'Payment Method': 'Cash', 'Location': '-1', 'Transaction Date': '2023-10-28'}
+No errors encountered.
 
 Sales by Payment Method:
 - Digital Wallet: $9673.00

@@ -57,12 +57,7 @@ def write_summary_report(filepath, valid_records, errors, aggregations):
         key=lambda x: x[1],
         reverse=True
     )[:5]
-    total_sales = 0.0
-    for record in valid_records:
-        try:
-            total_sales += float(record.get("total_spent", 0))
-        except (ValueError, TypeError):
-            pass
+    total_sales = sum(sales_by_method.values())
     with open(filepath, "w", encoding="utf-8") as f:
         f.write("=== Cafe Sales Processing Summary Report ===\n")
         f.write(f"Generated: {timestamp}\n\n")
@@ -72,7 +67,7 @@ def write_summary_report(filepath, valid_records, errors, aggregations):
         f.write(f"- Error Records: {len(errors)}\n")
         f.write(f"- Total Sales from Valid Records: ${total_sales:.2f}\n\n")
         f.write("Error Details:\n")
-        if errors:
+        if errors.empty:
             for i, error in enumerate(errors, start=1):
                 f.write(f"{i}. {error}\n")
         else:

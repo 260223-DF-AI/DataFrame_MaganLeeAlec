@@ -22,8 +22,10 @@ def connect_db() -> sa.Engine:
     """Sets up connection to db"""
     logger.debug("Attempting db connection")
     try:        
-        load_dotenv()
+        load_dotenv("src/.env")
+
         CS = os.getenv("CS")
+        logger.debug(f"CS: {CS}")
         engine = sa.create_engine(CS)
     except Exception as e:
         e = ex.DatabaseConnectionError(e)
@@ -123,6 +125,7 @@ if __name__ == "__main__":
     'salary': [55000, 72000, 48000, 68000, 62000]
 })
     write_from_dataframe(df)
-    query = "SELECT * FROM sales WHERE sales.Salary > 60000;"
-    df = execute_sql(query)
-    print(df.tail(5))
+#     query = "SELECT * FROM sales WHERE sales.Salary > 60000;"
+#     df = execute_sql(query)
+#     print(df.tail(5))
+    

@@ -380,3 +380,113 @@ HINT:  Perhaps you meant to reference the column "sales.Salary".
 11:37:39 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': 'NoneType' object has no attribute 'connect'
 11:37:58 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
 11:37:58 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': 'NoneType' object has no attribute 'connect'
+11:42:48 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:42:48 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:44:42 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:44:42 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:44:42 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:44:42 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:45:32 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:45:32 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:45:32 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:45:32 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:46:08 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:46:08 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:46:08 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:46:08 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:46:43 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:46:43 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:46:43 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:46:43 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:47:58 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:47:58 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:47:58 | src.sales_analysis.database | DEBUG | CS: None
+11:47:58 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:47:58 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:49:10 | __main__ | DEBUG | Attempting db connection
+11:49:10 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:49:10 | __main__ | INFO | Successfully connected to the database
+11:49:36 | __main__ | DEBUG | Attempting to clear the database
+11:49:36 | __main__ | DEBUG | Attempting db connection
+11:49:36 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:49:36 | __main__ | INFO | Successfully connected to the database
+11:49:36 | __main__ | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
+
+[SQL: DROP TABLE sales]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+11:49:36 | __main__ | DEBUG | End of drop_table()
+11:49:36 | __main__ | DEBUG | Attempting to write to the database
+11:49:36 | __main__ | DEBUG | Attempting db connection
+11:49:36 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:49:36 | __main__ | INFO | Successfully connected to the database
+11:49:36 | __main__ | INFO | Successfully wrote to table sales
+11:49:36 | __main__ | DEBUG | End of write_from_dataframe
+11:50:51 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:50:51 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:50:51 | src.sales_analysis.database | DEBUG | CS: None
+11:50:51 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:50:51 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:51:50 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:51:50 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:51:50 | src.sales_analysis.database | DEBUG | CS: None
+11:51:50 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:51:50 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:52:39 | __main__ | DEBUG | Attempting to clear the database
+11:52:39 | __main__ | DEBUG | Attempting db connection
+11:52:39 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:52:39 | __main__ | INFO | Successfully connected to the database
+11:52:39 | __main__ | INFO | Successfully cleared table sales
+11:52:39 | __main__ | DEBUG | End of drop_table()
+11:52:39 | __main__ | DEBUG | Attempting to write to the database
+11:52:39 | __main__ | DEBUG | Attempting db connection
+11:52:39 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:52:39 | __main__ | INFO | Successfully connected to the database
+11:52:39 | __main__ | INFO | Successfully wrote to table sales
+11:52:39 | __main__ | DEBUG | End of write_from_dataframe
+11:52:49 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:52:49 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:52:49 | src.sales_analysis.database | DEBUG | CS: None
+11:52:49 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:52:49 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+11:55:37 | __main__ | DEBUG | Attempting to clear the database
+11:55:37 | __main__ | DEBUG | Attempting db connection
+11:55:37 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:55:37 | __main__ | INFO | Successfully connected to the database
+11:55:37 | __main__ | INFO | Successfully cleared table sales
+11:55:37 | __main__ | DEBUG | End of drop_table()
+11:55:37 | __main__ | DEBUG | Attempting to write to the database
+11:55:37 | __main__ | DEBUG | Attempting db connection
+11:55:37 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:55:37 | __main__ | INFO | Successfully connected to the database
+11:55:38 | __main__ | INFO | Successfully wrote to table sales
+11:55:38 | __main__ | DEBUG | End of write_from_dataframe
+11:55:44 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:55:44 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:55:44 | src.sales_analysis.database | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:55:44 | src.sales_analysis.database | INFO | Successfully connected to the database
+11:55:44 | src.sales_analysis.database | ERROR | Table 'sales' already exists.
+11:55:44 | src.sales_analysis.database | DEBUG | End of write_from_dataframe
+11:55:44 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:55:44 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:55:44 | src.sales_analysis.database | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:55:44 | src.sales_analysis.database | INFO | Successfully connected to the database
+11:55:44 | src.sales_analysis.database | INFO | Successfully wrote to table reject_entries
+11:55:44 | src.sales_analysis.database | DEBUG | End of write_from_dataframe
+11:56:11 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:56:11 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:56:11 | src.sales_analysis.database | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:56:11 | src.sales_analysis.database | INFO | Successfully connected to the database
+11:56:11 | src.sales_analysis.database | ERROR | Table 'sales' already exists.
+11:56:11 | src.sales_analysis.database | DEBUG | End of write_from_dataframe
+11:56:11 | src.sales_analysis.database | DEBUG | Attempting to write to the database
+11:56:11 | src.sales_analysis.database | DEBUG | Attempting db connection
+11:56:11 | src.sales_analysis.database | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
+11:56:11 | src.sales_analysis.database | INFO | Successfully connected to the database
+11:56:11 | src.sales_analysis.database | ERROR | Table 'reject_entries' already exists.
+11:56:11 | src.sales_analysis.database | DEBUG | End of write_from_dataframe
+11:57:11 | src.sales_analysis.database | ERROR | Table 'sales' already exists.
+11:57:11 | src.sales_analysis.database | ERROR | Table 'reject_entries' already exists.
+13:23:18 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-13\\test_read_csv_full_missing_fil0\\does_not_exist.csv'
+13:23:18 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-13\\test_read_csv_nlines_missing_f0\\missing.csv'
+13:23:18 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-13\test_read_json_full_missing_fi0\missing.json does not exist
+13:23:18 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-13\test_read_json_nlines_missing_0\missing.json does not exist
