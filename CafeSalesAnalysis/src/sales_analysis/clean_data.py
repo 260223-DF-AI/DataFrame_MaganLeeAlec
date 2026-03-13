@@ -76,9 +76,10 @@ def drop_na_by_column(data: pd.DataFrame, column: str):
 #         else:
 #             data[column_str] = data[column_str].round(round_formatter)
 #     return data
-df = pd.DataFrame({
-    "Sales": [100, -1, 200, 300],
-    "Profit": [10, -1, 20, 30]
-})
-for col in df.columns:
-    print(df.at[1, col])
+if __name__ == "__main__":
+    df = pd.DataFrame({
+        "Sales": [100, -1, 200, 300],
+        "Profit": [10, -1, 20, 30]
+    })
+    for col in df.columns:
+        print(df.at[1, col])
