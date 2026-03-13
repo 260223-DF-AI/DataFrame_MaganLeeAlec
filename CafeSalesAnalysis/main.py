@@ -2,9 +2,6 @@
 from src.sales_analysis import file_reader, validation, clean_data, database, report_writer
 import pandas as pd
 
-database.drop_table()
-database.drop_table("reject_entries")
-
 # get contents of csv as dataframe
 df = file_reader.read_csv_full("dirty_cafe_sales.csv")
 
@@ -23,9 +20,7 @@ null_checked_unique_tuple = clean_data.remove_duplicate_entries(null_checked_tup
 #clean sales will be the valid part of the tuple, rejected data will be the null containing data concatenated with duplicate data
 clean_sales, rejects = null_checked_unique_tuple[0], pd.concat([null_checked_tuple[1], null_checked_unique_tuple[1]])
 
-print(rejects)
 # write summary report of data to a new file
-# TODO: what is aggregations & how can I fill in this parameter here?
 aggregations = report_writer.create_aggregations(clean_sales)
 report_writer.write_summary_report("report.txt", clean_sales, rejects, aggregations)
 
