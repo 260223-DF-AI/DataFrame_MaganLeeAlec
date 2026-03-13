@@ -75,6 +75,8 @@ def validate_add_record(data: pd.DataFrame, record: list, column_schema: list, i
 
 def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtype="", user_input=True):
 		"""Marks invalid cells to -1 to mark for dropping in clead_data::remove_all_null method"""
+  
+		# replace any of these identifiers in the list with -1
 		if not invalid_cell:
 			invalid_cell = ["NaN", "EMPTY", "empty", "UNKNOWN", "unknown", "ERROR", "error", "NA", "Na", "None", "NULL", "null", np.nan]
 		for target in invalid_cell:
@@ -83,24 +85,24 @@ def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtyp
 				return data
 			else:
 				data.replace(target, -1, inplace=True)
-
+		
+		# if we don't know the data types for the columns, raise an error
 		if not column_schema:
 			setup_logger(__name__, 'error', f"Error in validation::validate_data. No column structure to reference")
 			raise ValueError("No column format/schema was given")
 			
-
+		
 		for col_dict in column_schema:
 			for col_label in col_dict:
-				ata.fillna("NaN", inplace=True)
+				#data.fillna("NaN", inplace=True)
+				#set the column of the data frame to the type in the schema
 				data[col_label] = data[col_label].astype(col_dict.get(col_label))
 
 		print(column_schema)
   
 		# Constrained columns should have a value / NOT be -1
 		constrained_cols = []
-		null_value = -1
   
-		
 		# Keep looping until user hits q to quit loop. 
 		# They can keep entering column names to append to constained_cols to validate them after this
 		if(user_input):
@@ -118,15 +120,6 @@ def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtyp
 		else:
 			for columns in data.columns:
 				constrained_cols.append(columns)
-		# Search through constriained columns to filter out the placeholder null value (-1)
-		# once filtered, log the rows that were removed
-
-		# clean_data remove_null method should provide this functionality
-		# for col in constrained_cols:
-		# 	if col:
-		# 		filter_keep = data[col] > type(data[col][1])(null_value)
-		# 		setup_logger(__name__, 'info', f"Records: \n{data[data[col] ==  type(data[col][1])(null_value)]} was removed")
-		# 		data = data[filter_keep]
 
 		return data
 
@@ -157,12 +150,7 @@ def convert_dtypes(data: pd.DataFrame):
 #For testing:
 if __name__ == "__main__":
 	df = pd.read_csv("src/data/dirty_cafe_sales.csv")
-	#print(df)
-	#print(df.dtypes)
 	list_from_schema = create_schema(df, user_input=False)
 	validated = validate_data(df, list_from_schema, user_input=False)
 	print(validated)
-	# print(validated)
 	# df_tuple = remove_all_null(validated)
-	# print(df_tuple)
-	#print(validated)

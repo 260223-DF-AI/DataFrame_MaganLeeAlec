@@ -16,7 +16,7 @@ def change_index(data: pd.DataFrame | dict, column_index: pd.Series | list | pd.
     
     # if index is a string, turn it to series then into pandas index. else just turn it directly to pandas index
     if type(column_index) == str:
-        pd_index = pd.Index(data[column_index],dtype=str)
+        pd_index = pd.Index(data[column_index], dtype=str)
     else:
         pd_index = pd.Index(column_index)
         
@@ -31,21 +31,22 @@ def change_index(data: pd.DataFrame | dict, column_index: pd.Series | list | pd.
 def remove_all_null(data: pd.DataFrame) -> tuple:
     """Remove all null values (should be converted to -1 with validate method first) 
     returns tuple of (clean_data, dirty_data)"""
-    #invalid_cell = ["NaN", "EMPTY", "empty", "UNKNOWN", "unknown", "ERROR", "error", "NA", "Na", "None", "NULL", "null", np.nan]
-    null_value = -1
-    for col in data.columns:
-        if col:
-            filter_keep = data[str(col)] > type(data.at[0, col])(null_value)
-            removed_records = data[data[col] ==  type(data.at[0, col])(null_value)]
-            setup_logger(__name__, 'warning', f"Records: \n{removed_records} was removed")
-            data = data[filter_keep]
 
-    clean_dirty_tuple = (data, removed_records)
+    # removed data will check if any column has -1 values, but will need to cast it to the appropriate column data type before comparing
+    removed_data = data[(data['Transaction ID'] ==  type(data.at[0, 'Transaction ID'])(-1)) | (data['Item'] == type(data.at[0, 'Item'])(-1)) | (data['Quantity'] == type(data.at[0, 'Quantity'])(-1)) | (data['Price Per Unit'] == type(data.at[0, 'Price Per Unit'])(-1)) | (data['Total Spent'] == type(data.at[0, 'Total Spent'])(-1)) | (data['Payment Method'] == type(data.at[0, 'Payment Method'])(-1)) | (data['Location'] == type(data.at[0, 'Location'])(-1)) | (data['Transaction Date'] == type(data.at[0, 'Transaction Date'])(-1))]
+    
+    valid_data = data[(data['Transaction ID'] !=  type(data.at[0, 'Transaction ID'])(-1)) & (data['Item'] != type(data.at[0, 'Item'])(-1)) & (data['Quantity'] != type(data.at[0, 'Quantity'])(-1)) & (data['Price Per Unit'] != type(data.at[0, 'Price Per Unit'])(-1)) & (data['Total Spent'] != type(data.at[0, 'Total Spent'])(-1)) & (data['Payment Method'] != type(data.at[0, 'Payment Method'])(-1)) & (data['Location'] != type(data.at[0, 'Location'])(-1)) & (data['Transaction Date'] != type(data.at[0, 'Transaction Date'])(-1))]
+    
+    clean_dirty_tuple = (valid_data, removed_data)
     return clean_dirty_tuple
 
-def remove_duplicate_entries(data: pd.DataFrame) -> pd.DataFrame:
+def remove_duplicate_entries(data: pd.DataFrame) -> tuple:
     """Returns dataframe with duplicate entries removed."""
-    return data.drop_duplicates(inplace=True)
+    duplicated_data = data[data.duplicated()]
+    unique_data = data[~data.duplicated()]
+    return (unique_data, duplicated_data)
+
+
 
 def replace_values(data: pd.DataFrame, target, replacement):
     """Replaces values in Data Frame in place"""

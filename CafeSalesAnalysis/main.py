@@ -8,17 +8,20 @@ df = file_reader.read_csv_full("dirty_cafe_sales.csv")
 list_from_schema = validation.create_schema(df, user_input=False)
 
 # validate data types of entries
-validated = validation.validate_data(df, list_from_schema)
+validated = validation.validate_data(df, list_from_schema, user_input=False)
 
 # separate clean data and rejects
 # TODO: throws typeerror
-clean_tuple = clean_data.remove_all_null(validated)
-clean_sales, rejects = clean_tuple[0], clean_tuple[1]
+#tuples have index [0] for valid data, [1] for invalid data
+null_checked_tuple = clean_data.remove_all_null(validated)
+null_checked_unique_tuple = clean_data.remove_duplicate_entries(null_checked_tuple[0])
+clean_sales, rejects = null_checked_unique_tuple[0], null_checked_unique_tuple[1]
 
+print(clean_sales.head(100))
 # write summary report of data to a new file
 # TODO: what is aggregations & how can I fill in this parameter here?
-report_writer.write_summary_report("report.txt", clean_sales, rejects, ______)
+#report_writer.write_summary_report("report.txt", clean_sales, rejects, ______)
 
 # write data to database
-database.write_from_dataframe(clean_sales)
-database.write_from_dataframe(rejects, "reject_entries")
+#database.write_from_dataframe(clean_sales)
+#database.write_from_dataframe(rejects, "reject_entries")
