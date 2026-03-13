@@ -22,11 +22,10 @@ def create_aggregations(df: pd.DataFrame) -> dict:
     # Aggregate sales by location
     aggregations['sales_by_location'] = df.groupby('Location')['Total Spent'].sum().to_dict()
     return aggregations
-
+ 
 def write_summary_report(filepath, valid_records, errors, aggregations):
     """
     Write a formatted summary report for a cafe sales dataset.
-
     Report includes:
     - Processing timestamp
     - Total records processed
@@ -40,55 +39,42 @@ def write_summary_report(filepath, valid_records, errors, aggregations):
 
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     total_records = len(valid_records) + len(errors)
-
-    # Pull aggregation data safely
     sales_by_method = aggregations.get("sales_by_method", {})
     qty_by_product = aggregations.get("qty_by_product", {})
     sales_by_location = aggregations.get("sales_by_location", {})
-
-    # Sort payment methods from highest sales to lowest
     sorted_methods = sorted(
         sales_by_method.items(),
         key=lambda x: x[1],
         reverse=True
     )
-
-    # Sort locations from highest sales to lowest
     sorted_locations = sorted(
         sales_by_location.items(),
         key=lambda x: x[1],
         reverse=True
     )
-
-    # Sort products by quantity sold and keep top 5
     sorted_products = sorted(
         qty_by_product.items(),
         key=lambda x: x[1],
         reverse=True
     )[:5]
-
-    # Calculate total sales from valid records if possible
-    total_sales = valid_records['Total Spent'].sum()
-
+    total_sales = 0.0
+    for record in valid_records:
+        try:
+            total_sales += float(record.get("total_spent", 0))
+        except (ValueError, TypeError):
+            pass
     with open(filepath, "w", encoding="utf-8") as f:
         f.write("=== Cafe Sales Processing Summary Report ===\n")
         f.write(f"Generated: {timestamp}\n\n")
-
         f.write("Processing Statistics:\n")
         f.write(f"- Total Records Processed: {total_records}\n")
         f.write(f"- Valid Records: {len(valid_records)}\n")
         f.write(f"- Error Records: {len(errors)}\n")
         f.write(f"- Total Sales from Valid Records: ${total_sales:.2f}\n\n")
-
         f.write("Error Details:\n")
-        if not errors.empty:
-            num_errors = len(errors)
-            if len(errors) > 5:
-                num_errors  = 5
-            for i, (idx, row) in enumerate(errors.iterrows(), start=1):
-                if i > num_errors:
-                    break
-                f.write(f"{i}. {row.to_dict()}\n")
+        if errors:
+            for i, error in enumerate(errors, start=1):
+                f.write(f"{i}. {error}\n")
         else:
             f.write("No errors encountered.\n")
         f.write("\n")
@@ -108,7 +94,6 @@ def write_summary_report(filepath, valid_records, errors, aggregations):
         else:
             f.write("- None\n")
         f.write("\n")
-
         f.write("Top 5 Products by Quantity Sold:\n")
         if sorted_products:
             for i, (product, qty) in enumerate(sorted_products, start=1):
