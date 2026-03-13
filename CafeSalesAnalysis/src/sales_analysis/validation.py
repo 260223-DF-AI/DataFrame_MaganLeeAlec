@@ -91,7 +91,7 @@ def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtyp
 
 		for col_dict in column_schema:
 			for col_label in col_dict:
-				data.fillna(-1, inplace=True)
+				ata.fillna("NaN", inplace=True)
 				data[col_label] = data[col_label].astype(col_dict.get(col_label))
 
 		print(column_schema)
