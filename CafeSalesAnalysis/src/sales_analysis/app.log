@@ -350,3 +350,33 @@ HINT:  Perhaps you meant to reference the column "sales.Salary".
 
 [SQL: DROP TABLE reject_entries]
 (Background on this error at: https://sqlalche.me/e/20/f405)
+11:07:04 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-9/test_read_csv_full_missing_fil0/does_not_exist.csv'
+11:07:04 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-9/test_read_csv_nlines_missing_f0/missing.csv'
+11:07:04 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-9/test_read_json_full_missing_fi0/missing.json does not exist
+11:07:04 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-9/test_read_json_nlines_missing_0/missing.json does not exist
+11:07:11 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-10/test_read_csv_full_missing_fil0/does_not_exist.csv'
+11:07:11 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-10/test_read_csv_nlines_missing_f0/missing.csv'
+11:07:11 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-10/test_read_json_full_missing_fi0/missing.json does not exist
+11:07:11 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-10/test_read_json_nlines_missing_0/missing.json does not exist
+11:10:15 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-11/test_read_csv_full_missing_fil0/does_not_exist.csv'
+11:10:15 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-11/test_read_csv_nlines_missing_f0/missing.csv'
+11:10:15 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-11/test_read_json_full_missing_fi0/missing.json does not exist
+11:10:15 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-11/test_read_json_nlines_missing_0/missing.json does not exist
+11:18:09 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-12/test_read_csv_full_missing_fil0/does_not_exist.csv'
+11:18:09 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-12/test_read_csv_nlines_missing_f0/missing.csv'
+11:18:09 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-12/test_read_json_full_missing_fi0/missing.json does not exist
+11:18:09 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-12/test_read_json_nlines_missing_0/missing.json does not exist
+11:19:42 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-13/test_read_csv_full_missing_fil0/does_not_exist.csv'
+11:19:42 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-13/test_read_csv_nlines_missing_f0/missing.csv'
+11:19:42 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-13/test_read_json_full_missing_fi0/missing.json does not exist
+11:19:42 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-13/test_read_json_nlines_missing_0/missing.json does not exist
+11:20:25 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-14/test_read_csv_full_missing_fil0/does_not_exist.csv'
+11:20:25 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-14/test_read_csv_nlines_missing_f0/missing.csv'
+11:20:25 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-14/test_read_json_full_missing_fi0/missing.json does not exist
+11:20:25 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-14/test_read_json_nlines_missing_0/missing.json does not exist
+11:37:22 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:37:22 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': 'NoneType' object has no attribute 'connect'
+11:37:39 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:37:39 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': 'NoneType' object has no attribute 'connect'
+11:37:58 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+11:37:58 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': 'NoneType' object has no attribute 'connect'
