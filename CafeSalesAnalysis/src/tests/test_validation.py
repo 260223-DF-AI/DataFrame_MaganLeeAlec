@@ -27,6 +27,27 @@ def test_remove_duplicate_entries_no_duplicates():
     actual = validation.remove_duplicate_entries(df)
     pd.testing.assert_frame_equal(actual, df)
 
+def test_remove_duplicate_entries_empty_dataframe():
+    """Tests duplicate removal on an empty dataframe."""
+    df = pd.DataFrame()
+    actual = validation.remove_duplicate_entries(df)
+    expected = pd.DataFrame()
+    pd.testing.assert_frame_equal(actual, expected)
+
+
+def test_remove_duplicate_entries_all_duplicates():
+    """Tests when every row is duplicated."""
+    df = pd.DataFrame({
+        "Name": ["Alice", "Alice", "Alice"],
+        "Sales": [100, 100, 100]
+    })
+    actual = validation.remove_duplicate_entries(df)
+    expected = pd.DataFrame({
+        "Name": ["Alice"],
+        "Sales": [100]
+    }, index=[0])
+    pd.testing.assert_frame_equal(actual, expected)
+
 #============ tests for create_schema =====================
 @pytest.mark.parametrize("data", [[]])
 def test_create_schema(data: pd.DataFrame):
@@ -60,6 +81,59 @@ def test_create_schema_defaults_invalid_input_to_string(monkeypatch):
     monkeypatch.setattr("builtins.input", lambda _: next(user_inputs))
     actual = validation.create_schema(df)
     expected = [{"Name": str}]
+    assert actual == expected
+
+def test_create_schema_with_default_schema_when_user_input_false():
+    """Tests default schema path when user_input=False."""
+    df = pd.DataFrame({
+        "Anything": [1, 2]
+    })
+    actual = validation.create_schema(df, user_input=False)
+    expected = [
+        {"Transaction ID": str},
+        {"Item": str},
+        {"Quantity": int},
+        {"Price Per Unit": float},
+        {"Total Spent": float},
+        {"Payment Method": str},
+        {"Location": str},
+        {"Transaction Date": str}
+    ]
+    assert actual == expected
+
+def test_create_schema_empty_dataframe_with_user_input_false():
+    """Tests create_schema still returns default schema for empty dataframe when user_input=False."""
+    df = pd.DataFrame()
+    actual = validation.create_schema(df, user_input=False)
+    expected = [
+        {"Transaction ID": str},
+        {"Item": str},
+        {"Quantity": int},
+        {"Price Per Unit": float},
+        {"Total Spent": float},
+        {"Payment Method": str},
+        {"Location": str},
+        {"Transaction Date": str}
+    ]
+    assert actual == expected
+
+@pytest.mark.parametrize(
+    "user_value, expected_type",
+    [
+        ("STRING", str),
+        ("Int", int),
+        ("FLOAT", float),
+        ("Bool", bool),
+    ]
+)
+def test_create_schema_accepts_case_insensitive_types(monkeypatch, user_value, expected_type):
+    """Tests that mixed-case type input is accepted."""
+    df = pd.DataFrame({
+        "Col1": [1, 2]
+    })
+    monkeypatch.setattr("builtins.input", lambda _: user_value)
+    actual = validation.create_schema(df)
+    expected = [{"Col1": expected_type}]
     assert actual == expected
 
 #============ tests for validate_add_record ===============
@@ -127,6 +201,86 @@ def test_validate_data_raises_key_error_for_unknown_column_request():
         validation.validate_data(df, [{"Money": float}], [], "sauce")
     assert "No column" in str(exc_info.value)
 
+def test_validate_data_replaces_multiple_invalid_markers():
+    """Tests multiple invalid markers are replaced with -1 before casting."""
+    df = pd.DataFrame({
+        "Money": ["21.23", "UNKNOWN", "None", "30.00"]
+    })
+    actual = validation.validate_data(df, [{"Money": float}], [], "q")
+    expected = pd.DataFrame({
+        "Money": [21.23, -1.0, -1.0, 30.00]
+    })
+    pd.testing.assert_frame_equal(actual, expected)
+
+def test_validate_data_handles_np_nan_replacement():
+    """Tests np.nan is replaced with -1 before conversion."""
+    df = pd.DataFrame({
+        "Money": ["21.23", np.nan, "30.00"]
+    })
+    actual = validation.validate_data(df, [{"Money": float}], [], "q")
+    expected = pd.DataFrame({
+        "Money": [21.23, -1.0, 30.00]
+    })
+    pd.testing.assert_frame_equal(actual, expected)
+
+def test_validate_data_custom_invalid_cell_values():
+    """Tests custom invalid cell list replaces only provided values."""
+    df = pd.DataFrame({
+        "Money": ["21.23", "BAD", "30.00"]
+    })
+    actual = validation.validate_data(df, [{"Money": float}], ["BAD"], "q")
+    expected = pd.DataFrame({
+        "Money": [21.23, -1.0, 30.00]
+    })
+    pd.testing.assert_frame_equal(actual, expected)
+
+def test_validate_data_raises_value_error_when_bad_cast_occurs():
+    """Tests invalid numeric text raises ValueError during astype conversion."""
+    df = pd.DataFrame({
+        "Money": ["21.23", "hello", "30.00"]
+    })
+    with pytest.raises(ValueError):
+        validation.validate_data(df, [{"Money": float}], [], "q")
+
+
+def test_validate_data_multiple_columns_convert_successfully():
+    """Tests multiple columns are converted to the schema types."""
+    df = pd.DataFrame({
+        "Quantity": ["1", "2", "3"],
+        "Price": ["4.50", "5.25", "6.75"]
+    })
+    actual = validation.validate_data(
+        df,
+        [{"Quantity": int}, {"Price": float}],
+        [],
+        "q"
+    )
+    expected = pd.DataFrame({
+        "Quantity": [1, 2, 3],
+        "Price": [4.50, 5.25, 6.75]
+    })
+    pd.testing.assert_frame_equal(actual, expected)
+
+def test_validate_data_user_input_false_skips_prompt_and_returns_dataframe():
+    """Tests validate_data works without prompting when user_input=False."""
+    df = pd.DataFrame({
+        "Money": ["21.23", "100.57"]
+    })
+    actual = validation.validate_data(df, [{"Money": float}], user_input=False)
+    expected = pd.DataFrame({
+        "Money": [21.23, 100.57]
+    })
+    pd.testing.assert_frame_equal(actual, expected)
+
+
+def test_validate_data_raises_key_error_for_schema_column_missing_in_dataframe():
+    """Tests schema column missing from dataframe raises KeyError."""
+    df = pd.DataFrame({
+        "Money": ["21.23", "100.57"]
+    })
+    with pytest.raises(KeyError):
+        validation.validate_data(df, [{"Price": float}], [], "q")
+
 #============ tests for change_col_dtype ==================
 @pytest.mark.parametrize(
         "data, column_str, data_type, expected_column, expected_assert", [({"Money": ["21.23", "100.57", "30.00"]}, "Money", float, {"Money": [21.23, 100.57, 30.00]}, True),
@@ -166,3 +320,53 @@ def test_change_col_dtype_bad_value_raises_error():
     df = {"Money": ["21.23", "hello", "30.00"]}
     with pytest.raises(ValueError):
         validation.change_col_dtype(df, "Money", float)
+
+def test_change_col_dtype_accepts_dataframe_input():
+    """Tests change_col_dtype with dataframe input."""
+    df = pd.DataFrame({
+        "Quantity": ["1", "2", "3"]
+    })
+    actual = validation.change_col_dtype(df, "Quantity", int)
+    expected = pd.DataFrame({
+        "Quantity": [1, 2, 3]
+    })
+    pd.testing.assert_frame_equal(actual, expected)
+
+
+def test_change_col_dtype_accepts_dict_input():
+    """Tests change_col_dtype with dict input."""
+    data = {
+        "Price": ["4.50", "5.25", "6.75"]
+    }
+    actual = validation.change_col_dtype(data, "Price", float)
+    expected = pd.DataFrame({
+        "Price": [4.50, 5.25, 6.75]
+    })
+    pd.testing.assert_frame_equal(actual, expected)
+
+def test_change_col_dtype_raises_key_error_when_column_missing():
+    """Tests missing column raises KeyError."""
+    df = pd.DataFrame({
+        "Money": ["21.23", "100.57"]
+    })
+    with pytest.raises(KeyError):
+        validation.change_col_dtype(df, "Price", float)
+
+
+def test_change_col_dtype_converts_to_string():
+    """Tests conversion from numeric values to strings."""
+    df = pd.DataFrame({
+        "Quantity": [1, 2, 3]
+    })
+    actual = validation.change_col_dtype(df, "Quantity", str)
+    expected = pd.DataFrame({
+        "Quantity": ["1", "2", "3"]
+    })
+    pd.testing.assert_frame_equal(actual, expected)
+
+def test_change_col_dtype_invalid_type_change():
+    """Tests that invalid type_change raises TypeError."""
+    df = pd.DataFrame({"Money": ["21.23", "100.57"]})
+    with pytest.raises(TypeError) as exc_info:
+        validation.change_col_dtype(df, "Money", "float")
+    assert "Type to change to must be a python primitive type" in str(exc_info.value)
