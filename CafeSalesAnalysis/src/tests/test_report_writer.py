@@ -1,4 +1,4 @@
-## pytesting for report_writeer.py
+## pytesting for report_writer.py
 import pytest
 import os
 import csv
@@ -190,6 +190,83 @@ def test_summary_report_includes_top_5_products(tmp_path):
     assert "5. Sandwich: 7 units sold" in content
     assert "Smoothie" not in content  # only top 5 should appear
 
+# 12. test summary report with one valid record and no errors
+def test_summary_report_single_record(tmp_path):
+    filepath = tmp_path / "summary_report.txt"
+    valid_records = [{"total_spent": "3.50"}]
+    report_writer.write_summary_report(filepath, valid_records, [], {})
+    content = filepath.read_text()
+    assert "- Total Records Processed: 1" in content
+    assert "- Valid Records: 1" in content
+    assert "- Error Records: 0" in content
+    assert "- Total Sales from Valid Records: $3.50" in content
+
+# 13. test summary report handles missing total_spent key
+def test_summary_report_missing_total_spent_defaults_to_zero(tmp_path):
+    filepath = tmp_path / "summary_report.txt"
+    valid_records = [
+        {"item": "Coffee"},
+        {"total_spent": "5.00"}
+    ]
+    report_writer.write_summary_report(filepath, valid_records, [], {})
+    content = filepath.read_text()
+    assert "- Total Sales from Valid Records: $5.00" in content
+
+# 14. test summary report handles integer total_spent values
+def test_summary_report_integer_total_spent_values(tmp_path):
+    filepath = tmp_path / "summary_report.txt"
+    valid_records = [
+        {"total_spent": 5},
+        {"total_spent": 10},
+        {"total_spent": 2}
+    ]
+    report_writer.write_summary_report(filepath, valid_records, [], {})
+    content = filepath.read_text()
+    assert "- Total Sales from Valid Records: $17.00" in content
+
+# 15. test summary report with product count less than five
+def test_summary_report_products_less_than_five(tmp_path):
+    filepath = tmp_path / "summary_report.txt"
+    aggregations = {
+        "qty_by_product": {
+            "Coffee": 8,
+            "Cake": 4,
+            "Cookie": 2,
+        }
+    }
+    report_writer.write_summary_report(filepath, [], [], aggregations)
+    content = filepath.read_text()
+    assert "1. Coffee: 8 units sold" in content
+    assert "2. Cake: 4 units sold" in content
+    assert "3. Cookie: 2 units sold" in content
+
+# 16. test summary report does not show none when payment methods exist
+def test_summary_report_payment_methods_not_none_when_data_exists(tmp_path):
+    filepath = tmp_path / "summary_report.txt"
+    aggregations = {
+        "sales_by_method": {
+            "Card": 25.00
+        }
+    }
+    report_writer.write_summary_report(filepath, [], [], aggregations)
+    content = filepath.read_text()
+    assert "- Card: $25.00" in content
+    assert "Sales by Payment Method:\n- None" not in content
+
+# 17. test summary report does not show none when locations exist
+def test_summary_report_locations_not_none_when_data_exists(tmp_path):
+    filepath = tmp_path / "summary_report.txt"
+    aggregations = {
+        "sales_by_location": {
+            "Downtown": 75.00
+        }
+    }
+    report_writer.write_summary_report(filepath, [], [], aggregations)
+    content = filepath.read_text()
+    assert "- Downtown: $75.00" in content
+    assert "Sales by Location:\n- None" not in content
+
+
 # =============== tests for write csv ==========================
 
 # 1. test that it actually creates a file
@@ -265,6 +342,76 @@ def test_write_clean_csv_missing_fields_become_blank(tmp_path):
     assert reader[0]["quantity"] == ""
     assert reader[0]["payment_method"] == ""
 
+# 4. test clean csv writes correct header fields
+def test_write_clean_csv_has_expected_headers(tmp_path):
+    filepath = tmp_path / "clean_sales.csv"
+    report_writer.write_clean_csv(filepath, [])
+    with open(filepath, newline="", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        header = next(reader)
+    assert header == [
+        "transaction_id",
+        "item",
+        "quantity",
+        "price_per_unit",
+        "total_spent",
+        "payment_method",
+        "location",
+        "transaction_date"
+    ]
+
+# 5. test clean csv with no records only writes header
+def test_write_clean_csv_empty_records_only_header(tmp_path):
+    filepath = tmp_path / "clean_sales.csv"
+    report_writer.write_clean_csv(filepath, [])
+    with open(filepath, newline="", encoding="utf-8") as f:
+        rows = list(csv.reader(f))
+    assert len(rows) == 1, "empty clean csv should only contain the header row"
+
+# 6. test extra fields are ignored
+def test_write_clean_csv_ignores_extra_fields(tmp_path):
+    filepath = tmp_path / "clean_sales.csv"
+    records = [
+        {
+            "transaction_id": "T001",
+            "item": "Coffee",
+            "quantity": 2,
+            "price_per_unit": 3.50,
+            "total_spent": 7.00,
+            "payment_method": "Card",
+            "location": "Downtown",
+            "transaction_date": "2026-03-10",
+            "extra_field": "ignore me"
+        }
+    ]
+    report_writer.write_clean_csv(filepath, records)
+    with open(filepath, newline="", encoding="utf-8") as f:
+        reader = list(csv.DictReader(f))
+    assert "extra_field" not in reader[0]
+    assert reader[0]["transaction_id"] == "T001"
+
+# 7. test numeric values are written as strings in csv
+def test_write_clean_csv_numeric_values_written(tmp_path):
+    filepath = tmp_path / "clean_sales.csv"
+    records = [
+        {
+            "transaction_id": "T001",
+            "item": "Coffee",
+            "quantity": 2,
+            "price_per_unit": 3.50,
+            "total_spent": 7.00,
+            "payment_method": "Card",
+            "location": "Downtown",
+            "transaction_date": "2026-03-10"
+        }
+    ]
+    report_writer.write_clean_csv(filepath, records)
+    with open(filepath, newline="", encoding="utf-8") as f:
+        reader = list(csv.DictReader(f))
+    assert reader[0]["quantity"] == "2"
+    assert reader[0]["price_per_unit"] == "3.5"
+    assert reader[0]["total_spent"] == "7.0"
+
 # ========================== tests for error log ==========================
 
 # 1. test that the error log is created
@@ -291,3 +438,37 @@ def test_write_error_log_no_errors_message(tmp_path):
     report_writer.write_error_log(filepath, [])
     content = filepath.read_text()
     assert "No errors encountered." in content
+
+# 4. test error log does not show total errors when list is empty
+def test_write_error_log_no_total_errors_line_when_empty(tmp_path):
+    filepath = tmp_path / "error_log.txt"
+    report_writer.write_error_log(filepath, [])
+    content = filepath.read_text()
+    assert "Total Errors:" not in content
+
+
+# 5. test error log counts errors correctly
+def test_write_error_log_total_error_count(tmp_path):
+    filepath = tmp_path / "error_log.txt"
+    errors = ["Error one", "Error two", "Error three"]
+    report_writer.write_error_log(filepath, errors)
+    content = filepath.read_text()
+    assert "Total Errors: 3" in content
+
+# 6. test error log numbers all errors
+def test_write_error_log_numbers_each_error(tmp_path):
+    filepath = tmp_path / "error_log.txt"
+    errors = ["Missing item", "Invalid date", "Bad payment method"]
+    report_writer.write_error_log(filepath, errors)
+    content = filepath.read_text()
+    assert "1. Missing item" in content
+    assert "2. Invalid date" in content
+    assert "3. Bad payment method" in content
+
+
+# 7. test error log has generated timestamp line
+def test_write_error_log_has_generated_line(tmp_path):
+    filepath = tmp_path / "error_log.txt"
+    report_writer.write_error_log(filepath, ["Missing item"])
+    content = filepath.read_text()
+    assert "Generated:" in content
