@@ -63,7 +63,7 @@ def test_remove_all_null_removes_negative_rows():
         "Sales": [100, 200, 300],
         "Profit": [10, 20, 30]
     }, index=[0, 2, 3])
-    pd.testing.assert_frame_equal(actual, expected)
+    pd.testing.assert_frame_equal(actual[0], expected)
 
 def test_remove_all_null_keeps_valid_rows():
     """Tests that rows are unchanged when all numeric values are valid"""
@@ -71,10 +71,10 @@ def test_remove_all_null_keeps_valid_rows():
         "Sales": [100, 200, 300],
         "Profit": [10, 20, 30]
     })
-
+    # actual is assigned to a tuple. [0] is for valid data, [1] is for dropped data
     actual = clean_data.remove_all_null(df)
 
-    pd.testing.assert_frame_equal(actual, df)
+    pd.testing.assert_frame_equal(actual[0], df)
 
 #============== tests for remove_duplicate_entries ===
 def test_remove_duplicate_entries_current_behavior_returns_none():

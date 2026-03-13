@@ -43,7 +43,10 @@ def create_schema(data: pd.DataFrame, user_input=True):
 				case _:
 					setup_logger(__name__, 'warning', f"Warning in validation::create_schema. Input expected a string, int, float, bool, or datetime, but received an invalid datatype of {dtype}. Defaulting to string")
 					column_schema.append({f"{col}": str})
-    
+	else:
+		column_schema = [{"Transaction ID": str}, {"Item": str}, {"Quantity" : int}, {"Price Per Unit" : float}, 
+				   {"Total Spent" : float}, {"Payment Method" : str}, {"Location" : str}, {"Transaction Date" : str}]
+
 	return column_schema
 
 def validate_add_record(data: pd.DataFrame, record: list, column_schema: list, invalid_cell=[]):
@@ -70,8 +73,8 @@ def validate_add_record(data: pd.DataFrame, record: list, column_schema: list, i
 	df.iloc[len(df)] = record
 
 
-def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtype=""):
-		"""Changes data type to the declared type from the input"""
+def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtype="", user_input=True):
+		"""Marks invalid cells to -1 to mark for dropping in clead_data::remove_all_null method"""
 		if not invalid_cell:
 			invalid_cell = ["NaN", "EMPTY", "empty", "UNKNOWN", "unknown", "ERROR", "error", "NA", "Na", "None", "NULL", "null", np.nan]
 		for target in invalid_cell:
@@ -83,7 +86,7 @@ def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtyp
 
 		if not column_schema:
 			setup_logger(__name__, 'error', f"Error in validation::validate_data. No column structure to reference")
-			return data
+			raise ValueError("No column format/schema was given")
 			
 
 		for col_dict in column_schema:
@@ -97,26 +100,33 @@ def validate_data(data: pd.DataFrame, column_schema: list, invalid_cell=[], dtyp
 		constrained_cols = []
 		null_value = -1
   
-		# Keep looping until user hits q to quit loop. They can keep entering column names to append to constained_cols to validate them after this
-		while(True):
-			if dtype: column = dtype
-			else: column = input("Enter a column to drop NULL/-1 values (Q to quit): ")
-			if column.lower() == 'q':
-				break
-			if column and (column not in [str(col_schema.keys()) for col_schema in column_schema]):
-				setup_logger(__name__, 'error', f"No column was found with that name: {column}")
-				raise KeyError(f"No column with that name: {column}")
-			if column:
-				constrained_cols.append(column)
-			dtype = ""
-   
+		
+		# Keep looping until user hits q to quit loop. 
+		# They can keep entering column names to append to constained_cols to validate them after this
+		if(user_input):
+			while(True):
+				if dtype: column = dtype
+				else: column = input("Enter a column to drop NULL/-1 values (Q to quit): ")
+				if column.lower() == 'q':
+					break
+				if column and (column not in [str(col_schema.keys()) for col_schema in column_schema]):
+					setup_logger(__name__, 'error', f"No column was found with that name: {column}")
+					raise KeyError(f"No column with that name: {column}")
+				if column:
+					constrained_cols.append(column)
+				dtype = ""
+		else:
+			for columns in data.columns:
+				constrained_cols.append(columns)
 		# Search through constriained columns to filter out the placeholder null value (-1)
 		# once filtered, log the rows that were removed
-		for col in constrained_cols:
-			if col:
-				filter_keep = data[col] > type(data[col][1])(null_value)
-				setup_logger(__name__, 'info', f"Records: \n{data[data[col] ==  type(data[col][1])(null_value)]} was removed")
-				data = data[filter_keep]
+
+		# clean_data remove_null method should provide this functionality
+		# for col in constrained_cols:
+		# 	if col:
+		# 		filter_keep = data[col] > type(data[col][1])(null_value)
+		# 		setup_logger(__name__, 'info', f"Records: \n{data[data[col] ==  type(data[col][1])(null_value)]} was removed")
+		# 		data = data[filter_keep]
 
 		return data
 
@@ -141,12 +151,18 @@ def change_col_dtype(data: pd.DataFrame | dict, column_str: str, type_change: ty
         data[column_str] = data[column_str].astype(type_change)
         return data
 
+def convert_dtypes(data: pd.DataFrame):
+	pass
+
 #For testing:
 if __name__ == "__main__":
 	df = pd.read_csv("src/data/dirty_cafe_sales.csv")
-	list_from_schema = create_schema(df)
-	validated = validate_data(df, list_from_schema)
+	#print(df)
+	#print(df.dtypes)
+	list_from_schema = create_schema(df, user_input=False)
+	validated = validate_data(df, list_from_schema, user_input=False)
 	print(validated)
-	print(validated)
-	validated = remove_all_null(validated)
-	print(validated)
+	# print(validated)
+	# df_tuple = remove_all_null(validated)
+	# print(df_tuple)
+	#print(validated)
