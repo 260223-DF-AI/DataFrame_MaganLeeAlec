@@ -1,6 +1,10 @@
 """Demo code"""
 from src.sales_analysis import file_reader, validation, clean_data, database, report_writer
 import pandas as pd
+
+database.drop_table()
+database.drop_table("reject_entries")
+
 # get contents of csv as dataframe
 df = file_reader.read_csv_full("dirty_cafe_sales.csv")
 
@@ -11,8 +15,6 @@ list_from_schema = validation.create_schema(df, user_input=False)
 validated = validation.validate_data(df, list_from_schema, user_input=False)
 
 # separate clean data and rejects
-# TODO: throws typeerror
-#tuples have index [0] for valid data, [1] for invalid data
 null_checked_tuple = clean_data.remove_all_null(validated)
 
 #of the null checked data, check for duplicates
@@ -24,8 +26,9 @@ clean_sales, rejects = null_checked_unique_tuple[0], pd.concat([null_checked_tup
 print(rejects)
 # write summary report of data to a new file
 # TODO: what is aggregations & how can I fill in this parameter here?
-#report_writer.write_summary_report("report.txt", clean_sales, rejects, ______)
+aggregations = report_writer.create_aggregations(clean_sales)
+report_writer.write_summary_report("report.txt", clean_sales, rejects, aggregations)
 
 # write data to database
-#database.write_from_dataframe(clean_sales)
-#database.write_from_dataframe(rejects, "reject_entries")
+database.write_from_dataframe(clean_sales)
+database.write_from_dataframe(rejects, "reject_entries")

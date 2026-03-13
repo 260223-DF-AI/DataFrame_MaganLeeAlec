@@ -324,3 +324,29 @@ HINT:  Perhaps you meant to reference the column "sales.Salary".
 
 [SQL: SELECT * FROM sales WHERE sales.Salary > 60000;]
 (Background on this error at: https://sqlalche.me/e/20/f405)
+09:50:36 | src.sales_analysis.database | ERROR | Table 'sales' already exists.
+09:50:36 | src.sales_analysis.database | ERROR | Table 'reject_entries' already exists.
+10:01:33 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
+
+[SQL: DROP TABLE sales]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+10:01:33 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE reject_entries': (psycopg2.errors.UndefinedTable) table "reject_entries" does not exist
+
+[SQL: DROP TABLE reject_entries]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+10:02:48 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
+
+[SQL: DROP TABLE sales]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+10:02:48 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE reject_entries': (psycopg2.errors.UndefinedTable) table "reject_entries" does not exist
+
+[SQL: DROP TABLE reject_entries]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+10:05:45 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
+
+[SQL: DROP TABLE sales]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+10:05:45 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE reject_entries': (psycopg2.errors.UndefinedTable) table "reject_entries" does not exist
+
+[SQL: DROP TABLE reject_entries]
+(Background on this error at: https://sqlalche.me/e/20/f405)

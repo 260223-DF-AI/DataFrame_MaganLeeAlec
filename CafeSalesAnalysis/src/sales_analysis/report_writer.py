@@ -1,6 +1,27 @@
 import csv
 from datetime import datetime
+import pandas as pd
 
+def create_aggregations(df: pd.DataFrame) -> dict:
+    """
+    Create aggregated results from the cafe sales DataFrame.
+    
+    Returns a dictionary with the following aggregations:
+    - sales_by_method: Total sales amount grouped by payment method
+    - qty_by_product: Total quantity sold grouped by product/item
+    - sales_by_location: Total sales amount grouped by location
+    """
+    aggregations = {}
+    
+    # Aggregate sales by payment method
+    aggregations['sales_by_method'] = df.groupby('Payment Method')['Total Spent'].sum().to_dict()
+    
+    # Aggregate quantity by product
+    aggregations['qty_by_product'] = df.groupby('Item')['Quantity'].sum().to_dict()
+    
+    # Aggregate sales by location
+    aggregations['sales_by_location'] = df.groupby('Location')['Total Spent'].sum().to_dict()
+    return aggregations
 
 def write_summary_report(filepath, valid_records, errors, aggregations):
     """
@@ -47,12 +68,7 @@ def write_summary_report(filepath, valid_records, errors, aggregations):
     )[:5]
 
     # Calculate total sales from valid records if possible
-    total_sales = 0.0
-    for record in valid_records:
-        try:
-            total_sales += float(record.get("total_spent", 0))
-        except (ValueError, TypeError):
-            pass
+    total_sales = valid_records['Total Spent'].sum()
 
     with open(filepath, "w", encoding="utf-8") as f:
         f.write("=== Cafe Sales Processing Summary Report ===\n")
@@ -65,9 +81,14 @@ def write_summary_report(filepath, valid_records, errors, aggregations):
         f.write(f"- Total Sales from Valid Records: ${total_sales:.2f}\n\n")
 
         f.write("Error Details:\n")
-        if errors:
-            for i, error in enumerate(errors, start=1):
-                f.write(f"{i}. {error}\n")
+        if not errors.empty:
+            num_errors = len(errors)
+            if len(errors) > 5:
+                num_errors  = 5
+            for i, (idx, row) in enumerate(errors.iterrows(), start=1):
+                if i > num_errors:
+                    break
+                f.write(f"{i}. {row.to_dict()}\n")
         else:
             f.write("No errors encountered.\n")
         f.write("\n")

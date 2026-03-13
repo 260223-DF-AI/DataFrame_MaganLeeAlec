@@ -1,0 +1,21 @@
+=== Cafe Sales Processing Summary Report ===
+Generated: 2026-03-13 10:02:35
+
+Processing Statistics:
+- Total Records Processed: 4
+- Valid Records: 2
+- Error Records: 2
+- Total Sales from Valid Records: $30.00
+
+Error Details:
+1. {'col': 'error1'}
+2. {'col': 'error2'}
+
+Sales by Payment Method:
+- Cash: $15.00
+
+Sales by Location:
+- Store: $15.00
+
+Top 5 Products by Quantity Sold:
+1. Coffee: 2 units sold
