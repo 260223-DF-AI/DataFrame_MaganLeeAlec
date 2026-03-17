@@ -1,1 +1,7 @@
+## PROJECT 2 - CLOUD PIPELINE
+AN UPDATE ON CAFE SALES DATA SET
+
+TRELLO: https://trello.com/b/R3bukkXl/cloud-pipeline-project
+
+USAGE INSTRUCTIONS-
 
