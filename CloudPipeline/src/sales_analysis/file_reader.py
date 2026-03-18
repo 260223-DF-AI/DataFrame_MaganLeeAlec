@@ -78,7 +78,6 @@ def print_df_preview(df: pd.DataFrame) -> None:
 
 # for debugging purposes
 if __name__ == "__main__":
-    csv = "dirty_cafe_sales.csv"
-    json = "dirty_cafe_sales.json"
-    for line in read_csv_nlines(json, nlines=1000):
-        print_df_preview(line)
+    sales_batch = "dummy_sales_batch_1.csv"
+    df_gen = read_csv_nlines(sales_batch, nlines = 10)
+    
