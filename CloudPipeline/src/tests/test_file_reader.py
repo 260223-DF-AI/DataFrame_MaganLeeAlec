@@ -2,6 +2,12 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
 import src.sales_analysis.file_reader as file_reader
+from pathlib import Path
+from src.sales_analysis.file_reader import (
+    read_json_full,
+    read_json_nlines,
+    print_df_preview
+)
 
 
 # -------------------------------------------------------------------
@@ -120,6 +126,9 @@ def test_read_json_nlines_missing_file_returns_empty_string(tmp_path, monkeypatc
 # ============ Tests for print_df_preview ==================
 
 def test_print_df_preview_outputs_last_five_rows(capsys):
+    """
+    Tests that the method prints the last 5 rows
+    """
     df = pd.DataFrame({
         "transaction_id": [1, 2, 3, 4, 5, 6],
         "item": ["a", "b", "c", "d", "e", "f"]
@@ -131,3 +140,53 @@ def test_print_df_preview_outputs_last_five_rows(capsys):
     assert "2" in captured.out
     assert "6" in captured.out
     assert "f" in captured.out
+
+# =========== testing JSON file reader methods ===============
+# Tests for read_json_full
+def test_read_json_full_valid_file():
+    """
+    Tests that read_json_full returns a DataFrame
+    when given a valid JSON file in src/data.
+    """
+    df = read_json_full("dummy_sales_batch_1.json")
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
+
+def test_read_json_full_missing_file():
+    """
+    Tests that read_json_full returns None when file does not exist.
+    Your function logs the error instead of raising it.
+    """
+    df = read_json_full("file_that_does_not_exist.json")
+    assert df is None
+
+# Tests for read_json_nlines
+def test_read_json_nlines_valid_file_returns_iterable():
+    """
+    Tests that read_json_nlines returns an iterable/chunk reader
+    for a valid JSON file.
+    """
+    df_gen = read_json_nlines("dummy_sales_batch_1.json", nlines=2)
+    assert df_gen is not None
+    chunks = list(df_gen)
+    assert len(chunks) > 0
+    assert all(isinstance(chunk, pd.DataFrame) for chunk in chunks)
+
+def test_read_json_nlines_chunk_size():
+    """
+    Tests that chunked JSON reading respects the nlines size
+    except possibly the last chunk.
+    """
+    df_gen = read_json_nlines("dummy_sales_batch_1.json", nlines=2)
+    chunks = list(df_gen)
+    for chunk in chunks[:-1]:
+        assert len(chunk) == 2
+    assert len(chunks[-1]) >= 1
+
+def test_read_json_nlines_missing_file():
+    """
+    Tests that read_json_nlines returns an empty string
+    when the file does not exist, based on current function behavior.
+    """
+    df_gen = read_json_nlines("file_that_does_not_exist.json", nlines=2)
+    assert df_gen == ""
