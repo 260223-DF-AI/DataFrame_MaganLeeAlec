@@ -498,3 +498,39 @@ HINT:  Perhaps you meant to reference the column "sales.Salary".
 
 [SQL: DROP TABLE reject_entries]
 (Background on this error at: https://sqlalche.me/e/20/f405)
+16:04:23 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
+16:05:45 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
+16:06:09 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+16:06:10 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+16:06:10 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
+16:06:10 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
+16:06:40 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+16:06:41 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+16:06:41 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
+16:06:41 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
+16:07:27 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+16:07:28 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+16:07:28 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
+16:07:28 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
+16:07:51 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+16:07:52 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+16:07:52 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
+16:07:52 | __main__ | ERROR | Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.
+A suitable version of pyarrow or fastparquet is required for parquet support.
+Trying to import the above resulted in these errors:
+ - `Import pyarrow` failed. pyarrow is required for parquet support. Use pip or conda to install the pyarrow package.
+ - `Import fastparquet` failed. fastparquet is required for parquet support. Use pip or conda to install the fastparquet package.
+16:08:24 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+16:08:25 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+16:08:25 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
+16:09:48 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+16:09:49 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+16:09:49 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
+16:09:49 | __main__ | DEBUG | Attempting to read parquet file: dummy_sales_batch.parquet
+16:09:50 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch.parquet
+16:11:34 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+16:11:35 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+16:11:35 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
+16:11:35 | __main__ | INFO | Successfully read parquet file dummy_sales_batch as dataframe
+16:11:35 | __main__ | DEBUG | Attempting to read parquet file: dummy_sales_batch.parquet
+16:11:36 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch.parquet
