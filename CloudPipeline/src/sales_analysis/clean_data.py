@@ -14,7 +14,9 @@ def clean_sales_data(data_chunk: pd.DataFrame) -> DataTuple:
     
     #---Clean Dates---
     data_chunk['Date'] = pd.to_datetime(data_chunk['Date'], format='mixed', dayfirst=False, errors='coerce')
-    data_chunk['Date'] = data_chunk['Date'].fillna(pd.to_datetime('03-02-2025'))
+    df_null_date = data_chunk[data_chunk['Date'].isna().copy()]
+    data_chunk.dropna(subset='Date', inplace=True)
+    #df_null_date['Date'] = df_null_date['Date'].fillna(pd.to_datetime('02-30-2025'))
     #data_chunk['Date'] = data_chunk['Date'].dt.strftime('%m/%d/%Y')
      
     #---Clean Quantity---

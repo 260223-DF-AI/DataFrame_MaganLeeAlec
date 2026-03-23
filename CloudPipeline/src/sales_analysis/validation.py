@@ -52,5 +52,6 @@ if __name__ == "__main__":
 	for file in files:
 		for chunk in pd.read_csv(file, chunksize=2500):
 			data_tuple = clean_sales_data(chunk)
-			print(chunk)
+			print(data_tuple.invalid)
 			validate_chunk_dtypes(chunk)
+			break
