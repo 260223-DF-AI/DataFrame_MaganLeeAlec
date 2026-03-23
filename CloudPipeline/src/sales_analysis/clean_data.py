@@ -38,5 +38,5 @@ def clean_sales_data(data_chunk: pd.DataFrame) -> DataTuple:
     df_null_total_amount = data_chunk[data_chunk['TotalAmount'].isna().copy()]
     data_chunk.dropna(subset='TotalAmount', inplace=True)
     
-    invalid_data_chunk = pd.concat([df_null_quantity, df_null_unit_price, df_null_total_amount])
+    invalid_data_chunk = pd.concat([df_null_quantity, df_null_unit_price, df_null_total_amount, df_null_date])
     return DataTuple(data_chunk, invalid_data_chunk)
