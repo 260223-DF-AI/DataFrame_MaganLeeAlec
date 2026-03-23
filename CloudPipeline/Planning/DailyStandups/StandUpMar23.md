@@ -1,12 +1,18 @@
 # Lee
-**Completed**:
-**Will do**:
-**Blockers**
+**Completed**: read/write parquet functionality
+
+**Will do**: implement initial fastapi functionality, add read/write parquet tests
+
+**Blockers**: 
 # Alec
-**Completed**:
-**Will do**:
-**Blockers**
+**Completed**: Entirety of cleaning/validation
+
+**Will do**: clean/validate tests, logging
+
+**Blockers**: 
 # Magan
-**Completed**:
-**Will do**:
-**Blockers**
+**Completed**: json tests
+
+**Will do**: set up google bigquery/api
+
+**Blockers**:
