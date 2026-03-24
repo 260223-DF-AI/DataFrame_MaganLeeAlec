@@ -1,143 +1,33 @@
-11:15:09 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
-11:15:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-11:15:11 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-11:15:11 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
-11:15:12 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
-11:15:12 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
-11:15:13 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
-11:15:13 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
-11:15:14 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
-11:15:14 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
-11:15:16 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
-11:15:16 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
-11:15:16 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
-11:15:18 | src.sales_analysis.http_service | DEBUG | Successfully validated data
-11:15:18 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
-11:15:18 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
-11:15:19 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
-11:15:19 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
-11:15:19 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
-11:15:19 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
-11:15:20 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
-11:15:20 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
-11:15:20 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
-11:15:20 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
-11:15:21 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
-11:15:21 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
-11:17:06 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
-11:17:06 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-11:17:07 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-11:17:07 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
-11:17:08 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
-11:17:08 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
-11:17:09 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
-11:17:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
-11:17:11 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
-11:17:11 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
-11:17:12 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
-11:17:12 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
-11:17:12 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
-11:17:16 | src.sales_analysis.http_service | DEBUG | Successfully validated data
-11:17:16 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
-11:17:16 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
-11:17:16 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
-11:17:16 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
-11:17:17 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
-11:17:17 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
-11:17:17 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
-11:17:17 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
-11:17:18 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
-11:17:18 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
-11:17:19 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
-11:17:19 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
-11:17:54 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
-11:17:54 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-11:17:55 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-11:17:55 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
-11:17:56 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
-11:17:56 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
-11:17:57 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
-11:17:57 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
-11:17:58 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
-11:17:58 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
-11:18:00 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
-11:18:00 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
-11:18:00 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
-11:18:02 | src.sales_analysis.http_service | DEBUG | Successfully validated data
-11:18:02 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
-11:18:02 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
-11:18:03 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
-11:18:03 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
-11:18:03 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
-11:18:03 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
-11:18:04 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
-11:18:04 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
-11:18:05 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
-11:18:05 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
-11:18:05 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
-11:18:05 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
-11:18:05 | src.sales_analysis.http_service | DEBUG | Testing parquet write...
-11:18:05 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: dummy_sales_batch_1
-11:18:05 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\Documents\\Revature\\DataFrame_MaganLeeAlec\\CloudPipeline\\src\\data\\dummy_sales_batch_1'
-11:18:55 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
-11:18:55 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-11:18:57 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-11:18:57 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
-11:18:58 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
-11:18:58 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
-11:18:59 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
-11:18:59 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
-11:19:00 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
-11:19:00 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
-11:19:02 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
-11:19:02 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
-11:19:02 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
-11:19:05 | src.sales_analysis.http_service | DEBUG | Successfully validated data
-11:19:05 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
-11:19:05 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
-11:19:05 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
-11:19:05 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
-11:19:06 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
-11:19:06 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
-11:19:06 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
-11:19:06 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
-11:19:06 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
-11:19:06 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
-11:19:07 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
-11:19:07 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
-11:19:07 | src.sales_analysis.http_service | DEBUG | Testing parquet write...
-11:19:07 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: dummy_sales_batch_1
-11:19:07 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\Documents\\Revature\\DataFrame_MaganLeeAlec\\CloudPipeline\\src\\data\\dummy_sales_batch_1'
-11:19:35 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
-11:19:35 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-11:19:36 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-11:19:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
-11:19:37 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
-11:19:37 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
-11:19:38 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
-11:19:38 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
-11:19:39 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
-11:19:39 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
-11:19:40 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
-11:19:40 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
-11:19:40 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
-11:19:43 | src.sales_analysis.http_service | DEBUG | Successfully validated data
-11:19:43 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
-11:19:43 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
-11:19:44 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
-11:19:44 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
-11:19:44 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
-11:19:44 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
-11:19:45 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
-11:19:45 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
-11:19:45 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
-11:19:45 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
-11:19:46 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
-11:19:46 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
-11:19:46 | src.sales_analysis.http_service | DEBUG | Testing parquet write...
-11:19:46 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: dummy_sales_batch_1.parquet
-11:19:47 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.parquet
-11:19:47 | src.sales_analysis.http_service | DEBUG |         TransactionID       Date StoreID       StoreLocation Region  ... UnitPrice DiscountPercent TaxAmount ShippingCost TotalAmount
+13:23:53 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
+13:23:53 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+13:23:56 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+13:23:56 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
+13:23:57 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
+13:23:57 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
+13:23:58 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
+13:23:58 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
+13:23:59 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
+13:23:59 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
+13:24:00 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
+13:24:00 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
+13:24:00 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
+13:24:02 | src.sales_analysis.http_service | DEBUG | Successfully validated data
+13:24:02 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
+13:24:02 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
+13:24:03 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
+13:24:03 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
+13:24:03 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
+13:24:03 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
+13:24:04 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
+13:24:04 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
+13:24:04 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
+13:24:04 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
+13:24:05 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
+13:24:05 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
+13:24:05 | src.sales_analysis.http_service | DEBUG | Testing parquet write...
+13:24:05 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: dummy_sales_batch_1.parquet
+13:24:05 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.parquet
+13:24:05 | src.sales_analysis.http_service | DEBUG |         TransactionID       Date StoreID       StoreLocation Region  ... UnitPrice DiscountPercent TaxAmount ShippingCost TotalAmount
 249995         249996 2025-03-01    S008  SoMa San Francisco   West  ...    201.26            0.13     70.04        23.05      968.57
 249996         249997 2025-01-04    S008  SoMa San Francisco   West  ...    348.38            0.06     26.20        27.60      381.28
 249997         249998 2025-01-12    S001     Downtown Boston   East  ...   1004.72            0.23     61.89         8.87      844.39
