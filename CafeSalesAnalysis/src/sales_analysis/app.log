@@ -490,6 +490,14 @@ HINT:  Perhaps you meant to reference the column "sales.Salary".
 13:23:18 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-13\\test_read_csv_nlines_missing_f0\\missing.csv'
 13:23:18 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-13\test_read_json_full_missing_fi0\missing.json does not exist
 13:23:18 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-13\test_read_json_nlines_missing_0\missing.json does not exist
+<<<<<<< HEAD
+13:32:22 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+13:32:22 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+13:32:30 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+13:32:30 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+13:33:04 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
+13:33:04 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
+=======
 13:32:39 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
 
 [SQL: DROP TABLE sales]
@@ -498,3 +506,4 @@ HINT:  Perhaps you meant to reference the column "sales.Salary".
 
 [SQL: DROP TABLE reject_entries]
 (Background on this error at: https://sqlalche.me/e/20/f405)
+>>>>>>> 5aedbfa140120cda4e78cea8fa4ff89caf2e9c05

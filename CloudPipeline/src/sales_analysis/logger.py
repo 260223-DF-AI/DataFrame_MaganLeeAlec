@@ -3,7 +3,7 @@
 import logging
 from src.paths import SALES_ANA_DIR
 
-def setup_logger(name, level: str, console=True, log=True):
+def setup_logger(name, level: str, console=True, log=True) -> logging.Logger:
     """Configure a custom logger.
     To initialize, use "logger = logger.setup_logger(__name__, "{level}")
     where level = debug, info, warning, error, or critical"""

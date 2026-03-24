@@ -95,8 +95,8 @@ def read_as_dataframe(table = "sales") -> pd.DataFrame:
         engine.dispose()
         logger.debug("End of read_as_dataframe")
 
-def execute_sql(query, table = "sales") -> pd.DataFrame:
-    """Risky method for handling any other sql queries"""
+def execute_sql(query: str, table = "sales") -> pd.DataFrame:
+    """Risky method for handling any other sql queries. Probably don't use this."""
     logger.debug(f"Attempting query on table: {table}, query: {query}")
 
     engine = connect_db()
