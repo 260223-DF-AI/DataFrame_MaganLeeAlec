@@ -1,7 +1,7 @@
 """This script will handle validation of data in a Data Frame"""
 import pandas as pd
 import numpy as np
-import pandera as pa
+import pandera.pandas as pa
 import pyarrow as pw
 import pyarrow.parquet as pq
 from .clean_data import clean_sales_data, DataTuple
@@ -9,7 +9,7 @@ from .logger import setup_logger
 from pandera.typing import DataFrame, Series
 from datetime import date
 import glob
-
+import os
 # Class based validation schema using Pandera
 # OutputSchema class is the blueprint for the dataframe's schema
 class OutputSchema(pa.DataFrameModel):
@@ -38,9 +38,9 @@ class OutputSchema(pa.DataFrameModel):
     strict = True
     coerce = True
 
-# Pass in a pandas DataFrame as parameter, and the check_types decorator will send output if there are any invalid records in the dataframe
-# Invalid data shown in output should be cleaned from dataframe before it is uploaded to GCS
-# lazy=True will make sure that the errors collected from the invalid records will not stop the program at the first error, instead collects all of them
+# Pass in a pandas DataFrame as parameter, decorator will raise exceptions if invalid data
+# lazy=True collects all errors / not stopping at first error.
+# ***Wrap this function in try except blocks with pa.errors.SchemaError as the exception, then log both cases***
 @pa.check_types(lazy=True)
 def validate_chunk_dtypes(data_chunk: DataFrame[OutputSchema]) -> DataFrame[OutputSchema]:
   return data_chunk
@@ -55,7 +55,10 @@ if __name__ == "__main__":
 			#print(data_tuple.invalid)
 			validate_chunk_dtypes(chunk)
 			total_rows += len(data_tuple.valid) + len(data_tuple.invalid)
-			
+			break
+		break
+	
+
 
 	# total rows should be 1,250,000
 	print (total_rows)
