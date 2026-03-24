@@ -5,11 +5,13 @@ import pandera.pandas as pa
 import pyarrow as pw
 import pyarrow.parquet as pq
 from .clean_data import clean_sales_data, DataTuple
-from .logger import setup_logger
+import src.sales_analysis.logger as logger, src.sales_analysis.exceptions as ex
 from pandera.typing import DataFrame, Series
 from datetime import date
 import glob
 import os
+
+logger = logger.setup_logger(__name__, "info")
 # Class based validation schema using Pandera
 # OutputSchema class is the blueprint for the dataframe's schema
 class OutputSchema(pa.DataFrameModel):
