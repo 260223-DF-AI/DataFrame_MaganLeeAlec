@@ -39,3 +39,12 @@ this is to stop running google cloud API on your system and deactivate it (could
 
 ### IMPORTANT NOTES
 Project ID and account to use is pasted into Teams Chat (its a secret)
+
+### to create with a JSON key !!
+Had the ability to create a connection using a service account Key - not really safe since it's a secret
+** key is stored in .gitignore so it's not pushed to gitup
+What was done to create a key (only needs to be done once for the service account):
+- under a created service account with the correct access and permissions > Keys > add key > create new key > JSON > download file
+- JSON file that was downloaded should be done so safely.  DO NOT commit to GitHub, add to .gitignore file
+- in python code, use the file in a key path variable.  KEY_PATH = "file path"
+- OR set an env variable instead of hardcoding path in code
