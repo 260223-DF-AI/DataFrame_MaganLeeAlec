@@ -35,3 +35,118 @@
 249999         250000 2025-03-17    S003    Belltown Seattle   West  ...    347.46            0.01    247.67        26.06     3369.60
 
 [5 rows x 19 columns]
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: test_sales.csv
+14:07:36 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-14\test_read_csv_full_returns_dat0\test_sales.csv
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: does_not_exist.csv
+14:07:36 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-14\\test_read_csv_full_missing_fil0\\does_not_exist.csv'
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: test_sales.csv
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: test_sales.csv
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: missing.csv
+14:07:36 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-14\\test_read_csv_nlines_missing_f0\\missing.csv'
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: test_sales.json
+14:07:36 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-14\test_read_json_full_returns_da0\test_sales.json
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: missing.json
+14:07:36 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-14\test_read_json_full_missing_fi0\missing.json does not exist
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: test_sales_lines.json
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: missing.json
+14:07:36 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-14\test_read_json_nlines_missing_0\missing.json does not exist
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: dummy_sales_batch_1.json
+14:07:36 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: file_that_does_not_exist.json
+14:07:36 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\file_that_does_not_exist.json does not exist
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: dummy_sales_batch_1.json
+14:07:36 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: dummy_sales_batch_1.json
+14:07:36 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: file_that_does_not_exist.json
+14:07:36 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\file_that_does_not_exist.json does not exist
+14:07:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: test_sales.parquet
+14:07:37 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-14\test_read_parquet_full_returns0\test_sales.parquet
+14:07:37 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: does_not_exist.parquet
+14:07:37 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-14\\test_read_parquet_full_missing0\\does_not_exist.parquet'
+14:09:25 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: test_sales.parquet
+14:09:25 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-15\test_read_parquet_full_returns0\test_sales.parquet
+14:09:48 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: does_not_exist.parquet
+14:09:48 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-16\\test_read_parquet_full_missing0\\does_not_exist.parquet'
+14:20:57 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named test_write
+14:20:57 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file test_write
+14:21:15 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named test_accurate
+14:21:15 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file test_accurate
+14:21:15 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: test_accurate.parquet
+14:21:15 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-18\test_write_parquet_creates_acc0\test_accurate.parquet
+14:21:35 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named test_error
+14:21:35 | src.sales_analysis.file_reader | ERROR | 'str' object has no attribute 'to_parquet'
+14:21:58 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named test_error
+14:21:58 | src.sales_analysis.file_reader | ERROR | 'str' object has no attribute 'to_parquet'
+14:26:09 | src.sales_analysis.clean_data | INFO | Data chunk cleaned with 3 valid records, and 2 invalid records
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: test_sales.csv
+14:26:09 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-21\test_read_csv_full_returns_dat0\test_sales.csv
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: does_not_exist.csv
+14:26:09 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-21\\test_read_csv_full_missing_fil0\\does_not_exist.csv'
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: test_sales.csv
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: test_sales.csv
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: missing.csv
+14:26:09 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-21\\test_read_csv_nlines_missing_f0\\missing.csv'
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: test_sales.json
+14:26:09 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-21\test_read_json_full_returns_da0\test_sales.json
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: missing.json
+14:26:09 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-21\test_read_json_full_missing_fi0\missing.json does not exist
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: test_sales_lines.json
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: missing.json
+14:26:09 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-21\test_read_json_nlines_missing_0\missing.json does not exist
+14:26:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: dummy_sales_batch_1.json
+14:26:09 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: file_that_does_not_exist.json
+14:26:10 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\file_that_does_not_exist.json does not exist
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: dummy_sales_batch_1.json
+14:26:10 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: dummy_sales_batch_1.json
+14:26:10 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: file_that_does_not_exist.json
+14:26:10 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\file_that_does_not_exist.json does not exist
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: test_sales.parquet
+14:26:10 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-21\test_read_parquet_full_returns0\test_sales.parquet
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: does_not_exist.parquet
+14:26:10 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-21\\test_read_parquet_full_missing0\\does_not_exist.parquet'
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named test_write
+14:26:10 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file test_write
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named test_accurate
+14:26:10 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file test_accurate
+14:26:10 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: test_accurate.parquet
+14:26:10 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-21\test_write_parquet_creates_acc0\test_accurate.parquet
+14:27:26 | src.sales_analysis.clean_data | INFO | Data chunk cleaned with 3 valid records, and 2 invalid records
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: test_sales.csv
+14:27:26 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-22\test_read_csv_full_returns_dat0\test_sales.csv
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: does_not_exist.csv
+14:27:26 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-22\\test_read_csv_full_missing_fil0\\does_not_exist.csv'
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: test_sales.csv
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: test_sales.csv
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file as pd.TextFileReader object: missing.csv
+14:27:26 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-22\\test_read_csv_nlines_missing_f0\\missing.csv'
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: test_sales.json
+14:27:26 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-22\test_read_json_full_returns_da0\test_sales.json
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: missing.json
+14:27:26 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-22\test_read_json_full_missing_fi0\missing.json does not exist
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: test_sales_lines.json
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: missing.json
+14:27:26 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-22\test_read_json_nlines_missing_0\missing.json does not exist
+14:27:26 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: dummy_sales_batch_1.json
+14:27:26 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file: file_that_does_not_exist.json
+14:27:27 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\file_that_does_not_exist.json does not exist
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: dummy_sales_batch_1.json
+14:27:27 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: dummy_sales_batch_1.json
+14:27:27 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.json does not exist
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to read json file as pd.TextFileReader object: file_that_does_not_exist.json
+14:27:27 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\file_that_does_not_exist.json does not exist
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: test_sales.parquet
+14:27:27 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-22\test_read_parquet_full_returns0\test_sales.parquet
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: does_not_exist.parquet
+14:27:27 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-22\\test_read_parquet_full_missing0\\does_not_exist.parquet'
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named test_write
+14:27:27 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file test_write
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named test_accurate
+14:27:27 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file test_accurate
+14:27:27 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: test_accurate.parquet
+14:27:27 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-22\test_write_parquet_creates_acc0\test_accurate.parquet

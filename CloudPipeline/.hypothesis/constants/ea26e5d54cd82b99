@@ -1,0 +1,4 @@
+# file: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\sales_analysis\validation.py
+# hypothesis_version: 6.151.9
+
+[2500, '__main__', 'info', 'src/data/dummy*.csv']

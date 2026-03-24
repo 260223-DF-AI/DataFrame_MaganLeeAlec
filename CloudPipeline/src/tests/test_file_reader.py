@@ -50,6 +50,18 @@ def sample_json_lines_file(tmp_path, monkeypatch):
     )
     return "test_sales_lines.json"
 
+@pytest.fixture
+def sample_parquet_file(tmp_path, monkeypatch):
+    """Create a temporary parquet file and point DATA_DIR to tmp_path"""
+    monkeypatch.setattr(file_reader, "DATA_DIR", tmp_path)
+    df = pd.DataFrame({
+        "transaction_id" : [1, 2, 3],
+        "item" : ["coffee", "cake", "salad"],
+        "price" : [4.50, 5.25, 8.00]
+    })
+    df.to_parquet(tmp_path / "test_sales.parquet")
+    return "test_sales.parquet"
+
 # ======== Tests for read_csv_full =================
 
 def test_read_csv_full_returns_dataframe(sample_csv_file):
@@ -190,3 +202,46 @@ def test_read_json_nlines_missing_file():
     """
     df_gen = read_json_nlines("file_that_does_not_exist.json", nlines=2)
     assert df_gen == ""
+
+# ============== testing read/write parquet methods ======================
+def test_read_parquet_full_returns_dataframe(sample_parquet_file):
+    df = file_reader.read_parquet_full(sample_parquet_file)
+    expected = pd.DataFrame({
+        "transaction_id" : [1, 2, 3],
+        "item" : ["coffee", "cake", "salad"],
+        "price" : [4.50, 5.25, 8.00]
+    })
+    assert isinstance(df, pd.DataFrame)
+    assert_frame_equal(df, expected)
+
+def test_read_parquet_full_missing_file_returns_none(tmp_path, monkeypatch):
+    monkeypatch.setattr(file_reader, "DATA_DIR", tmp_path)
+    result = file_reader.read_parquet_full("does_not_exist.parquet")
+    assert result is None
+
+def test_write_parquet_creates_a_parquet_file(tmp_path, monkeypatch):
+    """Test that write_parquet creates a parquet file."""
+    monkeypatch.setattr(file_reader, "DATA_DIR", tmp_path)
+    df = pd.DataFrame({
+        "transaction_id": [1, 2, 3],
+        "item": ["coffee", "cake", "salad"],
+        "price": [4.50, 5.25, 8.00]
+    })
+    file_reader.write_parquet(df, "test_write")
+    assert (tmp_path / "test_write.parquet").exists()
+
+
+def test_write_parquet_creates_accurate_parquet_file(tmp_path, monkeypatch):
+    """Test that write_parquet creates an accurate parquet file that can be read back."""
+    monkeypatch.setattr(file_reader, "DATA_DIR", tmp_path)
+    df = pd.DataFrame({
+        "transaction_id": [1, 2, 3],
+        "item": ["coffee", "cake", "salad"],
+        "price": [4.50, 5.25, 8.00]
+    })
+    file_reader.write_parquet(df, "test_accurate")
+    read_df = file_reader.read_parquet_full("test_accurate.parquet")
+    assert isinstance(read_df, pd.DataFrame)
+    assert_frame_equal(df, read_df)
+
+

@@ -1,0 +1,4 @@
+# file: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\sales_analysis\clean_data.py
+# hypothesis_version: 6.151.9
+
+['DataTuple', 'Date', 'Quantity', 'Ten', 'TotalAmount', 'UnitPrice', 'coerce', 'display.float_format', 'info', 'invalid', 'mixed', 'valid', '{:.2f}']
