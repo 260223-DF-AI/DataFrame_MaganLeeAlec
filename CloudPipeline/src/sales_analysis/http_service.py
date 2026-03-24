@@ -2,13 +2,21 @@ from fastapi import FastAPI, Body
 import json
 import glob
 from src.sales_analysis import file_reader, logger,  validation
+from src.paths import SALES_ANA_DIR
 
 app = FastAPI()
 logger = logger.setup_logger(__name__, "debug", console=False)
 
+
 # Send an HTTP `POST` request to trigger `.csv` to `.parquet` conversion pipelines.
 @app.post("/")
 def csv_to_parquet():
+    try:
+        log_path = SALES_ANA_DIR / "app.log"
+        with open(log_path, "w") as f:
+            f.write("")
+    except Exception as e:
+        logger.error(f"Error clearing the log: {e}")
     logger.debug("HTTP request recieved. Attempting to convert csv to parquet...")
 
     df1, df2, df3, df4, df5 = 0, 0, 0, 0, 0
@@ -26,7 +34,7 @@ def csv_to_parquet():
     else:
         logger.debug("Successfully read all sales batch files")
     
-    # TODO: clean/validate
+    # clean/validate
     logger.debug("Validating and cleaning data...")
     df1_valid, df2_valid, df3_valid, df4_valid, df5_valid = 0, 0, 0, 0, 0
     try:
