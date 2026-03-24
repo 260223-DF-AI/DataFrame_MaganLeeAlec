@@ -1,536 +1,147 @@
-11:24:00 | __main__ | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\Documents\\Revature\\DataFrame_MaganLeeAlec\\CafeSalesAnalysis\\src\\data\\dirty_cafe_sales.jso'
-11:35:18 | __main__ | DEBUG | Attempting db connection
-11:35:18 | __main__ | ERROR | An error occured connecting to the database: cannot access local variable 'CS' where it is not associated with a value
-11:37:47 | __main__ | DEBUG | Attempting db connection
-11:37:47 | __main__ | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:38:58 | __main__ | DEBUG | Attempting db connection
-11:38:58 | __main__ | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:39:33 | __main__ | DEBUG | Attempting db connection
-11:39:33 | __main__ | ERROR | An error occured connecting to the database: Can't load plugin: sqlalchemy.dialects:C
-11:39:46 | __main__ | DEBUG | Attempting db connection
-11:39:46 | __main__ | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:41:36 | __main__ | DEBUG | Attempting db connection
-11:41:36 | __main__ | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:42:14 | __main__ | DEBUG | Attempting db connection
-11:42:14 | __main__ | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:42:38 | __main__ | DEBUG | Attempting db connection
-11:42:38 | __main__ | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:43:11 | __main__ | DEBUG | Attempting db connection
-11:43:11 | __main__ | INFO | Successfully connected to the database
-11:46:58 | __main__ | DEBUG | Attempting to clear the database
-11:46:58 | __main__ | DEBUG | Attempting db connection
-11:46:58 | __main__ | INFO | Successfully connected to the database
-11:51:04 | __main__ | DEBUG | Attempting to clear the database
-11:51:04 | __main__ | DEBUG | Attempting db connection
-11:51:04 | __main__ | INFO | Successfully connected to the database
-11:51:29 | __main__ | DEBUG | Attempting to clear the database
-11:51:29 | __main__ | DEBUG | Attempting db connection
-11:51:29 | __main__ | INFO | Successfully connected to the database
-11:54:14 | __main__ | DEBUG | Attempting to clear the database
-11:54:14 | __main__ | DEBUG | Attempting db connection
-11:54:14 | __main__ | INFO | Successfully connected to the database
-12:56:06 | __main__ | DEBUG | Attempting to clear the database
-12:56:06 | __main__ | DEBUG | Attempting db connection
-12:56:06 | __main__ | INFO | Successfully connected to the database
-12:56:06 | __main__ | INFO | Successfully cleared the database
-12:56:06 | __main__ | DEBUG | end of drop_table
-12:56:15 | __main__ | DEBUG | Attempting to clear the database
-12:56:15 | __main__ | DEBUG | Attempting db connection
-12:56:15 | __main__ | INFO | Successfully connected to the database
-12:56:15 | __main__ | INFO | Successfully cleared the database
-12:56:15 | __main__ | DEBUG | end of drop_table
-13:07:42 | __main__ | DEBUG | Attempting to clear the database
-13:07:42 | __main__ | DEBUG | Attempting db connection
-13:07:42 | __main__ | INFO | Successfully connected to the database
-13:07:42 | __main__ | ERROR | A general error occured handling the database: An error occured executing a query 'DROP TABLE non_exist;'
-13:07:42 | __main__ | DEBUG | End of drop_table()
-13:08:38 | __main__ | DEBUG | Attempting to clear the database
-13:08:38 | __main__ | DEBUG | Attempting db connection
-13:08:38 | __main__ | INFO | Successfully connected to the database
-13:08:38 | __main__ | ERROR | An error occured executing a query 'DROP TABLE non_exist;'
-13:08:38 | __main__ | DEBUG | End of drop_table()
-13:08:55 | __main__ | DEBUG | Attempting to clear the database
-13:08:55 | __main__ | DEBUG | Attempting db connection
-13:08:55 | __main__ | INFO | Successfully connected to the database
-13:08:55 | __main__ | ERROR | An error occured executing a query 'DROP TABLE non_exist;': (psycopg2.errors.UndefinedTable) table "non_exist" does not exist
+11:15:09 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
+11:15:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+11:15:11 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+11:15:11 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
+11:15:12 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
+11:15:12 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
+11:15:13 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
+11:15:13 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
+11:15:14 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
+11:15:14 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
+11:15:16 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
+11:15:16 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
+11:15:16 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
+11:15:18 | src.sales_analysis.http_service | DEBUG | Successfully validated data
+11:15:18 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
+11:15:18 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
+11:15:19 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
+11:15:19 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
+11:15:19 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
+11:15:19 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
+11:15:20 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
+11:15:20 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
+11:15:20 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
+11:15:20 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
+11:15:21 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
+11:15:21 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
+11:17:06 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
+11:17:06 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+11:17:07 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+11:17:07 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
+11:17:08 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
+11:17:08 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
+11:17:09 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
+11:17:09 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
+11:17:11 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
+11:17:11 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
+11:17:12 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
+11:17:12 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
+11:17:12 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
+11:17:16 | src.sales_analysis.http_service | DEBUG | Successfully validated data
+11:17:16 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
+11:17:16 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
+11:17:16 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
+11:17:16 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
+11:17:17 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
+11:17:17 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
+11:17:17 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
+11:17:17 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
+11:17:18 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
+11:17:18 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
+11:17:19 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
+11:17:19 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
+11:17:54 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
+11:17:54 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+11:17:55 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+11:17:55 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
+11:17:56 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
+11:17:56 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
+11:17:57 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
+11:17:57 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
+11:17:58 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
+11:17:58 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
+11:18:00 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
+11:18:00 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
+11:18:00 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
+11:18:02 | src.sales_analysis.http_service | DEBUG | Successfully validated data
+11:18:02 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
+11:18:02 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
+11:18:03 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
+11:18:03 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
+11:18:03 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
+11:18:03 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
+11:18:04 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
+11:18:04 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
+11:18:05 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
+11:18:05 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
+11:18:05 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
+11:18:05 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
+11:18:05 | src.sales_analysis.http_service | DEBUG | Testing parquet write...
+11:18:05 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: dummy_sales_batch_1
+11:18:05 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\Documents\\Revature\\DataFrame_MaganLeeAlec\\CloudPipeline\\src\\data\\dummy_sales_batch_1'
+11:18:55 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
+11:18:55 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+11:18:57 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+11:18:57 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
+11:18:58 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
+11:18:58 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
+11:18:59 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
+11:18:59 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
+11:19:00 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
+11:19:00 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
+11:19:02 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
+11:19:02 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
+11:19:02 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
+11:19:05 | src.sales_analysis.http_service | DEBUG | Successfully validated data
+11:19:05 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
+11:19:05 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
+11:19:05 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
+11:19:05 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
+11:19:06 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
+11:19:06 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
+11:19:06 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
+11:19:06 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
+11:19:06 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
+11:19:06 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
+11:19:07 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
+11:19:07 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
+11:19:07 | src.sales_analysis.http_service | DEBUG | Testing parquet write...
+11:19:07 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: dummy_sales_batch_1
+11:19:07 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\Documents\\Revature\\DataFrame_MaganLeeAlec\\CloudPipeline\\src\\data\\dummy_sales_batch_1'
+11:19:35 | src.sales_analysis.http_service | DEBUG | HTTP request recieved. Attempting to convert csv to parquet...
+11:19:35 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
+11:19:36 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
+11:19:36 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_2.csv
+11:19:37 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_2.csv
+11:19:37 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_3.csv
+11:19:38 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_3.csv
+11:19:38 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_4.csv
+11:19:39 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_4.csv
+11:19:39 | src.sales_analysis.file_reader | DEBUG | Attempting to read csv file: dummy_sales_batch_5.csv
+11:19:40 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_5.csv
+11:19:40 | src.sales_analysis.http_service | DEBUG | Successfully read all sales batch files
+11:19:40 | src.sales_analysis.http_service | DEBUG | Validating and cleaning data...
+11:19:43 | src.sales_analysis.http_service | DEBUG | Successfully validated data
+11:19:43 | src.sales_analysis.http_service | DEBUG | Attempting to write parquet files
+11:19:43 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_1
+11:19:44 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_1
+11:19:44 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_2
+11:19:44 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_2
+11:19:44 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_3
+11:19:45 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_3
+11:19:45 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_4
+11:19:45 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_4
+11:19:45 | src.sales_analysis.file_reader | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch_5
+11:19:46 | src.sales_analysis.file_reader | INFO | Successfully wrote parquet file dummy_sales_batch_5
+11:19:46 | src.sales_analysis.http_service | DEBUG | Successfully wrote all batches as parquet files
+11:19:46 | src.sales_analysis.http_service | DEBUG | Testing parquet write...
+11:19:46 | src.sales_analysis.file_reader | DEBUG | Attempting to read parquet file: dummy_sales_batch_1.parquet
+11:19:47 | src.sales_analysis.file_reader | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.parquet
+11:19:47 | src.sales_analysis.http_service | DEBUG |         TransactionID       Date StoreID       StoreLocation Region  ... UnitPrice DiscountPercent TaxAmount ShippingCost TotalAmount
+249995         249996 2025-03-01    S008  SoMa San Francisco   West  ...    201.26            0.13     70.04        23.05      968.57
+249996         249997 2025-01-04    S008  SoMa San Francisco   West  ...    348.38            0.06     26.20        27.60      381.28
+249997         249998 2025-01-12    S001     Downtown Boston   East  ...   1004.72            0.23     61.89         8.87      844.39
+249998         249999 2025-12-26    S002   Tech Ridge Austin  South  ...    191.47            0.09     83.63        23.52     1152.58
+249999         250000 2025-03-17    S003    Belltown Seattle   West  ...    347.46            0.01    247.67        26.06     3369.60
 
-[SQL: DROP TABLE non_exist;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-13:08:55 | __main__ | DEBUG | End of drop_table()
-13:11:19 | __main__ | DEBUG | Attempting to clear the database
-13:11:19 | __main__ | DEBUG | Attempting db connection
-13:11:19 | __main__ | INFO | Successfully connected to the database
-13:11:20 | __main__ | ERROR | An error occured executing a query 'DROP TABLE non_exist;': (psycopg2.errors.UndefinedTable) table "non_exist" does not exist
-
-[SQL: DROP TABLE non_exist;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-13:11:20 | __main__ | DEBUG | End of drop_table()
-13:11:50 | __main__ | DEBUG | Attempting to clear the database
-13:11:50 | __main__ | DEBUG | Attempting db connection
-13:11:50 | __main__ | INFO | Successfully connected to the database
-13:11:50 | __main__ | ERROR | An error occured executing a query 'DROP TABLE non_exist;': (psycopg2.errors.UndefinedTable) table "non_exist" does not exist
-
-[SQL: DROP TABLE non_exist;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-13:11:50 | __main__ | DEBUG | End of drop_table()
-13:12:07 | __main__ | DEBUG | Attempting to clear the database
-13:12:07 | __main__ | DEBUG | Attempting db connection
-13:12:07 | __main__ | INFO | Successfully connected to the database
-13:12:07 | __main__ | ERROR | (psycopg2.errors.UndefinedTable) table "non_exist" does not exist
-
-[SQL: DROP TABLE non_exist;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-13:12:07 | __main__ | ERROR | An error occured executing a query 'DROP TABLE non_exist;': (psycopg2.errors.UndefinedTable) table "non_exist" does not exist
-
-[SQL: DROP TABLE non_exist;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-13:12:07 | __main__ | DEBUG | End of drop_table()
-13:13:02 | __main__ | DEBUG | Attempting to clear the database
-13:13:02 | __main__ | DEBUG | Attempting db connection
-13:13:03 | __main__ | INFO | Successfully connected to the database
-13:15:47 | __main__ | DEBUG | Attempting to clear the database
-13:15:47 | __main__ | DEBUG | Attempting db connection
-13:15:47 | __main__ | INFO | Successfully connected to the database
-13:15:47 | __main__ | ERROR | An error occured executing a query 'DROP TABLE non_exist;': (psycopg2.errors.UndefinedTable) table "non_exist" does not exist
-
-[SQL: DROP TABLE non_exist;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-13:15:47 | __main__ | DEBUG | End of drop_table()
-13:17:49 | __main__ | DEBUG | Attempting db connection
-13:17:49 | __main__ | INFO | Successfully connected to the database
-13:18:04 | __main__ | DEBUG | Attempting db connection
-13:18:04 | __main__ | INFO | Successfully connected to the database
-13:18:18 | __main__ | DEBUG | Attempting db connection
-13:18:18 | __main__ | INFO | Successfully connected to the database
-13:18:41 | __main__ | DEBUG | Attempting db connection
-13:18:41 | __main__ | INFO | Successfully connected to the database
-13:18:41 | __main__ | DEBUG | Attempting to clear the database
-13:18:41 | __main__ | DEBUG | Attempting db connection
-13:18:41 | __main__ | INFO | Successfully connected to the database
-13:18:41 | __main__ | INFO | Successfully cleared table sales
-13:18:41 | __main__ | DEBUG | End of drop_table()
-13:35:33 | __main__ | DEBUG | Attempting to write to the database
-13:35:33 | __main__ | DEBUG | Attempting db connection
-13:35:33 | __main__ | INFO | Successfully connected to the database
-13:35:33 | __main__ | ERROR | NDFrame.to_sql() missing 1 required positional argument: 'con'
-13:35:59 | __main__ | DEBUG | Attempting to write to the database
-13:35:59 | __main__ | DEBUG | Attempting db connection
-13:35:59 | __main__ | INFO | Successfully connected to the database
-13:37:27 | __main__ | DEBUG | Attempting to write to the database
-13:37:27 | __main__ | DEBUG | Attempting db connection
-13:37:27 | __main__ | INFO | Successfully connected to the database
-13:37:27 | __main__ | ERROR | Table 'sales' already exists.
-13:37:27 | __main__ | DEBUG | Attempting to clear the database
-13:37:27 | __main__ | DEBUG | Attempting db connection
-13:37:27 | __main__ | INFO | Successfully connected to the database
-13:37:27 | __main__ | INFO | Successfully cleared table sales
-13:37:27 | __main__ | DEBUG | End of drop_table()
-13:38:14 | __main__ | DEBUG | Attempting to write to the database
-13:38:14 | __main__ | DEBUG | Attempting db connection
-13:38:14 | __main__ | INFO | Successfully connected to the database
-13:38:14 | __main__ | DEBUG | Attempting to clear the database
-13:38:14 | __main__ | DEBUG | Attempting db connection
-13:38:14 | __main__ | INFO | Successfully connected to the database
-13:38:14 | __main__ | INFO | Successfully cleared table sales
-13:38:14 | __main__ | DEBUG | End of drop_table()
-13:38:33 | __main__ | DEBUG | Attempting to write to the database
-13:38:33 | __main__ | DEBUG | Attempting db connection
-13:38:33 | __main__ | INFO | Successfully connected to the database
-13:38:33 | __main__ | DEBUG | Attempting to clear the database
-13:38:33 | __main__ | DEBUG | Attempting db connection
-13:38:33 | __main__ | INFO | Successfully connected to the database
-13:38:34 | __main__ | INFO | Successfully cleared table sales
-13:38:34 | __main__ | DEBUG | End of drop_table()
-13:39:09 | __main__ | DEBUG | Attempting to write to the database
-13:39:09 | __main__ | DEBUG | Attempting db connection
-13:39:09 | __main__ | INFO | Successfully connected to the database
-13:39:09 | __main__ | DEBUG | Attempting to write to the database
-13:39:09 | __main__ | DEBUG | Attempting db connection
-13:39:09 | __main__ | INFO | Successfully connected to the database
-13:40:03 | __main__ | DEBUG | Attempting to write to the database
-13:40:03 | __main__ | DEBUG | Attempting db connection
-13:40:03 | __main__ | INFO | Successfully connected to the database
-13:40:03 | __main__ | ERROR | Table 'sales' already exists.
-13:40:03 | __main__ | DEBUG | Attempting to write to the database
-13:40:03 | __main__ | DEBUG | Attempting db connection
-13:40:03 | __main__ | INFO | Successfully connected to the database
-13:40:03 | __main__ | ERROR | Table 'sales' already exists.
-13:40:03 | __main__ | DEBUG | Attempting to clear the database
-13:40:03 | __main__ | DEBUG | Attempting db connection
-13:40:03 | __main__ | INFO | Successfully connected to the database
-13:40:03 | __main__ | INFO | Successfully cleared table sales
-13:40:03 | __main__ | DEBUG | End of drop_table()
-13:40:14 | __main__ | DEBUG | Attempting to write to the database
-13:40:14 | __main__ | DEBUG | Attempting db connection
-13:40:14 | __main__ | INFO | Successfully connected to the database
-13:40:14 | __main__ | DEBUG | Attempting to clear the database
-13:40:14 | __main__ | DEBUG | Attempting db connection
-13:40:14 | __main__ | INFO | Successfully connected to the database
-13:40:14 | __main__ | INFO | Successfully cleared table sales
-13:40:14 | __main__ | DEBUG | End of drop_table()
-13:40:39 | __main__ | DEBUG | Attempting to write to the database
-13:40:39 | __main__ | DEBUG | Attempting db connection
-13:40:39 | __main__ | INFO | Successfully connected to the database
-13:40:39 | __main__ | DEBUG | Attempting to clear the database
-13:40:39 | __main__ | DEBUG | Attempting db connection
-13:40:39 | __main__ | INFO | Successfully connected to the database
-13:40:39 | __main__ | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
-
-[SQL: DROP TABLE sales]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-13:40:39 | __main__ | DEBUG | End of drop_table()
-13:41:18 | __main__ | DEBUG | Attempting to write to the database
-13:41:18 | __main__ | DEBUG | Attempting db connection
-13:41:18 | __main__ | INFO | Successfully connected to the database
-13:41:18 | __main__ | ERROR | Table 'non_exist' already exists.
-13:44:12 | __main__ | DEBUG | Attempting to clear the database
-13:44:12 | __main__ | DEBUG | Attempting db connection
-13:44:12 | __main__ | INFO | Successfully connected to the database
-13:44:12 | __main__ | INFO | Successfully cleared table non_exist
-13:44:12 | __main__ | DEBUG | End of drop_table()
-13:44:40 | __main__ | DEBUG | Attempting to write to the database
-13:44:40 | __main__ | DEBUG | Attempting db connection
-13:44:40 | __main__ | INFO | Successfully connected to the database
-13:44:55 | __main__ | DEBUG | Attempting to write to the database
-13:44:55 | __main__ | DEBUG | Attempting db connection
-13:44:55 | __main__ | INFO | Successfully connected to the database
-13:45:14 | __main__ | DEBUG | Attempting to write to the database
-13:45:14 | __main__ | DEBUG | Attempting db connection
-13:45:14 | __main__ | INFO | Successfully connected to the database
-13:45:37 | __main__ | DEBUG | Attempting to write to the database
-13:45:37 | __main__ | DEBUG | Attempting db connection
-13:45:37 | __main__ | INFO | Successfully connected to the database
-13:45:37 | __main__ | ERROR | Table 'sales' already exists.
-13:46:54 | __main__ | DEBUG | Attempting to write to the database
-13:46:54 | __main__ | DEBUG | Attempting db connection
-13:46:54 | __main__ | INFO | Successfully connected to the database
-13:46:54 | __main__ | ERROR | Cannot use empty dataframe
-13:47:49 | __main__ | DEBUG | Attempting to write to the database
-13:47:49 | __main__ | DEBUG | Attempting db connection
-13:47:49 | __main__ | INFO | Successfully connected to the database
-13:47:49 | __main__ | WARNING | An empty dataframe is being used, table will be created with no entries
-13:47:50 | __main__ | ERROR | Table 'sales' already exists.
-13:48:13 | __main__ | DEBUG | Attempting to clear the database
-13:48:13 | __main__ | DEBUG | Attempting db connection
-13:48:13 | __main__ | INFO | Successfully connected to the database
-13:48:13 | __main__ | INFO | Successfully cleared table sales
-13:48:13 | __main__ | DEBUG | End of drop_table()
-13:48:13 | __main__ | DEBUG | Attempting to write to the database
-13:48:13 | __main__ | DEBUG | Attempting db connection
-13:48:13 | __main__ | INFO | Successfully connected to the database
-13:48:13 | __main__ | WARNING | An empty dataframe is being used, table will be created with no entries
-14:00:02 | __main__ | DEBUG | Attempting to write to the database
-14:00:02 | __main__ | DEBUG | Attempting db connection
-14:00:02 | __main__ | INFO | Successfully connected to the database
-14:00:02 | __main__ | ERROR | Table 'sales' already exists.
-14:00:02 | __main__ | DEBUG | End of write_from_dataframe
-14:00:02 | __main__ | DEBUG | Attempting to read from table sales
-14:00:02 | __main__ | DEBUG | Attempting db connection
-14:00:02 | __main__ | INFO | Successfully connected to the database
-14:00:02 | __main__ | INFO | Successfully read table sales
-14:00:02 | __main__ | DEBUG | End of read_as_dataframe
-14:01:56 | __main__ | DEBUG | Attempting to write to the database
-14:01:56 | __main__ | DEBUG | Attempting db connection
-14:01:56 | __main__ | INFO | Successfully connected to the database
-14:01:56 | __main__ | ERROR | Table 'sales' already exists.
-14:01:56 | __main__ | DEBUG | End of write_from_dataframe
-14:01:56 | __main__ | DEBUG | Attempting to read from table sales
-14:01:56 | __main__ | DEBUG | Attempting db connection
-14:01:56 | __main__ | INFO | Successfully connected to the database
-14:01:57 | __main__ | INFO | Successfully read table sales
-14:01:57 | __main__ | DEBUG | End of read_as_dataframe
-14:02:10 | __main__ | DEBUG | Attempting to clear the database
-14:02:10 | __main__ | DEBUG | Attempting db connection
-14:02:10 | __main__ | INFO | Successfully connected to the database
-14:02:10 | __main__ | INFO | Successfully cleared table sales
-14:02:10 | __main__ | DEBUG | End of drop_table()
-14:02:10 | __main__ | DEBUG | Attempting to write to the database
-14:02:10 | __main__ | DEBUG | Attempting db connection
-14:02:10 | __main__ | INFO | Successfully connected to the database
-14:02:10 | __main__ | INFO | Successfully wrote to table sales
-14:02:10 | __main__ | DEBUG | End of write_from_dataframe
-14:02:10 | __main__ | DEBUG | Attempting to read from table sales
-14:02:10 | __main__ | DEBUG | Attempting db connection
-14:02:10 | __main__ | INFO | Successfully connected to the database
-14:02:11 | __main__ | INFO | Successfully read table sales
-14:02:11 | __main__ | DEBUG | End of read_as_dataframe
-14:02:36 | __main__ | DEBUG | Attempting to clear the database
-14:02:36 | __main__ | DEBUG | Attempting db connection
-14:02:36 | __main__ | INFO | Successfully connected to the database
-14:02:36 | __main__ | INFO | Successfully cleared table sales
-14:02:36 | __main__ | DEBUG | End of drop_table()
-14:02:36 | __main__ | DEBUG | Attempting to write to the database
-14:02:36 | __main__ | DEBUG | Attempting db connection
-14:02:36 | __main__ | INFO | Successfully connected to the database
-14:02:36 | __main__ | INFO | Successfully wrote to table sales
-14:02:36 | __main__ | DEBUG | End of write_from_dataframe
-14:02:36 | __main__ | DEBUG | Attempting to read from table non_exist
-14:02:36 | __main__ | DEBUG | Attempting db connection
-14:02:36 | __main__ | INFO | Successfully connected to the database
-14:02:36 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM non_exist': Execution failed on sql 'SELECT * FROM non_exist': (psycopg2.errors.UndefinedTable) relation "non_exist" does not exist
-LINE 1: SELECT * FROM non_exist
-                      ^
-
-[SQL: SELECT * FROM non_exist]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-14:02:36 | __main__ | DEBUG | End of read_as_dataframe
-14:56:55 | __main__ | ERROR | An error occured executing a query 'DROP TABLE IF EXISTS :tbl': (psycopg2.errors.SyntaxError) syntax error at or near "'sales'"
-LINE 1: DROP TABLE IF EXISTS 'sales'
-                             ^
-
-[SQL: DROP TABLE IF EXISTS %(tbl)s]
-[parameters: {'tbl': 'sales'}]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-14:59:22 | __main__ | ERROR | An error occured executing a query 'DROP * FROM sales': (psycopg2.errors.SyntaxError) syntax error at or near "*"
-LINE 1: DROP * FROM sales
-             ^
-
-[SQL: DROP * FROM sales]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-15:01:21 | __main__ | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
-
-[SQL: DROP TABLE sales]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-15:01:21 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM    a
-0  1
-1  2': Execution failed on sql 'SELECT * FROM    a
-0  1
-1  2': (psycopg2.errors.SyntaxError) syntax error at or near "0"
-LINE 2: 0  1
-        ^
-
-[SQL: SELECT * FROM    a
-0  1
-1  2]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-15:08:43 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM sales WHERE Salary > 60000;': Execution failed on sql 'SELECT * FROM sales WHERE Salary > 60000;': (psycopg2.errors.UndefinedColumn) column "salary" does not exist
-LINE 1: SELECT * FROM sales WHERE Salary > 60000;
-                                  ^
-HINT:  Perhaps you meant to reference the column "sales.Salary".
-
-[SQL: SELECT * FROM sales WHERE Salary > 60000;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-15:08:57 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM sales WHERE Salary > 60000;': Execution failed on sql 'SELECT * FROM sales WHERE Salary > 60000;': (psycopg2.errors.UndefinedColumn) column "salary" does not exist
-LINE 1: SELECT * FROM sales WHERE Salary > 60000;
-                                  ^
-HINT:  Perhaps you meant to reference the column "sales.Salary".
-
-[SQL: SELECT * FROM sales WHERE Salary > 60000;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-15:10:10 | __main__ | ERROR | An error occured executing a query 'SELECT * FROM sales WHERE sales.Salary > 60000;': Execution failed on sql 'SELECT * FROM sales WHERE sales.Salary > 60000;': (psycopg2.errors.UndefinedColumn) column sales.salary does not exist
-LINE 1: SELECT * FROM sales WHERE sales.Salary > 60000;
-                                  ^
-HINT:  Perhaps you meant to reference the column "sales.Salary".
-
-[SQL: SELECT * FROM sales WHERE sales.Salary > 60000;]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-09:50:36 | src.sales_analysis.database | ERROR | Table 'sales' already exists.
-09:50:36 | src.sales_analysis.database | ERROR | Table 'reject_entries' already exists.
-10:01:33 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
-
-[SQL: DROP TABLE sales]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-10:01:33 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE reject_entries': (psycopg2.errors.UndefinedTable) table "reject_entries" does not exist
-
-[SQL: DROP TABLE reject_entries]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-10:02:48 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
-
-[SQL: DROP TABLE sales]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-10:02:48 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE reject_entries': (psycopg2.errors.UndefinedTable) table "reject_entries" does not exist
-
-[SQL: DROP TABLE reject_entries]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-10:05:45 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
-
-[SQL: DROP TABLE sales]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-10:05:45 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE reject_entries': (psycopg2.errors.UndefinedTable) table "reject_entries" does not exist
-
-[SQL: DROP TABLE reject_entries]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-11:07:04 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-9/test_read_csv_full_missing_fil0/does_not_exist.csv'
-11:07:04 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-9/test_read_csv_nlines_missing_f0/missing.csv'
-11:07:04 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-9/test_read_json_full_missing_fi0/missing.json does not exist
-11:07:04 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-9/test_read_json_nlines_missing_0/missing.json does not exist
-11:07:11 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-10/test_read_csv_full_missing_fil0/does_not_exist.csv'
-11:07:11 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-10/test_read_csv_nlines_missing_f0/missing.csv'
-11:07:11 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-10/test_read_json_full_missing_fi0/missing.json does not exist
-11:07:11 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-10/test_read_json_nlines_missing_0/missing.json does not exist
-11:10:15 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-11/test_read_csv_full_missing_fil0/does_not_exist.csv'
-11:10:15 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-11/test_read_csv_nlines_missing_f0/missing.csv'
-11:10:15 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-11/test_read_json_full_missing_fi0/missing.json does not exist
-11:10:15 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-11/test_read_json_nlines_missing_0/missing.json does not exist
-11:18:09 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-12/test_read_csv_full_missing_fil0/does_not_exist.csv'
-11:18:09 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-12/test_read_csv_nlines_missing_f0/missing.csv'
-11:18:09 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-12/test_read_json_full_missing_fi0/missing.json does not exist
-11:18:09 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-12/test_read_json_nlines_missing_0/missing.json does not exist
-11:19:42 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-13/test_read_csv_full_missing_fil0/does_not_exist.csv'
-11:19:42 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-13/test_read_csv_nlines_missing_f0/missing.csv'
-11:19:42 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-13/test_read_json_full_missing_fi0/missing.json does not exist
-11:19:42 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-13/test_read_json_nlines_missing_0/missing.json does not exist
-11:20:25 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-14/test_read_csv_full_missing_fil0/does_not_exist.csv'
-11:20:25 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: '/private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-14/test_read_csv_nlines_missing_f0/missing.csv'
-11:20:25 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-14/test_read_json_full_missing_fi0/missing.json does not exist
-11:20:25 | src.sales_analysis.file_reader | ERROR | File /private/var/folders/93/_zbcfwd5191773_8k652kgkr0000gn/T/pytest-of-maganjgreenfield/pytest-14/test_read_json_nlines_missing_0/missing.json does not exist
-11:37:22 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:37:22 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': 'NoneType' object has no attribute 'connect'
-11:37:39 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:37:39 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': 'NoneType' object has no attribute 'connect'
-11:37:58 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:37:58 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': 'NoneType' object has no attribute 'connect'
-11:42:48 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:42:48 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:44:42 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:44:42 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:44:42 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:44:42 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:45:32 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:45:32 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:45:32 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:45:32 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:46:08 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:46:08 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:46:08 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:46:08 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:46:43 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:46:43 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:46:43 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:46:43 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:47:58 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:47:58 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:47:58 | src.sales_analysis.database | DEBUG | CS: None
-11:47:58 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:47:58 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:49:10 | __main__ | DEBUG | Attempting db connection
-11:49:10 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:49:10 | __main__ | INFO | Successfully connected to the database
-11:49:36 | __main__ | DEBUG | Attempting to clear the database
-11:49:36 | __main__ | DEBUG | Attempting db connection
-11:49:36 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:49:36 | __main__ | INFO | Successfully connected to the database
-11:49:36 | __main__ | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
-
-[SQL: DROP TABLE sales]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-11:49:36 | __main__ | DEBUG | End of drop_table()
-11:49:36 | __main__ | DEBUG | Attempting to write to the database
-11:49:36 | __main__ | DEBUG | Attempting db connection
-11:49:36 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:49:36 | __main__ | INFO | Successfully connected to the database
-11:49:36 | __main__ | INFO | Successfully wrote to table sales
-11:49:36 | __main__ | DEBUG | End of write_from_dataframe
-11:50:51 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:50:51 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:50:51 | src.sales_analysis.database | DEBUG | CS: None
-11:50:51 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:50:51 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:51:50 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:51:50 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:51:50 | src.sales_analysis.database | DEBUG | CS: None
-11:51:50 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:51:50 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:52:39 | __main__ | DEBUG | Attempting to clear the database
-11:52:39 | __main__ | DEBUG | Attempting db connection
-11:52:39 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:52:39 | __main__ | INFO | Successfully connected to the database
-11:52:39 | __main__ | INFO | Successfully cleared table sales
-11:52:39 | __main__ | DEBUG | End of drop_table()
-11:52:39 | __main__ | DEBUG | Attempting to write to the database
-11:52:39 | __main__ | DEBUG | Attempting db connection
-11:52:39 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:52:39 | __main__ | INFO | Successfully connected to the database
-11:52:39 | __main__ | INFO | Successfully wrote to table sales
-11:52:39 | __main__ | DEBUG | End of write_from_dataframe
-11:52:49 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:52:49 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:52:49 | src.sales_analysis.database | DEBUG | CS: None
-11:52:49 | src.sales_analysis.database | ERROR | An error occured connecting to the database: Expected string or URL object, got None
-11:52:49 | src.sales_analysis.database | ERROR | 'NoneType' object has no attribute 'connect'
-11:55:37 | __main__ | DEBUG | Attempting to clear the database
-11:55:37 | __main__ | DEBUG | Attempting db connection
-11:55:37 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:55:37 | __main__ | INFO | Successfully connected to the database
-11:55:37 | __main__ | INFO | Successfully cleared table sales
-11:55:37 | __main__ | DEBUG | End of drop_table()
-11:55:37 | __main__ | DEBUG | Attempting to write to the database
-11:55:37 | __main__ | DEBUG | Attempting db connection
-11:55:37 | __main__ | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:55:37 | __main__ | INFO | Successfully connected to the database
-11:55:38 | __main__ | INFO | Successfully wrote to table sales
-11:55:38 | __main__ | DEBUG | End of write_from_dataframe
-11:55:44 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:55:44 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:55:44 | src.sales_analysis.database | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:55:44 | src.sales_analysis.database | INFO | Successfully connected to the database
-11:55:44 | src.sales_analysis.database | ERROR | Table 'sales' already exists.
-11:55:44 | src.sales_analysis.database | DEBUG | End of write_from_dataframe
-11:55:44 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:55:44 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:55:44 | src.sales_analysis.database | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:55:44 | src.sales_analysis.database | INFO | Successfully connected to the database
-11:55:44 | src.sales_analysis.database | INFO | Successfully wrote to table reject_entries
-11:55:44 | src.sales_analysis.database | DEBUG | End of write_from_dataframe
-11:56:11 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:56:11 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:56:11 | src.sales_analysis.database | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:56:11 | src.sales_analysis.database | INFO | Successfully connected to the database
-11:56:11 | src.sales_analysis.database | ERROR | Table 'sales' already exists.
-11:56:11 | src.sales_analysis.database | DEBUG | End of write_from_dataframe
-11:56:11 | src.sales_analysis.database | DEBUG | Attempting to write to the database
-11:56:11 | src.sales_analysis.database | DEBUG | Attempting db connection
-11:56:11 | src.sales_analysis.database | DEBUG | CS: postgresql://postgres:password@localhost:5432/cafe_sales
-11:56:11 | src.sales_analysis.database | INFO | Successfully connected to the database
-11:56:11 | src.sales_analysis.database | ERROR | Table 'reject_entries' already exists.
-11:56:11 | src.sales_analysis.database | DEBUG | End of write_from_dataframe
-11:57:11 | src.sales_analysis.database | ERROR | Table 'sales' already exists.
-11:57:11 | src.sales_analysis.database | ERROR | Table 'reject_entries' already exists.
-13:23:18 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-13\\test_read_csv_full_missing_fil0\\does_not_exist.csv'
-13:23:18 | src.sales_analysis.file_reader | ERROR | [Errno 2] No such file or directory: 'C:\\Users\\lwils\\AppData\\Local\\Temp\\pytest-of-lwils\\pytest-13\\test_read_csv_nlines_missing_f0\\missing.csv'
-13:23:18 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-13\test_read_json_full_missing_fi0\missing.json does not exist
-13:23:18 | src.sales_analysis.file_reader | ERROR | File C:\Users\lwils\AppData\Local\Temp\pytest-of-lwils\pytest-13\test_read_json_nlines_missing_0\missing.json does not exist
-13:32:39 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE sales': (psycopg2.errors.UndefinedTable) table "sales" does not exist
-
-[SQL: DROP TABLE sales]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-13:32:39 | src.sales_analysis.database | ERROR | An error occured executing a query 'DROP TABLE reject_entries': (psycopg2.errors.UndefinedTable) table "reject_entries" does not exist
-
-[SQL: DROP TABLE reject_entries]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-16:04:23 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
-16:05:45 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
-16:06:09 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-16:06:10 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-16:06:10 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
-16:06:10 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
-16:06:40 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-16:06:41 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-16:06:41 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
-16:06:41 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
-16:07:27 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-16:07:28 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-16:07:28 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
-16:07:28 | __main__ | ERROR | 'str' object has no attribute 'to_parquet'
-16:07:51 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-16:07:52 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-16:07:52 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
-16:07:52 | __main__ | ERROR | Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.
-A suitable version of pyarrow or fastparquet is required for parquet support.
-Trying to import the above resulted in these errors:
- - `Import pyarrow` failed. pyarrow is required for parquet support. Use pip or conda to install the pyarrow package.
- - `Import fastparquet` failed. fastparquet is required for parquet support. Use pip or conda to install the fastparquet package.
-16:08:24 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-16:08:25 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-16:08:25 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
-16:09:48 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-16:09:49 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-16:09:49 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
-16:09:49 | __main__ | DEBUG | Attempting to read parquet file: dummy_sales_batch.parquet
-16:09:50 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch.parquet
-16:11:34 | __main__ | DEBUG | Attempting to read csv file: dummy_sales_batch_1.csv
-16:11:35 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch_1.csv
-16:11:35 | __main__ | DEBUG | Attempting to write dataframe as parquet file named dummy_sales_batch
-16:11:35 | __main__ | INFO | Successfully read parquet file dummy_sales_batch as dataframe
-16:11:35 | __main__ | DEBUG | Attempting to read parquet file: dummy_sales_batch.parquet
-16:11:36 | __main__ | INFO | Successfully read file as dataframe: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\data\dummy_sales_batch.parquet
+[5 rows x 19 columns]

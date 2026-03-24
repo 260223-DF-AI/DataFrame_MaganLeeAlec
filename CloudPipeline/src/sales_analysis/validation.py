@@ -1,7 +1,7 @@
 """This script will handle validation of data in a Data Frame"""
 import pandas as pd
 import numpy as np
-import pandera as pa
+import pandera.pandas as pa
 import pyarrow as pw
 import pyarrow.parquet as pq
 from .clean_data import clean_sales_data, DataTuple

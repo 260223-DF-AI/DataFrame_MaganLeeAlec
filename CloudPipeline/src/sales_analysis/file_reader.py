@@ -4,7 +4,7 @@ import pandas as pd
 from src.paths import DATA_DIR
 import src.sales_analysis.logger as logger, src.sales_analysis.exceptions as ex
 
-logger = logger.setup_logger(__name__, "debug")
+logger = logger.setup_logger(__name__, "debug", console=False)
 
 def read_csv_full(file_name: str) -> pd.DataFrame:
     """Reads csv file in src/data and returns it as a DataFrame"""
@@ -78,7 +78,7 @@ def read_parquet_full(file_name: str) -> pd.DataFrame:
     file_name = DATA_DIR / file_name
     df = ""
     try:
-        df = pd.read_parquet(file_name)
+        df = pd.read_parquet(file_name, engine="pyarrow")
     except FileNotFoundError as e:
         logger.error(e)
     except Exception as e:
@@ -95,11 +95,9 @@ def write_parquet(dataframe: pd.DataFrame, file_name: str) -> None:
     try:
         dataframe.to_parquet(path=file_path)
     except Exception as e:
-        # if some other error occured, log as FileReadError
-        e = ex.FileReadError(e)
         logger.error(e)
     else:
-        logger.info(f"Successfully read parquet file {file_name} as dataframe")
+        logger.info(f"Successfully wrote parquet file {file_name}")
 
 def print_df_preview(df: pd.DataFrame) -> None:
     print(df.tail(5))
