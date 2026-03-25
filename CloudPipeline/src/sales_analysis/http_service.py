@@ -12,6 +12,7 @@ import time
 # Pydantic model for passing a csv filepath into POST request body
 # class CSV_File(BaseModel):
 #     csv_filepath: str
+from src.paths import SALES_ANA_DIR
 
 app = FastAPI()
 logger = logger.setup_logger(__name__, "debug", console=False)
@@ -23,11 +24,18 @@ GCP_BUCKET_NAME = os.environ.get("GCP_BUCKET_NAME")
 GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 ROOT_PATH = os.environ.get("ROOT_PATH")
 TOKEN = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+
 # Send an HTTP `POST` request to trigger `.csv` to `.parquet` conversion pipelines.
 
 @app.post("/convert")
 def csv_to_parquet():
     """Converts all .csv files into .parquet files. Then italidates, cleans, and uploads them to GCS"""
+    try:
+        log_path = SALES_ANA_DIR / "app.log"
+        with open(log_path, "w") as f:
+            f.write("")
+    except Exception as e:
+        logger.error(f"Error clearing the log: {e}")
     logger.debug("HTTP request recieved. Attempting to convert csv to parquet...")
 
     df1, df2, df3, df4, df5 = 0, 0, 0, 0, 0
@@ -45,7 +53,7 @@ def csv_to_parquet():
     else:
         logger.debug("Successfully read all sales batch files")
     
-    # TODO: clean/validate
+    # clean/validate
     logger.debug("Validating and cleaning data...")
     df1_valid, df2_valid, df3_valid, df4_valid, df5_valid = 0, 0, 0, 0, 0
     try:

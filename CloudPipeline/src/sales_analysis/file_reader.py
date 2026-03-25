@@ -89,11 +89,14 @@ def read_parquet_full(file_name: str) -> pd.DataFrame:
         logger.info(f"Successfully read file as dataframe: {file_name}")
         return df
 
-def write_parquet(dataframe: pd.DataFrame, file_name: str) -> None:
+def write_parquet(dataframe: pd.DataFrame, file_name: str, partition_cols: list = None) -> None:
     logger.debug(f"Attempting to write dataframe as parquet file named {file_name}")
     file_path = DATA_DIR / f"{file_name}.parquet"
     try:
-        dataframe.to_parquet(path=file_path)
+        if partition_cols:
+            dataframe.to_parquet(path=file_path, partition_cols=partition_cols)
+        else:
+            dataframe.to_parquet(path=file_path)
     except Exception as e:
         logger.error(e)
     else:
