@@ -1,14 +1,18 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, HTTPException, UploadFile
 import json
 import glob
 from src.sales_analysis import file_reader, logger,  validation
+from google.cloud import storage
+from datetime import datetime
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
 logger = logger.setup_logger(__name__, "debug", console=False)
-
+load_dotenv()
 # Send an HTTP `POST` request to trigger `.csv` to `.parquet` conversion pipelines.
-@app.post("/")
-def csv_to_parquet():
+@app.post("/convert")
+async def csv_to_parquet():
     logger.debug("HTTP request recieved. Attempting to convert csv to parquet...")
 
     df1, df2, df3, df4, df5 = 0, 0, 0, 0, 0
@@ -36,7 +40,7 @@ def csv_to_parquet():
         df3_tuple = validation.clean_sales_data(df3)
         df4_tuple = validation.clean_sales_data(df4)
         df5_tuple = validation.clean_sales_data(df5)
-
+        
         # separate valid/rejects, validate them
         df1_valid, df1_rejects = validation.validate_chunk_dtypes(df1_tuple[0]), 0#validation.validate_chunk_dtypes(df1_tuple[1])
         df2_valid, df2_rejects = validation.validate_chunk_dtypes(df2_tuple[0]), 0#validation.validate_chunk_dtypes(df2_tuple[1])
@@ -76,7 +80,20 @@ def csv_to_parquet():
     logger.debug(f"{file_reader.read_parquet_full("dummy_sales_batch_1.parquet").tail(5)}")
 
     #TODO: trigger upload of files to GCS
+
     
+    try:
+        bucket_name = 'sales-data-project-2'
+        storage_client = storage.Client("project-93fc0424-6808-4472-bff")
+        bucket = storage_client.bucket(bucket_name)
+        new_bucket = storage_client.create_bucket(bucket, location='US')
+        gcs_path = "stg_sales/year=2026/month=03/test_data"
+        blob = bucket.blob(gcs_path)
+        blob.upload_from_filename('src/data/dummy_sales_batch_1.parquet')
+    except HTTPException as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+        
+    return f"uploaded to {bucket_name}/stg_sales/year=2026/month=03/test_data"
 
 
 
