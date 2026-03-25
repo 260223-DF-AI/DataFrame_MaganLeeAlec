@@ -14,6 +14,9 @@ class CSV_File(BaseModel):
 
 app = FastAPI()
 logger = logger.setup_logger(__name__, "debug", console=False)
+
+# Create a .env file with the following values: GCP_BUCKET_NAME, GCP_PROJECT_ID, ROOT_PATH
+# ROOT_PATH can be "stg_sales"
 load_dotenv()
 GCP_BUCKET_NAME = os.environ.get("GCP_BUCKET_NAME")
 GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
