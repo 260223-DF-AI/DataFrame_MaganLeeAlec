@@ -1,150 +1,138 @@
-import csv
+"""
+Benchmark report writer for Project 2.
+This module creates a benchmarking report for the cloud-native pipeline.
+It focuses on:
+- Disk Space Savings (%)
+- Upload speed (s)
+- Query Access duration (s)
+
+Typical usage:
+    metrics = create_benchmark_metrics(
+        csv_path="src/data/dummy_sales_batch_1.csv",
+        parquet_path="src/data/dummy_sales_batch_1.parquet",
+        upload_speed_s=3.42,
+        query_access_duration_s=0.81
+    )
+
+    write_benchmark_report("benchmark_report.txt", metrics)
+"""
 from datetime import datetime
-import pandas as pd
+from pathlib import Path
+from typing import Optional, Callable, Any
+import os
+import time
 
-def create_aggregations(df: pd.DataFrame) -> dict:
+
+def get_file_size_bytes(filepath: str) -> int:
     """
-    Create aggregated results from the cafe sales DataFrame.
-    
-    Returns a dictionary with the following aggregations:
-    - sales_by_method: Total sales amount grouped by payment method
-    - qty_by_product: Total quantity sold grouped by product/item
-    - sales_by_location: Total sales amount grouped by location
+    Return the size of a file in bytes.
+    Args:
+        filepath: Path to the file.
+    Returns:
+        File size in bytes.
+    Raises:
+        FileNotFoundError: If the file does not exist.
     """
-    aggregations = {}
-    
-    # Aggregate sales by payment method
-    aggregations['sales_by_method'] = df.groupby('Payment Method')['Total Spent'].sum().to_dict()
-    
-    # Aggregate quantity by product
-    aggregations['qty_by_product'] = df.groupby('Item')['Quantity'].sum().to_dict()
-    
-    # Aggregate sales by location
-    aggregations['sales_by_location'] = df.groupby('Location')['Total Spent'].sum().to_dict()
-    return aggregations
- 
-def write_summary_report(filepath, valid_records, errors, aggregations):
+    path = Path(filepath)
+    if not path.exists():
+        raise FileNotFoundError(f"File not found: {filepath}")
+    return path.stat().st_size
+
+
+def calculate_disk_space_savings_pct(csv_path: str, parquet_path: str) -> float:
     """
-    Write a formatted summary report for a cafe sales dataset.
-    Report includes:
-    - Processing timestamp
-    - Total records processed
-    - Number of valid records
-    - Number of error records
-    - Error details
-    - Sales by payment method
-    - Sales by location
-    - Top 5 products by quantity sold
+    Calculate how much disk space was saved by converting a CSV file to Parquet.
+    Formula:
+        ((csv_size - parquet_size) / csv_size) * 100
+    Args:
+        csv_path: Path to the original CSV file.
+        parquet_path: Path to the converted Parquet file.
+    Returns:
+        Disk space savings as a percentage.
+    Raises:
+        ValueError: If the CSV file is empty.
+        FileNotFoundError: If either file does not exist.
     """
+    csv_size = get_file_size_bytes(csv_path)
+    parquet_size = get_file_size_bytes(parquet_path)
 
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    total_records = len(valid_records) + len(errors)
-    sales_by_method = aggregations.get("sales_by_method", {})
-    qty_by_product = aggregations.get("qty_by_product", {})
-    sales_by_location = aggregations.get("sales_by_location", {})
-    sorted_methods = sorted(
-        sales_by_method.items(),
-        key=lambda x: x[1],
-        reverse=True
-    )
-    sorted_locations = sorted(
-        sales_by_location.items(),
-        key=lambda x: x[1],
-        reverse=True
-    )
-    sorted_products = sorted(
-        qty_by_product.items(),
-        key=lambda x: x[1],
-        reverse=True
-    )[:5]
-    total_sales = sum(sales_by_method.values())
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write("=== Cafe Sales Processing Summary Report ===\n")
-        f.write(f"Generated: {timestamp}\n\n")
-        f.write("Processing Statistics:\n")
-        f.write(f"- Total Records Processed: {total_records}\n")
-        f.write(f"- Valid Records: {len(valid_records)}\n")
-        f.write(f"- Error Records: {len(errors)}\n")
-        f.write(f"- Total Sales from Valid Records: ${total_sales:.2f}\n\n")
-        f.write("Error Details:\n")
-        if errors.empty:
-            for i, error in enumerate(errors, start=1):
-                f.write(f"{i}. {error}\n")
-        else:
-            f.write("No errors encountered.\n")
-        f.write("\n")
+    if csv_size == 0:
+        raise ValueError("CSV file size is 0 bytes; cannot calculate savings percentage.")
 
-        f.write("Sales by Payment Method:\n")
-        if sorted_methods:
-            for payment_method, total in sorted_methods:
-                f.write(f"- {payment_method}: ${total:.2f}\n")
-        else:
-            f.write("- None\n")
-        f.write("\n")
+    savings_pct = ((csv_size - parquet_size) / csv_size) * 100
+    return round(savings_pct, 2)
 
-        f.write("Sales by Location:\n")
-        if sorted_locations:
-            for location, total in sorted_locations:
-                f.write(f"- {location}: ${total:.2f}\n")
-        else:
-            f.write("- None\n")
-        f.write("\n")
-        f.write("Top 5 Products by Quantity Sold:\n")
-        if sorted_products:
-            for i, (product, qty) in enumerate(sorted_products, start=1):
-                f.write(f"{i}. {product}: {qty} units sold\n")
-        else:
-            f.write("- None\n")
-
-
-def write_clean_csv(filepath, records):
+def measure_query_access_duration(query_callable: Callable[..., Any], *args, **kwargs) -> float:
     """
-    Write validated cafe sales records to a clean CSV file.
+    Measure how long a query operation takes to run.
+    Args:
+        query_callable: A function that performs the query.
+        *args: Positional args for the query function.
+        **kwargs: Keyword args for the query function.
+    Returns:
+        Duration in seconds, rounded to 4 decimal places.
     """
+    start_time = time.time()
+    query_callable(*args, **kwargs)
+    duration = time.time() - start_time
+    return round(duration, 4)
 
-    fieldnames = [
-        "transaction_id",
-        "item",
-        "quantity",
-        "price_per_unit",
-        "total_spent",
-        "payment_method",
-        "location",
-        "transaction_date"
-    ]
-
-    with open(filepath, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-
-        for record in records:
-            clean_row = {
-                "transaction_id": record.get("transaction_id", ""),
-                "item": record.get("item", ""),
-                "quantity": record.get("quantity", ""),
-                "price_per_unit": record.get("price_per_unit", ""),
-                "total_spent": record.get("total_spent", ""),
-                "payment_method": record.get("payment_method", ""),
-                "location": record.get("location", ""),
-                "transaction_date": record.get("transaction_date", "")
-            }
-            writer.writerow(clean_row)
-
-
-def write_error_log(filepath, errors):
+def create_benchmark_metrics(
+    csv_path: str,
+    parquet_path: str,
+    upload_speed_s: float,
+    query_access_duration_s: float
+) -> dict:
     """
-    Write processing errors to a detailed error log file.
+    Build a metrics dictionary for the benchmark report.
+    Args:
+        csv_path: Path to the source CSV.
+        parquet_path: Path to the converted Parquet file.
+        upload_speed_s: Time taken to upload to cloud storage in seconds.
+        query_access_duration_s: Time taken to access/query data in seconds.
+    Returns:
+        Dictionary containing benchmark metrics.
     """
+    disk_space_savings_pct = calculate_disk_space_savings_pct(csv_path, parquet_path)
 
+    return {
+        "disk_space_savings_pct": round(float(upload_speed_s * 0 + disk_space_savings_pct), 2),
+        "upload_speed_s": round(float(upload_speed_s), 4),
+        "query_access_duration_s": round(float(query_access_duration_s), 4),
+    }
+
+
+def write_benchmark_report(filepath: str, metrics: dict) -> None:
+    """
+    Write the benchmark report to a text file.
+    Required keys in metrics:
+        - disk_space_savings_pct
+        - upload_speed_s
+        - query_access_duration_s
+    Args:
+        filepath: Output report file path.
+        metrics: Dictionary of benchmark metrics.
+    """
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write("=== Cafe Sales Error Log ===\n")
-        f.write(f"Generated: {timestamp}\n\n")
+    disk_space_savings_pct = metrics.get("disk_space_savings_pct", 0.0)
+    upload_speed_s = metrics.get("upload_speed_s", 0.0)
+    query_access_duration_s = metrics.get("query_access_duration_s", 0.0)
 
-        if not errors:
-            f.write("No errors encountered.\n")
-        else:
-            f.write(f"Total Errors: {len(errors)}\n\n")
-            for i, error in enumerate(errors, start=1):
-                f.write(f"{i}. {error}\n")
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write("=== Project 2 Benchmarking Report ===\n")
+        f.write(f"Generated: {timestamp}\n\n")
+        f.write(f"Disk Space Savings (%): {disk_space_savings_pct:.2f}\n")
+        f.write(f"Upload speed (s): {upload_speed_s:.4f}\n")
+        f.write(f"Query Access duration (s): {query_access_duration_s:.4f}\n")
+
+if __name__ == "__main__":
+    # Example usage
+    example_metrics = create_benchmark_metrics(
+        csv_path="src/data/dummy_sales_batch_1.csv",
+        parquet_path="src/data/dummy_sales_batch_1.parquet",
+        upload_speed_s=3.4217,
+        query_access_duration_s=0.8123,
+    )
+
+    write_benchmark_report("benchmark_report.txt", example_metrics)
