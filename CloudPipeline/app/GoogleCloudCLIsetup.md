@@ -6,7 +6,7 @@ Option A - use HomeBrew on mac
 brew install --cask google-cloud-sdk
 
 Option B - manual install
-- download from https://cloud.google.com/sdk/docs/install
+- download from https://cloud.google.co~m/sdk/docs/install
 - then run:  ./google-cloud-sdk/install.sh
 
 ### Step 2: restart terminal
