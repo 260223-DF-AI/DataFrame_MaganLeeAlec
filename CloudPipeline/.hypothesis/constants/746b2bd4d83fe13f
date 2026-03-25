@@ -1,4 +1,0 @@
-# file: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\sales_analysis\logger.py
-# hypothesis_version: 6.151.9
-
-['%H:%M:%S', 'app.log', 'critical', 'debug', 'error', 'info', 'warning']

@@ -1,4 +1,0 @@
-# file: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\sales_analysis\report_writer.py
-# hypothesis_version: 6.151.9
-
-['%Y-%m-%d %H:%M:%S', '- None\n', 'Error Details:\n', 'Item', 'Location', 'Payment Method', 'Quantity', 'Sales by Location:\n', 'Total Spent', 'item', 'location', 'payment_method', 'price_per_unit', 'qty_by_product', 'quantity', 'sales_by_location', 'sales_by_method', 'total_spent', 'transaction_date', 'transaction_id', 'utf-8', 'w']
