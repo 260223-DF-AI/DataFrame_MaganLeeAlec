@@ -1,4 +1,0 @@
-# file: C:\Users\lwils\Documents\Revature\DataFrame_MaganLeeAlec\CloudPipeline\src\sales_analysis\database.py
-# hypothesis_version: 6.151.9
-
-[48000, 55000, 62000, 68000, 72000, 'Alice', 'Bob', 'CS', 'Charlie', 'Diana', 'End of drop_table()', 'End of execute_sql', 'Eve', '__main__', 'age', 'error', 'name', 'salary', 'sales', 'src/.env']
