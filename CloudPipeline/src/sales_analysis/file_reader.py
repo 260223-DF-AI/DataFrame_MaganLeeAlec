@@ -96,7 +96,7 @@ def write_parquet(dataframe: pd.DataFrame, file_name: str, partition_cols: list 
         if partition_cols:
             dataframe.to_parquet(path=file_path, partition_cols=partition_cols)
         else:
-            dataframe.to_parquet(path=file_path, )
+            dataframe.to_parquet(path=file_path)
     except Exception as e:
         logger.error(e)
     else:
