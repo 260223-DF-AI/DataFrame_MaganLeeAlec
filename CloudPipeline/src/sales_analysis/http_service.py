@@ -1,18 +1,28 @@
 from fastapi import FastAPI, Body, HTTPException, UploadFile
 import json
 import glob
+from src.sales_analysis.gcs import upload_dir_to_gcs
 from src.sales_analysis import file_reader, logger,  validation
 from google.cloud import storage
 from datetime import datetime
+from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
+
+class CSV_File(BaseModel):
+    csv_filepath: str
 
 app = FastAPI()
 logger = logger.setup_logger(__name__, "debug", console=False)
 load_dotenv()
+GCP_BUCKET_NAME = os.environ.get("GCP_BUCKET_NAME")
+GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
+ROOT_PATH = os.environ.get("ROOT_PATH")
+TOKEN = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
 # Send an HTTP `POST` request to trigger `.csv` to `.parquet` conversion pipelines.
-@app.post("/convert")
-async def csv_to_parquet():
+
+@app.post("/")
+def csv_to_parquet():
     logger.debug("HTTP request recieved. Attempting to convert csv to parquet...")
 
     df1, df2, df3, df4, df5 = 0, 0, 0, 0, 0
@@ -81,20 +91,37 @@ async def csv_to_parquet():
 
     #TODO: trigger upload of files to GCS
 
-    
-    try:
-        bucket_name = 'sales-data-project-2'
-        storage_client = storage.Client("project-93fc0424-6808-4472-bff")
-        bucket = storage_client.bucket(bucket_name)
-        new_bucket = storage_client.create_bucket(bucket, location='US')
-        gcs_path = "stg_sales/year=2026/month=03/test_data"
-        blob = bucket.blob(gcs_path)
-        blob.upload_from_filename('src/data/dummy_sales_batch_1.parquet')
-    except HTTPException as e:
-        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
-        
-    return f"uploaded to {bucket_name}/stg_sales/year=2026/month=03/test_data"
+@app.post("/convert")
+def convert_csv_upload(wrapper: CSV_File):
+	"""Convert a local CSV into parquet, with partitions, and upload to Google Cloud Storage"""
+ 
+	# Validation and Cleaning
+	df = file_reader.read_csv_full(wrapper.csv_filepath)
+	df = validation.clean_sales_data(df).valid
+	validation.validate_chunk_dtypes(df)
+ 
+	# Create a client by passing in the Google Cloud project ID
+	storage_client = storage.Client(GCP_PROJECT_ID)
+	
+	# Get the bucket by name - this function will raise error if not found
+	try:
+		bucket = storage_client.bucket(GCP_BUCKET_NAME)
+	except Exception as e:
+		print(e)
+		bucket = None
+  	# Set the bucket to None if it wasn't found. If it is found, report that it already exists
+	if bucket is not None:
+		logger.warning(f"Bucket {bucket.name} already exists")
+		
+	else:
+		bucket = storage_client.create_bucket(GCP_BUCKET_NAME, location='US')
+		logger.info(f"{bucket.name} created in {bucket.location}")
 
+	# Pass bucket details into function to upload to Google Cloud Storage
+	# Warning: If the bucket is deleted and then the same bucket is recreated quickly, an error will be raised
+		upload_dir_to_gcs(df, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
+
+	return "Successful Conversion"
 
 
 # Send an HTTP `GET` request specifying metric parameters to trigger a **BigQuery** query and fetch row JSONs safely.
