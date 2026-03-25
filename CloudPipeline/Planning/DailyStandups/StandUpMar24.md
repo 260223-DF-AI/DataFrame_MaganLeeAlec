@@ -4,9 +4,9 @@
 **Blockers**: 
 # Alec
 **Completed**: validation testing
-**Will do**: 
+**Will do**:  trigger upload of parquet files to gcs with post request
 **Blockers**:
 # Magan
 **Completed**: bigquery api setup
-**Will do**: 
+**Will do**: query bigquery with http request
 **Blockers**:
