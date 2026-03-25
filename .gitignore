@@ -8,4 +8,4 @@ keys.json
 
 app.log
 .hypothesis
-.secrets
+p2-key.json
