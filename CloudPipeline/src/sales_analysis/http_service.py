@@ -1,9 +1,9 @@
-from fastapi import FastAPI, Body, HTTPException, UploadFile
+from fastapi import FastAPI, Body, HTTPException, UploadFile, Query
 import json
 import glob
 from src.sales_analysis.gcs import upload_dir_to_gcs
 from src.sales_analysis import file_reader, logger,  validation
-from google.cloud import storage
+from google.cloud import storage, bigquery
 from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
@@ -174,8 +174,84 @@ def convert_csv_upload(csv_filepath: str):
 
 
 # Send an HTTP `GET` request specifying metric parameters to trigger a **BigQuery** query and fetch row JSONs safely.
-@app.get("/")
-def temp():
-    return "connected"
+# BigQuery client
+client = bigquery.Client()
 
+# Environment variables
+BQ_TABLE = os.getenv("BQ_TABLE")  # format: project.dataset.table
+GCP_BUCKET_NAME = os.environ.get("GCP_BUCKET_NAME")
+GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
+ROOT_PATH = os.environ.get("ROOT_PATH")
+TOKEN = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+
+
+@app.get("/")
+def root():
+    return {"message": "BigQuery API running"}
+
+
+@app.get("/query")
+def run_query(
+    metric: str = Query(..., description="Metric to calculate"),
+    group_by: str = Query(..., description="Column to group by"),
+    start_date: str = None,
+    end_date: str = None,
+    region: str = None,
+    state: str = None,
+    product: str = None,
+    limit: int = 10
+):
+    # Map allowed metrics
+    metric_map = {
+        "total_sales": "SUM(TotalAmount)",
+        "order_count": "COUNT(*)",
+        "avg_order_value": "AVG(TotalAmount)",
+        "units_sold": "SUM(Quantity)"
+    }
+
+    if metric not in metric_map:
+        return {"error": f"Invalid metric: {metric}"}
+
+    metric_sql = metric_map[metric]
+
+    # Base query
+    query = f"""
+        SELECT
+            {group_by} AS dimension,
+            {metric_sql} AS metric_value
+        FROM `{BQ_TABLE}`
+        WHERE 1=1
+    """
+
+    # Optional filters
+    if start_date:
+        query += f" AND Date >= '{start_date}'"
+    if end_date:
+        query += f" AND Date <= '{end_date}'"
+    if region:
+        query += f" AND Region = '{region}'"
+    if state:
+        query += f" AND State = '{state}'"
+    if product:
+        query += f" AND ProductName = '{product}'"
+
+    # Grouping + ordering
+    query += f"""
+        GROUP BY {group_by}
+        ORDER BY metric_value DESC
+        LIMIT {limit}
+    """
+
+    # Execute query
+    results = client.query(query).result()
+
+    rows = [dict(row) for row in results]
+
+    return {
+        "table": BQ_TABLE,
+        "metric": metric,
+        "group_by": group_by,
+        "row_count": len(rows),
+        "rows": rows
+    }
 
