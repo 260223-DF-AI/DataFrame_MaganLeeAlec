@@ -55,7 +55,8 @@ if __name__ == "__main__":
 			#print(data_tuple.invalid)
 			validate_chunk_dtypes(chunk)
 			total_rows += len(data_tuple.valid) + len(data_tuple.invalid)
-			
+			break
+		break
 
 	# total rows should be 1,250,000
 	print (total_rows)
