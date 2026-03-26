@@ -5,6 +5,10 @@ from google.cloud import storage, bigquery
 import os
 from dotenv import load_dotenv
 import time
+import matplotlib.pyplot as plt # generate chart
+import pandas as pd #convert query results to dataframe
+import io # in memory buffer for chart image
+import base64 # encode image to send via API
 
 # Pydantic model for passing a csv filepath into POST request body
 # class CSV_File(BaseModel):
@@ -187,6 +191,50 @@ GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 ROOT_PATH = os.environ.get("ROOT_PATH")
 TOKEN = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
 
+def generate_chart(rows: list[dict], metric: str, group_by: str) -> str | None:
+    """
+    Creates a simple bar chart from query results and returns it as a base64 PNG string
+    - converts query output into a visual for presentation/demo
+    - keeps everything in memory (no file system needed)
+    """
+
+    # if no data, dont try to build the chart
+    if not rows:
+        return None
+    # convert query results into a dataframe
+    df = pd.DataFrame(rows)
+    # ensure required columns exist
+    if "dimension" not in df.columns or "metic_value" not in df.columns:
+        return None
+    # keep only the top 10 rows for readability
+    df = df.head(10).copy()
+    # convert to safe plotting types
+    df["dimension"] = df["dimension"].astype(str)
+    df["metric_value"] = pd.to_numeric(df["metric_value"], errors = "coerce")
+    # drop invalid numeric rows
+    df = df.dropna(subset = ["metric_value"])
+    if df.empty:
+        return None
+    # create chart
+    fig, ax = plt.subplots(figsize = (10,6))
+    ax.bar(df["dimension"], df["metric_value"])
+    # add labels for clarity
+    ax.set_title(f"{metric} by {group_by}")
+    ax.set_xlabel(group_by)
+    ax.set_ylabel(metric)
+    # rotate labels for readability
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    # save chart to memory buffer instead of a file
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format="png", bbox_inches="tight")
+    plt.close(fig)
+    buffer.seek(0)
+    # convert image to base64 string (so API can return it)
+    encoded = base64.b64encode(buffer.read()).decode("utf-8")
+    return encoded
+
+
 
 @app.get("/")
 def root():
@@ -299,6 +347,8 @@ def run_query(
          logger.error(f"An error occured with the query {query}: {e}")
     else:
         rows = [dict(row) for row in results]
+        #added to generate chart from query results
+        chart_base64 = generate_chart(rows, metric, group_by)
         time.sleep(0.1)
         logger.info(f"Successfully ran query: {query}")  
         return {
@@ -306,7 +356,13 @@ def run_query(
             "metric": metric,
             "group_by": group_by,
             "row_count": len(rows),
-            "rows": rows
+            "rows": rows,
+            # added to include the chart in the response
+            "chart": {
+                "type": "bar",
+                "image_base64": chart_base64,
+                "mime_type": "image/png"
+            }
         }
            
     logger.info("End of run_query")
