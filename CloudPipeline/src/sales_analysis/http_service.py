@@ -9,8 +9,10 @@ import os
 from dotenv import load_dotenv
 import time
 
-class CSV_File(BaseModel):
-    csv_filepath: str
+# Pydantic model for passing a csv filepath into POST request body
+# class CSV_File(BaseModel):
+#     csv_filepath: str
+from src.paths import SALES_ANA_DIR
 
 app = FastAPI()
 logger = logger.setup_logger(__name__, "debug", console=False)
@@ -22,10 +24,18 @@ GCP_BUCKET_NAME = os.environ.get("GCP_BUCKET_NAME")
 GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 ROOT_PATH = os.environ.get("ROOT_PATH")
 TOKEN = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+
 # Send an HTTP `POST` request to trigger `.csv` to `.parquet` conversion pipelines.
 
-@app.post("/convert_all")
+@app.post("/convert")
 def csv_to_parquet():
+    """Converts all .csv files into .parquet files. Then italidates, cleans, and uploads them to GCS"""
+    try:
+        log_path = SALES_ANA_DIR / "app.log"
+        with open(log_path, "w") as f:
+            f.write("")
+    except Exception as e:
+        logger.error(f"Error clearing the log: {e}")
     logger.debug("HTTP request recieved. Attempting to convert csv to parquet...")
 
     df1, df2, df3, df4, df5 = 0, 0, 0, 0, 0
@@ -43,7 +53,7 @@ def csv_to_parquet():
     else:
         logger.debug("Successfully read all sales batch files")
     
-    # TODO: clean/validate
+    # clean/validate
     logger.debug("Validating and cleaning data...")
     df1_valid, df2_valid, df3_valid, df4_valid, df5_valid = 0, 0, 0, 0, 0
     try:
@@ -97,16 +107,20 @@ def csv_to_parquet():
 	#TODO: trigger upload of files to GCS
     storage_client = storage.Client(GCP_PROJECT_ID)
     try:
-        bucket = storage_client.bucket(GCP_BUCKET_NAME)
+        bucket = storage_client.get_bucket(GCP_BUCKET_NAME)
+        logger.warning(f"Bucket {GCP_BUCKET_NAME} already exists")
     except Exception as e:
         print(e)
-    bucket = None
-
-    if bucket is not None:
-        logger.warning(f"Bucket {bucket.name} already exists")
-    else:
         bucket = storage_client.create_bucket(GCP_BUCKET_NAME, location='US')
         logger.info(f"{bucket.name} created in {bucket.location}")
+        
+    # bucket = None
+
+    # if bucket is not None:
+    #     logger.warning(f"Bucket {bucket.name} already exists")
+    # else:
+    #     bucket = storage_client.create_bucket(GCP_BUCKET_NAME, location='US')
+    #     logger.info(f"{bucket.name} created in {bucket.location}")
         
     current_time = time.time()
     upload_dir_to_gcs(df1_valid, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
@@ -119,14 +133,14 @@ def csv_to_parquet():
     logger.info(f"Time taken to upload files into GCS: {total_time:.02f}s")
     return "Success"
     
-@app.post("/convert")
-def convert_csv_upload(wrapper: CSV_File):
+@app.post("/convert_csv")
+def convert_csv_upload(csv_filepath: str):
 	"""Convert a local CSV into parquet, with partitions, and upload to Google Cloud Storage"""
- 
 	# Validation and Cleaning
-	df = file_reader.read_csv_full(wrapper.csv_filepath)
+	df = file_reader.read_csv_full(csv_filepath)
 	df = validation.clean_sales_data(df).valid
 	validation.validate_chunk_dtypes(df)
+	logger.info(f"{df.dtypes}")
  
 	# Create a client by passing in the Google Cloud project ID
 	storage_client = storage.Client(GCP_PROJECT_ID)
@@ -137,13 +151,17 @@ def convert_csv_upload(wrapper: CSV_File):
 	except Exception as e:
 		print(e)
 		bucket = None
-  	# Set the bucket to None if it wasn't found. If it is found, report that it already exists
-	if bucket is not None:
+	# Set the bucket to None if it wasn't found. If it is found, report that it already exists
+	if bucket.exists():
 		logger.warning(f"Bucket {bucket.name} already exists")
-		
+
 	else:
-		bucket = storage_client.create_bucket(GCP_BUCKET_NAME, location='US')
-		logger.info(f"{bucket.name} created in {bucket.location}")
+		try:
+			bucket = storage_client.create_bucket(GCP_BUCKET_NAME, location='US')
+			logger.info(f"{bucket.name} created in {bucket.location}")
+			
+		except Exception as e:
+			logger.error(e)
 
 	# Pass bucket details into function to upload to Google Cloud Storage
 	# Warning: If the bucket is deleted and then the same bucket is recreated quickly, an error will be raised
@@ -151,7 +169,7 @@ def convert_csv_upload(wrapper: CSV_File):
 	upload_dir_to_gcs(df, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
 	total_time = time.time() - current_time
  
-	logger.info(f"Time taken to upload files into GCS: {total_time:.02f}s")
+	logger.info(f"Time taken to upload {csv_filepath} file into GCS: {total_time:.02f}s")
 	return "Success"
 
 

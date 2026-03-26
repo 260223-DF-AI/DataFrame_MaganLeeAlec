@@ -14,3 +14,6 @@ application*.json
 */__init__.py
 client*.json
 .coverage
+app.log
+.hypothesis
+.secrets
