@@ -4,3 +4,13 @@ venv
 __pycache__
 .venv
 .pytest_cache
+.env
+project*.json
+sales-data.ipynb
+.hypothesis/
+.ipynb_checkpoints/
+application*.json
+*/app.log
+*/__init__.py
+client*.json
+.coverage
