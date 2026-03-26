@@ -1,10 +1,15 @@
 from google.cloud import storage
 import pyarrow as pa
 import pyarrow.parquet as pq
+import pyarrow.dataset as ds
+from pyarrow import compute as pc
+from pyarrow.fs import GcsFileSystem
 import pandas as pd
 import gcsfs
 from dotenv import load_dotenv
+from .logger import setup_logger
 
+logger = setup_logger(__name__, 'debug')
 def upload_dir_to_gcs(df: pd.DataFrame, bucket_name: str, root_path: str, gcp_project_id: str):
     """Accepts a data frame, bucket name, root path inside the bucket, and the project id.
         This function will partition data by date and send to GCS"""
@@ -35,3 +40,32 @@ def upload_dir_to_gcs(df: pd.DataFrame, bucket_name: str, root_path: str, gcp_pr
     )
     
     return f"Data converted to Parquet and sent to {gcs_uri}"
+
+def local_parq_to_gcs(bucket_name: str, root_path: str, gcp_project_id: str):
+    files_dir = './src/data'
+    dataset =  ds.dataset(files_dir, format='parquet', exclude_invalid_files=True)
+    logger.debug(dataset.files)
+    table = dataset.to_table()
+
+
+
+    # table = table.append_column(
+    #     "year_str",
+    #     pc.strftime(table["Date"], format="%Y")
+    # )
+
+    # table = table.append_column(
+    #     "month_str",
+    #     pc.strftime(table["Date"], format="%m")
+    # )
+    fs = gcsfs.GCSFileSystem(project=gcp_project_id, token=None)
+    gcs_uri = f'gs://{bucket_name}/{root_path}'
+
+    ds.write_dataset(
+        data=table,
+        base_dir=gcs_uri,
+        filesystem=fs,
+        format='parquet',
+        partitioning=['year', 'month'],
+        existing_data_behavior='overwrite_or_ignore'
+        )
