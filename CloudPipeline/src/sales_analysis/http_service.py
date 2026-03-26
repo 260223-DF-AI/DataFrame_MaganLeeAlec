@@ -26,6 +26,10 @@ GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 ROOT_PATH = os.environ.get("ROOT_PATH")
 TOKEN = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
 
+most_recent_upload_time = 0
+most_recent_query_execution_time = 0
+most_recent_query_access_duration = 0
+
 # Send an HTTP `POST` request to trigger `.csv` to `.parquet` conversion pipelines.
 @app.post("/convert")
 def csv_to_parquet():
@@ -136,6 +140,7 @@ def csv_to_parquet():
     upload_dir_to_gcs(df4_valid, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
     upload_dir_to_gcs(df5_valid, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
     total_time = time.time() - current_time
+    most_recent_upload_time = total_time
     
     logger.info(f"Time taken to upload files into GCS: {total_time:.02f}s")
     return "Success"
@@ -268,6 +273,7 @@ def run_query(
     limit: int = 10
 ):
     """Run a BigQuery query and return row JSONs safely."""
+
     # Map allowed metrics
     metric_map = {
         "total_sales": "SUM(TotalAmount)",
@@ -342,7 +348,14 @@ def run_query(
 
     # Execute query
     try:
+        start_time = time.time()
         results = client.query(query).result()
+        access_duration = time.time() - start_time
+        execution_time = (results.ended - results.started).total_seconds()
+        most_recent_query_access_duration = access_duration
+        most_recent_query_execution_time = execution_time
+        logger.debug(f"Most recent query access time: {most_recent_query_access_duration}s")
+        logger.debug(f"Most recent query execution time: {most_recent_query_execution_time}s")
     except Exception as e:
          logger.error(f"An error occured with the query {query}: {e}")
     else:
@@ -364,7 +377,8 @@ def run_query(
                 "mime_type": "image/png"
             }
         }
-           
+    
+
     logger.info("End of run_query")
 
 @app.get("/risky_query")
@@ -405,3 +419,21 @@ def reset_GCS():
     else:
         logger.info("Successfully deleted all data from GCS")
     logger.info("End of reset_GCS")
+
+from src.sales_analysis import report_writer
+@app.get("/benchmark_metrics")
+def benchmark_metrics():
+    try:
+        metrics = report_writer.create_benchmark_metrics(
+            upload_speed_s=most_recent_upload_time,
+            query_access_duration_s=most_recent_query_access_duration,
+            query_execution_time_s=most_recent_query_execution_time
+        )
+
+        report_writer.write_benchmark_report("benchmark_report.txt", metrics)
+        with open("benchmark_report.txt", "r") as file:
+            report = file.read()
+        return {"report": report}
+    except Exception as e:
+        logger.error(f"An error occured: {e}")
+    logger.info("End of benchmark_metrics")

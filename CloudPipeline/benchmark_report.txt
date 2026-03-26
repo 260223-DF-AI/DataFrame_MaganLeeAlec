@@ -1,0 +1,12 @@
+=== Project 2 Benchmarking Report ===
+Generated: 2026-03-26 13:09:55
+
+Files Included:
+- CSV files: 5
+- Parquet files: 5
+
+Benchmark Results:
+Disk Space Savings (%): 79.98
+Most recent upload speed (s): 0.0000
+Most recent query access duration (s): 0.0000
+Most recent query execution time (s): 0.0000

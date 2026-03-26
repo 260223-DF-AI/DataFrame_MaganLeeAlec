@@ -1,0 +1,6 @@
+TransactionID,Date,StoreID,StoreLocation,Region,State,CustomerID,CustomerName,Segment,ProductID,ProductName,Category,SubCategory,Quantity,UnitPrice,DiscountPercent,TaxAmount,ShippingCost,TotalAmount
+1,2025-08-15,S003,Belltown Seattle,West,WA,C007,George Costanza,Consumer,P103,Ergonomic Chair x200,Furniture,Seating,1,86.51,0.22,5.4,15.26,88.14
+2,2025-12-03,S002,Tech Ridge Austin,South,TX,C004,Diana Prince,Consumer,P105,Dell Quad display,Electronics,Monitor,5,822.6,0.13,286.26,25.62,3890.19
+3,2025-04-24,S004,Magnificent Mile Chicago,Midwest,IL,C006,Fiona Apple,Home Office,P108,MX Master 3S,Electronics,Mouse,9,223.17,0.05,152.65,11.15,2071.9
+4,2025-08-15,S008,SoMa San Francisco,West,CA,C007,George Costanza,Consumer,P107,Filing Cabinet 3-Tier,Furniture,Storage,7,405.12,0.06,213.26,18.2,2897.15
+5,2025-07-28,S004,Magnificent Mile Chicago,Midwest,IL,C003,Charlie Brown,Home Office,P107,Filing Cabinet 3-Tier,Furniture,Storage,3,118.81,0.15,24.24,7.41,334.62
