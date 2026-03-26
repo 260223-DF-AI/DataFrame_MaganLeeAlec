@@ -1,10 +1,7 @@
-from fastapi import FastAPI, Body, HTTPException, UploadFile, Query
-import json
-import glob
+from fastapi import FastAPI, Query
 from src.sales_analysis.gcs import upload_dir_to_gcs
 from src.sales_analysis import file_reader, logger,  validation
 from google.cloud import storage, bigquery
-from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
 import time
@@ -26,10 +23,16 @@ ROOT_PATH = os.environ.get("ROOT_PATH")
 TOKEN = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
 
 # Send an HTTP `POST` request to trigger `.csv` to `.parquet` conversion pipelines.
-
 @app.post("/convert")
 def csv_to_parquet():
-    """Converts all .csv files into .parquet files. Then italidates, cleans, and uploads them to GCS"""
+    """Follows these steps:
+    1. Read all csvs as dataframes
+    2. Validate and clean data
+    3. Convert to parquet files
+    4. Upload to GCS
+    5. Create or update BigQuery external table"""
+
+    # clear the local log before executing
     try:
         log_path = SALES_ANA_DIR / "app.log"
         with open(log_path, "w") as f:
@@ -104,7 +107,7 @@ def csv_to_parquet():
     logger.debug("Testing parquet write...")
     logger.debug(f"{file_reader.read_parquet_full("dummy_sales_batch_1.parquet").tail(5)}")
 
-	#TODO: trigger upload of files to GCS
+	#trigger upload of files to GCS
     storage_client = storage.Client(GCP_PROJECT_ID)
     try:
         bucket = storage_client.get_bucket(GCP_BUCKET_NAME)
@@ -194,13 +197,29 @@ def root():
 def run_query(
     metric: str = Query(..., description="Metric to calculate"),
     group_by: str = Query(..., description="Column to group by"),
+    transaction_id: str = None,
     start_date: str = None,
     end_date: str = None,
+    store_id: str = None,
+    store_location: str = None,
     region: str = None,
     state: str = None,
-    product: str = None,
+    customer_id: str = None,
+    customer_name: str = None,
+    segment: str = None,
+    product_id: str = None, 
+    product_name: str = None,
+    category: str = None,
+    subcategory: str = None,
+    quantity: int = None,
+    unit_price: float = None,
+    discount_percent: float = None,
+    tax_amount: float = None,
+    shipping_cost: float = None,
+    total_amount: float = None,
     limit: int = 10
 ):
+    """Run a BigQuery query and return row JSONs safely."""
     # Map allowed metrics
     metric_map = {
         "total_sales": "SUM(TotalAmount)",
@@ -220,20 +239,51 @@ def run_query(
             {group_by} AS dimension,
             {metric_sql} AS metric_value
         FROM `{BQ_TABLE}`
-        WHERE 1=1
+        WHERE 1 = 1 
     """
 
-    # Optional filters
+    # Optional filters- add a where clause with the value if it was specified
+    if transaction_id:
+        query += f" AND TransactionID = '{transaction_id}'"
     if start_date:
         query += f" AND Date >= '{start_date}'"
     if end_date:
         query += f" AND Date <= '{end_date}'"
+    if store_id:
+        query += f" AND StoreID = '{store_id}'"
+    if store_location:
+        query += f" AND StoreLocation = '{store_location}'"
     if region:
         query += f" AND Region = '{region}'"
     if state:
         query += f" AND State = '{state}'"
-    if product:
-        query += f" AND ProductName = '{product}'"
+    if customer_id:
+        query += f" AND CustomerID = '{customer_id}'"
+    if customer_name:
+        query += f" AND CustomerName = '{customer_name}'"
+    if segment:
+        query += f" AND Segment = '{segment}'"
+    if product_id:
+        query += f" AND ProductID = '{product_id}'"
+    if product_name:
+        query += f" AND ProductName = '{product_name}'"
+    if category:
+        query += f" AND Category = '{category}'"
+    if subcategory:
+        query += f" AND Subcategory = '{subcategory}'"
+    if quantity:
+        query += f" AND Quantity = {quantity}"
+    if unit_price:
+        query += f" AND UnitPrice = {unit_price}"
+    if discount_percent:
+        query += f" AND DiscountPercent = {discount_percent}"
+    if tax_amount:
+        query += f" AND TaxAmount = {tax_amount}"
+    if shipping_cost:
+        query += f" AND ShippingCost = {shipping_cost}"
+    if total_amount:
+        query += f" AND TotalAmount = {total_amount}"
+
 
     # Grouping + ordering
     query += f"""
@@ -243,15 +293,59 @@ def run_query(
     """
 
     # Execute query
-    results = client.query(query).result()
+    try:
+        results = client.query(query).result()
+    except Exception as e:
+         logger.error(f"An error occured with the query {query}: {e}")
+    else:
+        rows = [dict(row) for row in results]
+        time.sleep(0.1)
+        logger.info(f"Successfully ran query: {query}")  
+        return {
+            "table": BQ_TABLE,
+            "metric": metric,
+            "group_by": group_by,
+            "row_count": len(rows),
+            "rows": rows
+        }
+           
+    logger.info("End of run_query")
 
-    rows = [dict(row) for row in results]
+@app.get("/risky_query")
+def risky_query(query: str):
+    """Run any other SQL queries with no protections"""
+    try:
+        results = client.query(query).result()
+    except Exception as e:
+        logger.error(f"An error occured with the query {query}: \n{e}")
+    else:
+        rows = [dict(row) for row in results]
+        time.sleep(0.1)
+        logger.info(f"Successfully ran query: {query}")  
+        return {
+            "table": BQ_TABLE,
+            "query": query,
+            "row_count": len(rows),
+            "rows": rows
+        }
+    logger.info("End of risky_query")
+    
 
-    return {
-        "table": BQ_TABLE,
-        "metric": metric,
-        "group_by": group_by,
-        "row_count": len(rows),
-        "rows": rows
-    }
-
+@app.delete("/reset_GCS")
+def reset_GCS():
+    """Delete all data from GCS"""
+    logger.debug("Attempting to delete previous data from GCS")
+    try:
+        storage_client = storage.Client(GCP_PROJECT_ID)
+        logger.debug("Successfully connected to GCS")
+        bucket = storage_client.get_bucket(GCP_BUCKET_NAME)
+        logger.debug("Successfully connected to GCS bucket")
+        blobs = bucket.list_blobs()
+        logger.debug("Deleting data, this may take a moment")
+        for blob in blobs:
+            blob.delete()
+    except Exception as e:
+        logger.error(f"An error occured: {e}")
+    else:
+        logger.info("Successfully deleted all data from GCS")
+    logger.info("End of reset_GCS")
