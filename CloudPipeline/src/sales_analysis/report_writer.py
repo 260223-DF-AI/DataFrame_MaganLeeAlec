@@ -21,9 +21,26 @@ from pathlib import Path
 from typing import Optional, Callable, Any
 import os
 import time
+from src.paths import DATA_DIR
+
+def build_batch_file_paths(prefix: str = "dummy_sales_batch", batch_count: int = 5) -> dict:
+    """
+    Build lists of CSV and Parquet file paths for all batch files.
+    Returns:
+        {
+            "csv": [Path(...), ...],
+            "parquet": [Path(...), ...]
+        }
+    """
+    csv_files = [DATA_DIR / f"{prefix}_{i}.csv" for i in range(1, batch_count + 1)]
+    parquet_files = [DATA_DIR / f"{prefix}_{i}.parquet" for i in range(1, batch_count + 1)]
+    return {
+        "csv": csv_files,
+        "parquet": parquet_files
+    }
 
 
-def get_file_size_bytes(filepath: str) -> int:
+def get_file_size_bytes(filepath: list[Path]) -> int:
     """
     Return the size of a file in bytes.
     Args:
@@ -33,13 +50,15 @@ def get_file_size_bytes(filepath: str) -> int:
     Raises:
         FileNotFoundError: If the file does not exist.
     """
-    path = Path(filepath)
-    if not path.exists():
-        raise FileNotFoundError(f"File not found: {filepath}")
-    return path.stat().st_size
+    total_size = 0
+    for file_path in file_path:
+        if not file_path.exists():
+            raise FileNotFoundError(f"File not found: {file_path}")
+        total_size += file_path.stat().st_size
+    return total_size
 
 
-def calculate_disk_space_savings_pct(csv_path: str, parquet_path: str) -> float:
+def calculate_disk_space_savings_pct(csv_path: list[Path], parquet_path: list[Path]) -> float:
     """
     Calculate how much disk space was saved by converting a CSV file to Parquet.
     Formula:
@@ -78,10 +97,10 @@ def measure_query_access_duration(query_callable: Callable[..., Any], *args, **k
     return round(duration, 4)
 
 def create_benchmark_metrics(
-    csv_path: str,
-    parquet_path: str,
     upload_speed_s: float,
-    query_access_duration_s: float
+    query_access_duration_s: float,
+    prefix: str = "dummy_sales_batch",
+    batch_count: int = 5
 ) -> dict:
     """
     Build a metrics dictionary for the benchmark report.
@@ -93,16 +112,19 @@ def create_benchmark_metrics(
     Returns:
         Dictionary containing benchmark metrics.
     """
+    batch_files = build_batch_file_paths(prefix=prefix, batch_count=batch_count)
     disk_space_savings_pct = calculate_disk_space_savings_pct(csv_path, parquet_path)
 
     return {
         "disk_space_savings_pct": round(float(upload_speed_s * 0 + disk_space_savings_pct), 2),
         "upload_speed_s": round(float(upload_speed_s), 4),
         "query_access_duration_s": round(float(query_access_duration_s), 4),
+        "csv_files": batch_files["csv"],
+        "parquet_files": batch_files["parquet"]
     }
 
 
-def write_benchmark_report(filepath: str, metrics: dict) -> None:
+def write_benchmark_report(filepath: str | Path, metrics: dict) -> None:
     """
     Write the benchmark report to a text file.
     Required keys in metrics:
@@ -118,21 +140,34 @@ def write_benchmark_report(filepath: str, metrics: dict) -> None:
     disk_space_savings_pct = metrics.get("disk_space_savings_pct", 0.0)
     upload_speed_s = metrics.get("upload_speed_s", 0.0)
     query_access_duration_s = metrics.get("query_access_duration_s", 0.0)
+    csv_files = metrics.get("csv_files", [])
+    parquet_files = metrics.get("parquet_files", [])
 
     with open(filepath, "w", encoding="utf-8") as f:
         f.write("=== Project 2 Benchmarking Report ===\n")
         f.write(f"Generated: {timestamp}\n\n")
+        f.write("Files Included:\n")
+        f.write(f"- CSV files: {len(csv_files)}\n")
+        f.write(f"- Parquet files: {len(parquet_files)}\n\n")
+        f.write("Benchmark Results:\n")
         f.write(f"Disk Space Savings (%): {disk_space_savings_pct:.2f}\n")
         f.write(f"Upload speed (s): {upload_speed_s:.4f}\n")
         f.write(f"Query Access duration (s): {query_access_duration_s:.4f}\n")
 
 if __name__ == "__main__":
-    # Example usage
-    example_metrics = create_benchmark_metrics(
-        csv_path="src/data/dummy_sales_batch_1.csv",
-        parquet_path="src/data/dummy_sales_batch_1.parquet",
+    batch_files = build_batch_file_paths()
+
+    print("CSV files:")
+    for csv_path in batch_files["csv"]:
+        print(csv_path)
+
+    print("\nParquet files:")
+    for parquet_path in batch_files["parquet"]:
+        print(parquet_path)
+
+    metrics = create_benchmark_metrics(
         upload_speed_s=3.4217,
-        query_access_duration_s=0.8123,
+        query_access_duration_s=0.8123
     )
 
-    write_benchmark_report("benchmark_report.txt", example_metrics)
+    write_benchmark_report(DATA_DIR / "benchmark_report.txt", metrics)
