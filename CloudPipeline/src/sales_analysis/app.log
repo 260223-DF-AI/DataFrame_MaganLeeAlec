@@ -41,3 +41,88 @@
 
 [5 rows x 19 columns]
 15:06:18 | src.sales_analysis.http_service | WARNING | Bucket sales-data-project-mla-2026 already exists
+11:48:14 | src.sales_analysis.http_service | INFO | list_jobs: <google.api_core.page_iterator.HTTPIterator object at 0x0000012C17581BE0>
+11:48:14 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            StoreID AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY StoreID
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+11:51:53 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            StoreID AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY StoreID
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+11:52:23 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            StoreID AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY StoreID
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+11:52:34 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 2026-03-26 16:52:33.175000+00:00
+11:52:34 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 3.0828607082366943
+11:52:34 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            StoreID AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY StoreID
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+12:54:40 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 2.8846559524536133
+12:54:40 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0:00:00.664000
+12:54:40 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductID AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY ProductID
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+12:56:06 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 2.1641485691070557
+12:56:06 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.138
+12:56:07 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductID AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY ProductID
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+12:57:51 | src.sales_analysis.http_service | ERROR | An error occured: create_benchmark_metrics() got an unexpected keyword argument 'csv_path'
+12:57:51 | src.sales_analysis.http_service | INFO | End of benchmark_metrics
+12:58:28 | src.sales_analysis.http_service | ERROR | An error occured: name 'csv_path' is not defined
+12:58:28 | src.sales_analysis.http_service | INFO | End of benchmark_metrics
+13:00:51 | src.sales_analysis.http_service | ERROR | An error occured: name 'csv_path' is not defined
+13:00:51 | src.sales_analysis.http_service | INFO | End of benchmark_metrics
+13:00:52 | src.sales_analysis.http_service | ERROR | An error occured: name 'csv_path' is not defined
+13:00:52 | src.sales_analysis.http_service | INFO | End of benchmark_metrics
+13:04:15 | src.sales_analysis.http_service | ERROR | An error occured: name 'csv_path' is not defined
+13:04:15 | src.sales_analysis.http_service | INFO | End of benchmark_metrics
+13:07:22 | src.sales_analysis.http_service | ERROR | An error occured: 'str' object has no attribute 'read'
+13:07:22 | src.sales_analysis.http_service | INFO | End of benchmark_metrics

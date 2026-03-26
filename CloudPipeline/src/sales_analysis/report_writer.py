@@ -51,10 +51,9 @@ def get_file_size_bytes(filepath: list[Path]) -> int:
         FileNotFoundError: If the file does not exist.
     """
     total_size = 0
-    for file_path in file_path:
-        if not file_path.exists():
-            raise FileNotFoundError(f"File not found: {file_path}")
-        total_size += file_path.stat().st_size
+    if not filepath.exists():
+        raise FileNotFoundError(f"File not found: {filepath}")
+    total_size += filepath.stat().st_size
     return total_size
 
 
@@ -99,6 +98,7 @@ def measure_query_access_duration(query_callable: Callable[..., Any], *args, **k
 def create_benchmark_metrics(
     upload_speed_s: float,
     query_access_duration_s: float,
+    query_execution_time_s: float,
     prefix: str = "dummy_sales_batch",
     batch_count: int = 5
 ) -> dict:
@@ -112,6 +112,8 @@ def create_benchmark_metrics(
     Returns:
         Dictionary containing benchmark metrics.
     """
+    csv_path = DATA_DIR / f"{prefix}_1.csv"
+    parquet_path = DATA_DIR / f"{prefix}_1.parquet"
     batch_files = build_batch_file_paths(prefix=prefix, batch_count=batch_count)
     disk_space_savings_pct = calculate_disk_space_savings_pct(csv_path, parquet_path)
 
@@ -119,6 +121,7 @@ def create_benchmark_metrics(
         "disk_space_savings_pct": round(float(upload_speed_s * 0 + disk_space_savings_pct), 2),
         "upload_speed_s": round(float(upload_speed_s), 4),
         "query_access_duration_s": round(float(query_access_duration_s), 4),
+        "query_execution_time_s": round(float(query_execution_time_s), 4),
         "csv_files": batch_files["csv"],
         "parquet_files": batch_files["parquet"]
     }
@@ -140,6 +143,7 @@ def write_benchmark_report(filepath: str | Path, metrics: dict) -> None:
     disk_space_savings_pct = metrics.get("disk_space_savings_pct", 0.0)
     upload_speed_s = metrics.get("upload_speed_s", 0.0)
     query_access_duration_s = metrics.get("query_access_duration_s", 0.0)
+    query_execution_time_s = metrics.get("query_execution_time_s", 0.0)
     csv_files = metrics.get("csv_files", [])
     parquet_files = metrics.get("parquet_files", [])
 
@@ -151,8 +155,9 @@ def write_benchmark_report(filepath: str | Path, metrics: dict) -> None:
         f.write(f"- Parquet files: {len(parquet_files)}\n\n")
         f.write("Benchmark Results:\n")
         f.write(f"Disk Space Savings (%): {disk_space_savings_pct:.2f}\n")
-        f.write(f"Upload speed (s): {upload_speed_s:.4f}\n")
-        f.write(f"Query Access duration (s): {query_access_duration_s:.4f}\n")
+        f.write(f"Most recent upload speed (s): {upload_speed_s:.4f}\n")
+        f.write(f"Most recent query access duration (s): {query_access_duration_s:.4f}\n")
+        f.write(f"Most recent query execution time (s): {upload_speed_s + query_access_duration_s:.4f}\n")
 
 if __name__ == "__main__":
     batch_files = build_batch_file_paths()
@@ -167,7 +172,8 @@ if __name__ == "__main__":
 
     metrics = create_benchmark_metrics(
         upload_speed_s=3.4217,
-        query_access_duration_s=0.8123
+        query_access_duration_s=0.8123,
+        query_execution_time_s=4.2345
     )
 
     write_benchmark_report(DATA_DIR / "benchmark_report.txt", metrics)
