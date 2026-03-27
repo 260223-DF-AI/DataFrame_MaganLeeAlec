@@ -209,7 +209,7 @@ def generate_chart(rows: list[dict], metric: str, group_by: str) -> str | None:
     # convert query results into a dataframe
     df = pd.DataFrame(rows)
     # ensure required columns exist
-    if "dimension" not in df.columns or "metic_value" not in df.columns:
+    if "dimension" not in df.columns or "metric_value" not in df.columns:
         return None
     # keep only the top 10 rows for readability
     df = df.head(10).copy()
