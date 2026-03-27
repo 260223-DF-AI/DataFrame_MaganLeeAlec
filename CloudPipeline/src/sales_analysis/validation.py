@@ -35,7 +35,8 @@ class OutputSchema(pa.DataFrameModel):
   TaxAmount: Series[float]
   ShippingCost: Series[float]
   TotalAmount: Series[float]
-
+  Year: Series[str] = pa.Field(nullable=False)
+  Month: Series[str] = pa.Field(nullable=False)
   class Config:
     strict = True
     coerce = True

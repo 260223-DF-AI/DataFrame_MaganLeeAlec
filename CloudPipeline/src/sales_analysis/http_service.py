@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Query
-from src.sales_analysis.gcs import upload_dir_to_gcs
-from src.sales_analysis import file_reader, logger,  validation
+from src.sales_analysis.gcs import upload_dir_to_gcs, write_local_partition, upload_parquet_if_not_exists
+from src.sales_analysis import file_reader, logger, validation
 from google.cloud import storage, bigquery
+from google.api_core.exceptions import Conflict, Forbidden
 import os
 from dotenv import load_dotenv
 import time
@@ -9,6 +10,8 @@ import matplotlib.pyplot as plt # generate chart
 import pandas as pd #convert query results to dataframe
 import io # in memory buffer for chart image
 import base64 # encode image to send via API
+import glob
+from pathlib import Path
 
 # Pydantic model for passing a csv filepath into POST request body
 # class CSV_File(BaseModel):
@@ -118,31 +121,38 @@ def csv_to_parquet():
 	#trigger upload of files to GCS
     storage_client = storage.Client(GCP_PROJECT_ID)
     try:
-        bucket = storage_client.get_bucket(GCP_BUCKET_NAME)
-        logger.warning(f"Bucket {GCP_BUCKET_NAME} already exists")
-    except Exception as e:
-        print(e)
         bucket = storage_client.create_bucket(GCP_BUCKET_NAME, location='US')
-        logger.info(f"{bucket.name} created in {bucket.location}")
+        logger.warning(f"Bucket {GCP_BUCKET_NAME} was created")
+    except Conflict as e:
+        logger.error(f'Bucket already exists. Error: {e}')
+    except Forbidden as e:
+        logger.error(f'Bucket name was taken by another Cloud Storage user. Error: {e}')
+    except Exception as e:
+        logger.error(f'Generic exception: {e}')
         
-    # bucket = None
-
-    # if bucket is not None:
-    #     logger.warning(f"Bucket {bucket.name} already exists")
-    # else:
-    #     bucket = storage_client.create_bucket(GCP_BUCKET_NAME, location='US')
-    #     logger.info(f"{bucket.name} created in {bucket.location}")
-        
-    current_time = time.time()
-    upload_dir_to_gcs(df1_valid, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
-    upload_dir_to_gcs(df2_valid, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
-    upload_dir_to_gcs(df3_valid, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
-    upload_dir_to_gcs(df4_valid, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
-    upload_dir_to_gcs(df5_valid, bucket.name, ROOT_PATH, GCP_PROJECT_ID)
-    total_time = time.time() - current_time
-    most_recent_upload_time = total_time
+    write_local_partition()
     
-    logger.info(f"Time taken to upload files into GCS: {total_time:.02f}s")
+    directory_path = "src/data/stg_sales/**/" 
+    files = glob.glob(os.path.join(directory_path, '*.parquet'), recursive=True)
+    logger.debug(files)
+    for file in files:
+        full_path = Path(file)
+        remaining_path = full_path.parts[2:]
+        desired_path = Path(*remaining_path)
+        
+        upload_parquet_if_not_exists(GCP_BUCKET_NAME, storage_client.bucket(GCP_BUCKET_NAME), Path(file), full_path)
+        logger.debug(desired_path)
+    
+    # current_time = time.time()
+    # upload_dir_to_gcs(df1_valid, GCP_BUCKET_NAME, ROOT_PATH, GCP_PROJECT_ID)
+    # upload_dir_to_gcs(df2_valid, GCP_BUCKET_NAME, ROOT_PATH, GCP_PROJECT_ID)
+    # upload_dir_to_gcs(df3_valid, GCP_BUCKET_NAME, ROOT_PATH, GCP_PROJECT_ID)
+    # upload_dir_to_gcs(df4_valid, GCP_BUCKET_NAME, ROOT_PATH, GCP_PROJECT_ID)
+    # upload_dir_to_gcs(df5_valid, GCP_BUCKET_NAME, ROOT_PATH, GCP_PROJECT_ID)
+    # total_time = time.time() - current_time
+    # most_recent_upload_time = total_time
+    
+    # logger.info(f"Time taken to upload files into GCS: {total_time:.02f}s")
     return "Success"
     
 @app.post("/convert_csv")
@@ -159,7 +169,7 @@ def convert_csv_upload(csv_filepath: str):
 	
 	# Get the bucket by name - this function will raise error if not found
 	try:
-		bucket = storage_client.bucket(GCP_BUCKET_NAME)
+		bucket = storage_client.create_bucket(GCP_BUCKET_NAME)
 	except Exception as e:
 		print(e)
 		bucket = None
