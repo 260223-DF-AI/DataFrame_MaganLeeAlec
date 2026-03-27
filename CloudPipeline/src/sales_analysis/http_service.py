@@ -220,13 +220,25 @@ def generate_chart(rows: list[dict], metric: str, group_by: str) -> str | None:
     if df.empty:
         return None
 
+    # Determine unit of measure based on metric
+    unit_map = {
+        "total_sales": ("$", lambda x: f"{x:.2f}"),
+        "order_count": ("(orders)", lambda x: f"{x:.0f}"),
+        "avg_order_value": ("$", lambda x: f"{x:.2f}"),
+        "units_sold": ("(units)", lambda x: f"{x:.0f}"),
+    }
+    unit, formatter = unit_map.get(metric, ("", lambda x: str(x)))
+
     # Create chart
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.bar(df["dimension"], df["metric_value"])
 
     ax.set_title(f"{metric} by {group_by}")
     ax.set_xlabel(group_by)
-    ax.set_ylabel(metric)
+    ax.set_ylabel(f"{metric} {unit}")
+
+    ax.tick_params(axis="y", labelsize=8)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, pos: formatter(x)))
 
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()

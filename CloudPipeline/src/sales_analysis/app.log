@@ -126,3 +126,110 @@
 13:04:15 | src.sales_analysis.http_service | INFO | End of benchmark_metrics
 13:07:22 | src.sales_analysis.http_service | ERROR | An error occured: 'str' object has no attribute 'read'
 13:07:22 | src.sales_analysis.http_service | INFO | End of benchmark_metrics
+09:20:26 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 3.462613821029663s
+09:20:26 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.194s
+09:20:28 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            StoreID AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY StoreID
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+09:21:19 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 1.2981476783752441s
+09:21:19 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.538s
+09:21:20 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductName AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY ProductName
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+09:24:54 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 3.378121852874756s
+09:24:54 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.176s
+09:24:55 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductName AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY ProductName
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+09:26:55 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 3.4868767261505127s
+09:26:55 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.133s
+09:28:43 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 3.4532642364501953s
+09:28:43 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.163s
+09:28:44 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductName AS dimension,
+            SUM(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+    
+        GROUP BY ProductName
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+09:32:16 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 1.1493682861328125s
+09:32:16 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.508s
+09:32:18 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductName AS dimension,
+            SUM(Quantity) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+     AND Segment = 'Consumer'
+        GROUP BY ProductName
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+09:33:11 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 1.2344889640808105s
+09:33:11 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.501s
+09:33:14 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductName AS dimension,
+            AVG(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+     AND Segment = 'Consumer'
+        GROUP BY ProductName
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+09:34:06 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 1.469560146331787s
+09:34:06 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.532s
+09:34:08 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductName AS dimension,
+            COUNT(*) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+     AND Segment = 'Consumer'
+        GROUP BY ProductName
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+09:34:21 | src.sales_analysis.http_service | DEBUG | Most recent query access time: 0.9190335273742676s
+09:34:21 | src.sales_analysis.http_service | DEBUG | Most recent query execution time: 0.156s
+09:34:22 | src.sales_analysis.http_service | INFO | Successfully ran query: 
+        SELECT
+            ProductName AS dimension,
+            AVG(TotalAmount) AS metric_value
+        FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`
+        WHERE 1 = 1 
+     AND Segment = 'Consumer'
+        GROUP BY ProductName
+        ORDER BY metric_value DESC
+        LIMIT 10
+    
+09:37:05 | src.sales_analysis.http_service | INFO | Successfully ran query: SELECT             ProductName AS dimension,             AVG(TotalAmount) AS metric_value         FROM `project-2f34c792-ad0c-4cdc-ae9.sales_dataset.transactions`         WHERE 1 = 1       AND Segment = 'Consumer'         GROUP BY ProductName         ORDER BY metric_value DESC         LIMIT 10
